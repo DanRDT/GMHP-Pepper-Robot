@@ -9,11 +9,13 @@
         <File name="" src=".metadata" />
         <File name="index" src="html/index.html" />
         <File name="style" src="html/style.css" />
-        <File name="jquery.min" src="html/jquery.min.js" />
         <File name="app" src="html/app.js" />
         <File name="logo" src="html/images/logo.png" />
         <File name="choice_sentences_light" src="behavior_1/Aldebaran/choice_sentences_light.xml" />
         <File name="heaven1" src="behavior_1/behavior_1/heaven1.ogg" />
+        <File name="data" src="html/javascript/data.js" />
+        <File name="jquery.min" src="html/javascript/jquery.min.js" />
+        <File name="utils" src="html/javascript/utils.js" />
     </Resources>
     <Topics />
     <IgnoredPaths />

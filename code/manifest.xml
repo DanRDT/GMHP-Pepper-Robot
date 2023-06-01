@@ -16,9 +16,7 @@
    <names>
     <name lang="en_US">Sophie's Survey</name>
    </names>
-   <triggerSentences>
-    <sentence lang="en_US"></sentence>
-   </triggerSentences>
+   <triggerSentences/>
    <loadingResponses>
     <sentence lang="en_US">Sophie's Feedback App Started</sentence>
    </loadingResponses>
