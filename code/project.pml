@@ -16,6 +16,7 @@
         <File name="data" src="html/javascript/data.js" />
         <File name="jquery.min" src="html/javascript/jquery.min.js" />
         <File name="utils" src="html/javascript/utils.js" />
+        <File name="qiClass" src="html/javascript/qiClass.js" />
     </Resources>
     <Topics />
     <IgnoredPaths />

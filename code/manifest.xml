@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<package uuid="test-70779a" version="0.0.0">
+<package version="0.0.0" uuid="test-70779a">
  <names>
-  <name lang="en_US">Test</name>
+  <name lang="en_US">Pepper App</name>
  </names>
  <supportedLanguages>
   <language>en_US</language>
@@ -14,11 +14,10 @@
    <userRequestable/>
    <nature>interactive</nature>
    <names>
-    <name lang="en_US">Sophie's Survey</name>
+    <name lang="en_US">Pepper App</name>
    </names>
-   <triggerSentences/>
    <loadingResponses>
-    <sentence lang="en_US">Sophie's Feedback App Started</sentence>
+    <sentence lang="en_US">Pepper App Started</sentence>
    </loadingResponses>
    <permissions>
     <canRunOnPod/>

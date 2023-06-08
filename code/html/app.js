@@ -1,23 +1,35 @@
 // import { QiSession } from 'qi-js-sdk'
-import { getRandomPepperDialog } from './javascript/utils.js'
-import { menuItems } from './javascript/data.js'
+// import { getRandomPepperDialog } from './javascript/utils.js'
+// import { menuItems } from './javascript/data.js'
+// import { QiSessionConnection } from './javascript/qiClass.js'
 
-// connect to robot
-// const session = new QiSession(
-//   function (session) {
-//     $('#connection').text('Connection established!')
-//   },
-//   function () {
-//     $('#connection').text('Could not connect to the robot')
-//   }
-// )
-
+const session = new QiSession(
+  function (session) {
+    session.service('ALAnimatedSpeech').then(function (tts) {
+      // tts is the ALTextToSpeech service
+      tts.say(speech)
+    })
+    // $('#connection').text('Connection established!')
+  },
+  function () {
+    // $('#connection').text('Could not connect to the robot')
+  }
+)
 // modify the DOM (Website)
 $(document).ready(function () {
-  // randomEyes(2.0)
-  // performSpeech('What would you like to order?')
+  // connect to robot
+  setTimeout(() => {
+    performSpeech('What would you like to order?')
+  }, 10000)
+  randomEyes(2.0)
 
   console.log(menuItems)
+  function performSpeech(speech) {
+    session.service('ALAnimatedSpeech').then(function (tts) {
+      // tts is the ALTextToSpeech service
+      tts.say(speech)
+    })
+  }
 
   $('#submitBtn').click(function () {
     console.log('clicked')
@@ -33,13 +45,6 @@ function resetConnection() {
       $('#connection').text('Could not connect to the robot')
     }
   )
-}
-
-function performSpeech(speech) {
-  session.service('ALAnimatedSpeech').then(function (tts) {
-    // tts is the ALTextToSpeech service
-    tts.say(speech)
-  })
 }
 
 function randomEyes(duration) {
