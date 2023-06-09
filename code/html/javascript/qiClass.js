@@ -1,48 +1,52 @@
 export class QiSessionConnection {
-  session
+  // variables
+  // `#` means private
+  #session
 
+  // initialize class
   constructor() {
-    this.session = new QiSession(
+    this.#session = new QiSession(
       function (session) {
-        $('#connection').text('Connection established!')
+        $('#connection').text('Connected')
       },
       function () {
-        $('#connection').text('Could not connect to the robot')
+        $('#connection').text(`Couldn't connect to the robot`)
       }
     )
   }
 
+  // methods
   performSpeech(speech) {
-    this.session.service('ALAnimatedSpeech').then(function (tts) {
+    this.#session.service('ALAnimatedSpeech').then(function (tts) {
       // tts is the ALTextToSpeech service
       tts.say(speech)
     })
   }
 
   randomEyes(duration) {
-    this.session.service('ALLeds').then(function (leds) {
+    this.#session.service('ALLeds').then(function (leds) {
       // leds is the ALLeds service
       leds.rasta(duration)
     })
   }
 
-  changePepperDialog() {
+  saySomethingRandom() {
     const dialog = getRandomPepperDialog()
 
     // show on screen
-    $('.box').text(dialog)
+    $('#pepper-dialog-box').text(dialog)
 
     //talk
     this.performSpeech(dialog)
   }
 
   resetConnection() {
-    this.session = new QiSession(
+    this.#session = new QiSession(
       function (session) {
-        $('#connection').text('Connection established!')
+        $('#connection').text('Connected')
       },
       function () {
-        $('#connection').text('Could not connect to the robot')
+        $('#connection').text(`Couldn't connect to the robot`)
       }
     )
   }

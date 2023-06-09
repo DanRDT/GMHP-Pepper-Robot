@@ -20,7 +20,7 @@ p {
     display: inline;
 }
 
-.connection {
+#connection {
     float: right;
     color: grey;
 }
