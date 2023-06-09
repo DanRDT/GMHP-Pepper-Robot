@@ -9,7 +9,8 @@ $(document).ready(function () {
 
   // alert(JSON.stringify(menuItems))
 
-  $('#submitBtn').click(function () {
-    console.log('clicked')
+  $('#start-order-btn').click(function () {
+    alert('starting order')
+    $('#start-page').hide()
   })
 })

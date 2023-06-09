@@ -12,32 +12,23 @@
     <script defer type="module" src="./app.js"></script>
     <link rel="stylesheet" href="style.css" />
   </head>
-
   <body>
-    <img id="pepper-logo" src="images/logo.png" onclick="changePepperDialog()" />
-    <div class="box sb3" id="pepper-dialog-box">Hey there user</div>
-    <p id="connection-status">Trying to Connect...</p>
-    <br />
-    <div class="container">
-      <h2 id="question" class="question">Is this is the first question?</h2>
-      <div class="text-input-q">
-        <input type="text" id="answer" placeholder="answer here" />
-      </div>
-      <div class="btn-group multiple-choice-q" style="width: 100%">
-        <button id="a" style="width: 45%">A</button>
-        <button id="b" style="width: 45%">B</button>
-      </div>
-      <div class="btn-group multiple-choice-q" style="width: 100%">
-        <button id="c" style="width: 45%">C</button>
-        <button id="d" style="width: 45%">D</button>
-      </div>
-      <div class="slider-q slidecontainer">
-        <input type="range" min="1" max="10" value="5" class="slider" id="slider-range" />
-        <p class="slider-q-value">Value: <span id="slider-q-value"></span></p>
-      </div>
-      <button id="submitBtn">Next →</button>
-    </div>
-    <progress id="progress" max="100" value="70" data-label="50% Complete"></progress>
-    <button class="red-element"></button>
+    <main>
+      <section id="start-page">
+        <img class="scc-logo" src="./resources/images/scc/scc-logo.png" alt="" />
+        <h1 class="font-semibold" style="padding-top: 2rem">Hello! Welcome to Chaser's Cafe!</h1>
+        <h2 style="padding-top: 2rem">To order, please say “Order” or “Hello” to Pepper</h2>
+        <h4 class="text-center" style="padding-top: 3rem">
+          If you do not wish to interact with Pepper, Push the<br />button below to start your order<br />Thank you!
+        </h4>
+        <button id="start-order-btn" class="flex-center">
+          <h3 class="font-raleway text-center">Start My <br />Order</h3>
+        </button>
+        <img class="chaser-paw" src="./resources/images/scc/chaser-dog-paw.png" alt="" />
+      </section>
+      <p id="connection-status">Trying to Connect...</p>
+    </main>
   </body>
 </html>
+
+<!-- <div class="" id="pepper-dialog-box">Hey there user</div> -->
