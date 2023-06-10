@@ -14,6 +14,7 @@
   </head>
   <body>
     <main>
+      <p id="connection-status">Trying to Connect...</p>
       <section id="start-page">
         <img class="scc-logo" src="./resources/images/scc/scc-logo.png" alt="" />
         <h1 class="font-semibold" style="padding-top: 2rem">Hello! Welcome to Chaser's Cafe!</h1>
@@ -26,9 +27,66 @@
         </button>
         <img class="chaser-paw" src="./resources/images/scc/chaser-dog-paw.png" alt="" />
       </section>
-      <p id="connection-status">Trying to Connect...</p>
+      <section id="main-menu-page">
+        <header>
+          <button class="cancel-btn"><h4 class="font-semibold">Cancel</h4></button>
+          <div>
+            <h3 class="font-semibold text-center">Welcome!</h3>
+            <p class="font-small font-semibold" style="color: #4b4b4b">Just tell Pepper what you would like.</p>
+          </div>
+          <button class="view-cart-btn"><h4 class="font-semibold">View Cart</h4></button>
+        </header>
+        <div id="food-categories-container">
+          <div class="food-categories-card">
+            <img class="image" src="./resources/images/menu/burittos.png" alt="" />
+            <p class="font-semibold text-center">Lunch Specials</p>
+            <div class="flex-grow"></div>
+            <img class="arrow-in-circle" src="./resources/images/other/arrow-in-circle.svg" alt=">" />
+          </div>
+          <div class="food-categories-card">
+            <img class="image" src="./resources/images/menu/fries.png" alt="" />
+            <p class="font-semibold text-center">Sides</p>
+            <div class="flex-grow"></div>
+            <img class="arrow-in-circle" src="./resources/images/other/arrow-in-circle.svg" alt=">" />
+          </div>
+          <div class="food-categories-card">
+            <img class="image" src="./resources/images/menu/cookie.png" alt="" />
+            <p class="font-semibold text-center">Desserts</p>
+            <div class="flex-grow"></div>
+            <img class="arrow-in-circle" src="./resources/images/other/arrow-in-circle.svg" alt=">" />
+          </div>
+        </div>
+        <h3 class="font-semibold">Most Popular Items</h3>
+        <div id="food-items-container">
+          <div class="food-card">
+            <img class="image" src="./resources/images/menu/burittos.png" alt="" />
+            <div class="item-details">
+              <p>$3.50</p>
+              <p class="text-nowrap">250 cal</p>
+            </div>
+            <div class="flex-grow"></div>
+            <p class="text-center font-semibold">Burritos</p>
+          </div>
+          <div class="food-card">
+            <img class="image" src="./resources/images/menu/fries.png" alt="" />
+            <div class="item-details">
+              <p>$3.50</p>
+              <p class="text-nowrap">250 cal</p>
+            </div>
+            <div class="flex-grow"></div>
+            <p class="text-center font-semibold">Fries</p>
+          </div>
+          <div class="food-card">
+            <img class="image" src="./resources/images/menu/cookie.png" alt="" />
+            <div class="item-details">
+              <p>$3.50</p>
+              <p class="text-nowrap">250 cal</p>
+            </div>
+            <div class="flex-grow"></div>
+            <p class="text-center font-semibold">Cookie</p>
+          </div>
+        </div>
+      </section>
     </main>
   </body>
 </html>
-
-<!-- <div class="" id="pepper-dialog-box">Hey there user</div> -->

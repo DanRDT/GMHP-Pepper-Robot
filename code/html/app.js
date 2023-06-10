@@ -9,8 +9,16 @@ $(document).ready(function () {
 
   // alert(JSON.stringify(menuItems))
 
+  // open main menu page
   $('#start-order-btn').click(function () {
-    alert('starting order')
+    // alert('starting order')
     $('#start-page').hide()
+    $('#main-menu-page').css('display', 'flex')
+  })
+
+  // return to start page
+  $('#main-menu-page .cancel-btn').click(function () {
+    $('#start-page').css('display', 'flex')
+    $('#main-menu-page').hide()
   })
 })
