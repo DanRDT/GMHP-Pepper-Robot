@@ -244,8 +244,11 @@ h5 {
 }
 
 .food-categories-card .image {
-  height: 5.7rem;
-  padding-bottom: 0.5rem;
+  height: 5.2rem;
+  width: 7.75rem;
+  margin-bottom: 0.5rem;
+  object-fit: cover;
+  border-radius: 5px;
 }
 
 #food-items-container {
@@ -268,9 +271,15 @@ h5 {
   background-color: white;
   cursor: pointer;
 }
+.food-card:active {
+  opacity: 0.8;
+}
 .food-card .image {
-  height: 7rem;
-  padding-bottom: 0.5rem;
+  height: 6.5rem;
+  width: 9rem;
+  border-radius: 5px;
+  object-fit: cover;
+  margin-bottom: 0.5rem;
 }
 .food-card .item-details {
   width: 100%;
