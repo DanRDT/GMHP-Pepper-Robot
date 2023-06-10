@@ -1,4 +1,4 @@
-import { listOfRandomPepperDialogs } from './data.js'
+import { listOfRandomPepperDialogs } from '../data/pepper.js'
 
 export function getRandomPepperDialog() {
   const randomIndex = Math.floor(Math.random() * listOfRandomPepperDialogs.length)

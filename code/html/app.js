@@ -1,7 +1,8 @@
-import { menuItems, dailySpecials, foodCategories } from './javascript/data.js'
+import { menuItems, dailySpecials, foodCategories } from './javascript/data/menu.js'
 import { itemCard, categoryCard } from './javascript/jquery-components/main-menu-page.js'
 // import { QiSessionConnection } from './javascript/qiClass.js'
 import { QiSessionConnection } from './javascript/qiClassTesting.js'
+import { navigateToPage } from './javascript/utils/pages.js'
 
 // modify the DOM (Website)
 // Shorthand for $(document).ready()
@@ -22,13 +23,11 @@ $(function () {
   // open main menu page
   $('#start-order-btn').on('click', function () {
     // alert('starting order')
-    $('#start-page').hide()
-    $('#main-menu-page').css('display', 'flex')
+    navigateToPage('main-menu-page')
   })
 
   // return to start page
   $('#main-menu-page .cancel-btn').on('click', function () {
-    $('#start-page').css('display', 'flex')
-    $('#main-menu-page').hide()
+    navigateToPage('start-page')
   })
 })

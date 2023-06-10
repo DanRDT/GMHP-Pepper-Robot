@@ -1,4 +1,4 @@
-import { listOfRandomPepperDialogs } from './data.js'
+import { getRandomPepperDialog } from './utils/pepper.js'
 
 export class QiSessionConnection {
   // variables
@@ -37,9 +37,4 @@ export class QiSessionConnection {
       $('#connection-status').text('Connected')
     }, 2000)
   }
-}
-
-function getRandomPepperDialog() {
-  const randomIndex = Math.floor(Math.random() * listOfRandomPepperDialogs.length)
-  return listOfRandomPepperDialogs[randomIndex]
 }

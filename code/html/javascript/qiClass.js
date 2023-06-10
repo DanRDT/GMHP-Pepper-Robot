@@ -1,3 +1,5 @@
+import { getRandomPepperDialog } from './utils/pepper.js'
+
 export class QiSessionConnection {
   // variables
   // `#` means private
@@ -50,9 +52,4 @@ export class QiSessionConnection {
       }
     )
   }
-}
-
-function getRandomPepperDialog() {
-  const randomIndex = Math.floor(Math.random() * listOfRandomPepperDialogs.length)
-  return listOfRandomPepperDialogs[randomIndex]
 }
