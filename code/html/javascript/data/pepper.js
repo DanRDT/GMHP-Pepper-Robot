@@ -1,3 +1,8 @@
+// @ts-check
+
+/**
+ * @type {Array<string>}
+ */
 export const listOfRandomPepperDialogs = [
   'hey there user',
   'hi!',

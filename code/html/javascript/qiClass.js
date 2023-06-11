@@ -4,27 +4,63 @@ export class QiSessionConnection {
   // variables
   // `#` means private
   #session
+  #connected = false
+  #speechListener
 
   // initialize class
   constructor() {
     this.#session = new QiSession(
       function (session) {
+        this.#connected = true
         $('#connection').text('Connected')
       },
       function () {
+        this.#connected = false
         $('#connection').text(`Couldn't connect to the robot`)
       }
     )
   }
 
-  // methods
+  // core methods
+  resetConnection() {
+    this.#connected = false
+    this.#session = new QiSession(
+      function (session) {
+        this.#connected = true
+        $('#connection').text('Connected')
+      },
+      function () {
+        this.#connected = false
+        $('#connection').text(`Couldn't connect to the robot`)
+      }
+    )
+  }
+
+  /**
+   * @param {string} speech
+   */
   performSpeech(speech) {
-    this.#session.service('ALAnimatedSpeech').then(function (tts) {
+    // this.#session.service('ALAnimatedSpeech').then(function (tts) {
+    this.#session.service('ALTextToSpeech').then(function (tts) {
       // tts is the ALTextToSpeech service
       tts.say(speech)
     })
   }
 
+  /**
+   * @param {Array<string>} phrases
+   * @param {boolean} wordSpotting
+   */
+  speechRecognition(phrases, wordSpotting) {
+    this.#session.service('ALSpeechRecognition').then(function (asr) {
+      this.#speechListener = asr
+      this.#speechListener.setVocabulary(phrases, wordSpotting)
+    })
+  }
+
+  /**
+   * @param {number} duration
+   */
   randomEyes(duration) {
     this.#session.service('ALLeds').then(function (leds) {
       // leds is the ALLeds service
@@ -32,24 +68,9 @@ export class QiSessionConnection {
     })
   }
 
+  // other methods
   saySomethingRandom() {
     const dialog = getRandomPepperDialog()
-
-    // show on screen
-    $('#pepper-dialog-box').text(dialog)
-
-    //talk
     this.performSpeech(dialog)
-  }
-
-  resetConnection() {
-    this.#session = new QiSession(
-      function (session) {
-        $('#connection').text('Connected')
-      },
-      function () {
-        $('#connection').text(`Couldn't connect to the robot`)
-      }
-    )
   }
 }

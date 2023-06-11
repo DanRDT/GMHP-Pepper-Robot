@@ -1,16 +1,19 @@
+import { secs } from './utils/global.js'
 import { getRandomPepperDialog } from './utils/pepper.js'
 
 export class QiSessionConnection {
   // variables
   // `#` means private
   #session
+  #connected = false
 
   // initialize class
   constructor() {
     $('#connection-status').text('Connecting...')
     setTimeout(() => {
       $('#connection-status').text('Connected')
-    }, 2000)
+      this.#connected = true
+    }, secs(2))
   }
 
   // methods
@@ -32,9 +35,11 @@ export class QiSessionConnection {
   }
 
   resetConnection() {
+    this.#connected = false
     $('#connection-status').text('Connecting...')
     setTimeout(() => {
       $('#connection-status').text('Connected')
-    }, 2000)
+      this.#connected = true
+    }, secs(2))
   }
 }

@@ -1,3 +1,4 @@
+// @ts-check
 import { menuItems, dailySpecials, foodCategories } from './javascript/data/menu.js'
 import { itemCard, categoryCard } from './javascript/jquery-components/main-menu-page.js'
 // import { QiSessionConnection } from './javascript/qiClass.js'

@@ -1,3 +1,5 @@
+// @ts-check
+
 export const dailySpecials = [
   {
     day: 'Monday',
@@ -410,8 +412,25 @@ export const healthyOptions = [
   },
 ]
 
+/**
+ * @type {Array<{
+ *  name: string;
+ *  price: number;
+ *  calories: number;
+ *  image: string;
+ *  ingredients: Array<{
+ *    name: string;
+ *    price: number;
+ *    calories: number;
+ *    image: string;
+ *    }>
+ *  }> } menuItems
+ */
 export const menuItems = [...dailySpecials, ...sides, ...desserts, ...beverages, ...coffeeItems, ...healthyOptions]
 
+/**
+ * @type {Array<{ name: string; image: string; }> } foodCategories
+ */
 export const foodCategories = [
   {
     name: 'Daily Specials',
@@ -419,13 +438,11 @@ export const foodCategories = [
   },
   {
     name: 'Sides',
-    // image: sides[0].image,
-    image: 'menu/pasta.jpg',
+    image: sides[0].image,
   },
   {
     name: 'Desserts',
-    // image: desserts[0].image,
-    image: 'menu/sushi.jpg',
+    image: desserts[0].image,
   },
   {
     name: 'Beverages',
