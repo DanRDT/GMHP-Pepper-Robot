@@ -1,3 +1,5 @@
+// @ts-check
+
 export function itemCard(itemName, price, calories, image) {
   return `
   <div class="food-card">

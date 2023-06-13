@@ -7,19 +7,11 @@
     <Dialogs />
     <Resources>
         <File name="" src=".metadata" />
-        <File name="index" src="html/index.html" />
-        <File name="style" src="html/style.css" />
-        <File name="app" src="html/app.js" />
         <File name="choice_sentences_light" src="behavior_1/Aldebaran/choice_sentences_light.xml" />
         <File name="heaven1" src="behavior_1/behavior_1/heaven1.ogg" />
-        <File name="jquery.min" src="html/javascript/jquery.min.js" />
-        <File name="qiClass" src="html/javascript/qiClass.js" />
-        <File name="menu" src="html/javascript/data/menu.js" />
-        <File name="pepper" src="html/javascript/data/pepper.js" />
-        <File name="main-menu-page" src="html/javascript/jquery-components/main-menu-page.js" />
-        <File name="qiClassTesting" src="html/javascript/qiClassTesting.js" />
-        <File name="pages" src="html/javascript/utils/pages.js" />
-        <File name="pepper" src="html/javascript/utils/pepper.js" />
+        <File name="app" src="html/app.js" />
+        <File name="index" src="html/index.html" />
+        <File name="jquery.min" src="html/jquery.min.js" />
         <File name="OpenSans-Bold" src="html/resources/fonts/OpenSans-Bold.woff2" />
         <File name="OpenSans-SemiBold" src="html/resources/fonts/OpenSans-SemiBold.woff2" />
         <File name="OpenSans" src="html/resources/fonts/OpenSans.woff2" />
@@ -142,6 +134,7 @@
         <File name="arrow-in-circle" src="html/resources/images/other/arrow-in-circle.svg" />
         <File name="chaser-dog-paw" src="html/resources/images/scc/chaser-dog-paw.png" />
         <File name="scc-logo" src="html/resources/images/scc/scc-logo.png" />
+        <File name="style" src="html/style.css" />
     </Resources>
     <Topics />
     <IgnoredPaths />

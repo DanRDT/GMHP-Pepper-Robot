@@ -37,10 +37,15 @@
             <translation type="obsolete">Bye bye</translation>
         </message>
         <message>
-            <location filename="behavior_1/behavior.xar" line="0"/>
             <source>Would you like to start the quiz?</source>
             <comment>Text</comment>
-            <translation type="unfinished">Would you like to start the quiz?</translation>
+            <translation type="obsolete">Would you like to start the quiz?</translation>
+        </message>
+        <message>
+            <location filename="behavior_1/behavior.xar" line="0"/>
+            <source>Would you like to start the app?</source>
+            <comment>Text</comment>
+            <translation type="unfinished">Would you like to start the app?</translation>
         </message>
     </context>
     <context>

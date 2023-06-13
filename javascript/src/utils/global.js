@@ -1,3 +1,4 @@
+// @ts-check
 /**
  * Returns seconds as milliseconds
  * @param {number} seconds

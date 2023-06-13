@@ -1,0 +1,5 @@
+# npm dependencies
+/javascript/node_modules
+
+# production build
+/project/html/app.js

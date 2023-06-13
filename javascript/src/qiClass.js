@@ -10,12 +10,15 @@ export class QiSessionConnection {
 
   // initialize class
   constructor() {
+    alert('stop point 3')
     this.#session = new QiSession(
       function (session) {
+        alert('stop point 3 success')
         this.#connected = true
         $('#connection').text('Connected')
       },
       function () {
+        alert('stop point 3 failed')
         this.#connected = false
         $('#connection').text(`Couldn't connect to the robot`)
       }
@@ -38,7 +41,7 @@ export class QiSessionConnection {
   }
 
   /**
-   * @param {string} speech
+   * @param {string} speech - What it will say
    */
   performSpeech(speech) {
     // this.#session.service('ALAnimatedSpeech').then(function (tts) {
@@ -49,8 +52,8 @@ export class QiSessionConnection {
   }
 
   /**
-   * @param {Array<string>} phrases
-   * @param {boolean} wordSpotting
+   * @param {Array<string>} phrases - An array of phrases or words to listen for
+   * @param {boolean} wordSpotting - If word spotting is disabled (default), the engine expects to hear one of the specified words, nothing more, nothing less. If enabled, the specified words can be pronounced in the middle of a whole speech stream, the engine will try to spot them.
    */
   speechRecognition(phrases, wordSpotting) {
     // connect to ALMemory
@@ -63,11 +66,12 @@ export class QiSessionConnection {
       })
     })
 
-    this.#session.service('ALMemory').subscriber('FaceDetected').signal.connect(callbackFunc)
+    // this.#session.service('ALMemory').subscriber('FaceDetected').signal.connect(callbackFunc)
     this.#session.service('ALSpeechRecognition').then(function (asr) {
       this.#speechListener = asr
       this.#speechListener.setVocabulary(phrases, wordSpotting)
-      callback(eventName, value, 'User')
+      // callback(eventName, value, 'User')
+      this.#startListening()
     })
   }
   #startListening() {
@@ -81,23 +85,23 @@ export class QiSessionConnection {
   }
 
   faceDetection(phrases, wordSpotting) {
-    this.ALMemory = this.#session.service('ALMemory')
-    this.subscriber = this.ALMemory.subscriber('FaceDetected')
-    this.subscriber.signal.connect(callbackFunc)
+    const ALMemory = this.#session.service('ALMemory')
+    const subscriber = ALMemory.subscriber('FaceDetected')
+    subscriber.signal.connect(callbackFunc)
 
     this.#session.service('ALFaceDetection').subscribe('HumanGreeter')
-    this.got_face = false
+    // this.got_face = false
 
-    setInterval(() => {
-      // only detect a face every n seconds
-      this.got_face = false
-    }, secs(5))
+    // setInterval(() => {
+    //   // only detect a face every n seconds
+    //   this.got_face = false
+    // }, secs(5))
 
-    this.face_detection.unsubscribe('HumanGreeter')
+    this.#session.service('ALFaceDetection').unsubscribe('HumanGreeter')
   }
 
   /**
-   * @param {number} duration
+   * @param {number} duration - Duration of random eyes
    */
   randomEyes(duration) {
     this.#session.service('ALLeds').then(function (leds) {

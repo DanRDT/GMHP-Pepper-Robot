@@ -137,7 +137,7 @@ h5 {
   height: 100%;
   width: 100%;
   overflow: hidden;
-  background-color: var(--dark-blue-color);
+  background-color: #1f2b5d;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -156,14 +156,14 @@ h5 {
 
 .scc-logo {
   width: 12rem;
+  height: 9rem;
 }
 
 #start-order-btn {
-  all: unset;
   cursor: pointer;
   border-radius: 1000rem;
   background-color: white;
-  color: var(--dark-blue-color);
+  color: #1f2b5d;
   width: 9rem;
   height: 9rem;
 }
