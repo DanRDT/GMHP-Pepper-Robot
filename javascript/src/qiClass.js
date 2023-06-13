@@ -10,19 +10,20 @@ export class QiSessionConnection {
 
   // initialize class
   constructor() {
-    alert('stop point 3')
+    alert('constructor called')
     this.#session = new QiSession(
       function (session) {
-        alert('stop point 3 success')
+        alert('connect success')
         this.#connected = true
         $('#connection').text('Connected')
       },
       function () {
-        alert('stop point 3 failed')
+        alert('connect failed')
         this.#connected = false
         $('#connection').text(`Couldn't connect to the robot`)
       }
     )
+    alert('constructor finished')
   }
 
   // core methods
