@@ -10,35 +10,31 @@ export class QiSessionConnection {
 
   // initialize class
   constructor() {
-    alert('constructor called')
-    this.#session = new QiSession(
-      function (session) {
-        alert('connect success')
-        this.#connected = true
-        $('#connection').text('Connected')
-      },
-      function () {
-        alert('connect failed')
-        this.#connected = false
-        $('#connection').text(`Couldn't connect to the robot`)
-      }
-    )
-    alert('constructor finished')
+    function connectionSuccessful(session) {
+      alert('connect success')
+      this.#connected = true
+      $('#connection-status').text('Connected')
+    }
+    function connectionFailed() {
+      alert('connect failed')
+      this.#connected = false
+      $('#connection-status').text(`Couldn't connect to the robot`)
+    }
+    this.#session = new QiSession(connectionSuccessful, connectionFailed)
   }
 
   // core methods
   resetConnection() {
     this.#connected = false
-    this.#session = new QiSession(
-      function (session) {
-        this.#connected = true
-        $('#connection').text('Connected')
-      },
-      function () {
-        this.#connected = false
-        $('#connection').text(`Couldn't connect to the robot`)
-      }
-    )
+    function connectionSuccessful(session) {
+      this.#connected = true
+      $('#connection-status').text('Connected')
+    }
+    function connectionFailed() {
+      this.#connected = false
+      $('#connection-status').text(`Couldn't connect to the robot`)
+    }
+    this.#session = new QiSession(connectionSuccessful, connectionFailed)
   }
 
   /**
