@@ -5,8 +5,9 @@ import { itemCard, categoryCard } from './jquery-components/main-menu-page.js'
 import { secs } from './utils/global.js'
 import { QiSessionConnection } from './qiClassTesting.js'
 import { navigateToPage } from './utils/pages.js'
+import { cartItem } from './jquery-components/cart-page.js'
 
-alert('Javascript Running')
+// alert('App Running')
 
 // modify the DOM (Website)
 // Shorthand for
@@ -14,8 +15,8 @@ alert('Javascript Running')
 $(function () {
   // connect to robot
   const session = new QiSessionConnection()
-  // alert('hey')
-  session.performSpeech('hello')
+
+  // session.performSpeech('Hello, I am Pepper.')
 
   // pages setup
   dailySpecials.map(item => {
@@ -25,35 +26,18 @@ $(function () {
     $('#food-categories-container').append(categoryCard(category.name, category.image))
   })
 
-  // class A {
-  //   string = 'hey'
-  //   constructor() {}
-  //   getString() {
-  //     return this.string
-  //   }
-  // }
-  // const a = new A()
-  // alert(a.getString())
-  // alert('4')
-
-  // open main menu page
+  // setup navigation buttons
   $('#start-order-btn').click(function () {
-    // alert('main-menu-page')
-
     navigateToPage('main-menu-page')
   })
-
-  // // return to start page
   $('#main-menu-page .cancel-btn').click(function () {
-    // alert('start-page')
     navigateToPage('start-page')
   })
   $('#main-menu-page .view-cart-btn').click(function () {
-    // alert('cart-page')
     navigateToPage('cart-page')
+    $('#cart-items-container').append(cartItem('Pizza', 7, 1, 'menu/Pizza.jpg'))
   })
-  // alert('5')
+  $('#cart-page .return-btn').click(function () {
+    navigateToPage('main-menu-page')
+  })
 })
-
-// session.stopListening()
-// session.speechRecognition(['Yes', 'Hello', 'How are you doing?', 'Hi'], false)

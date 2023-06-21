@@ -1,9 +1,8 @@
-class Cart{
-    cart = []
-    constructor (){}
-    getCart(){}
-    addToCart(){}
-    removeFromCart(){}
-    clearCart(){}
-
+class Cart {
+  cart = []
+  constructor() {}
+  getCart() {}
+  addToCart() {}
+  removeFromCart() {}
+  clearCart() {}
 }
