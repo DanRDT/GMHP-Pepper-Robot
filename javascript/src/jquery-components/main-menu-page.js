@@ -1,5 +1,12 @@
 // @ts-check
 
+/**
+ *
+ * @param {string} itemName
+ * @param {number} price
+ * @param {number} calories
+ * @param {string} image
+ */
 export function itemCard(itemName, price, calories, image) {
   return `
   <div class="food-card">
@@ -13,6 +20,12 @@ export function itemCard(itemName, price, calories, image) {
   </div> 
   `
 }
+
+/**
+ *
+ * @param {string} categoryName
+ * @param {string} image
+ */
 export function categoryCard(categoryName, image) {
   return `
   <div class="food-categories-card">

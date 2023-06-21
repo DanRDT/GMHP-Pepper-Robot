@@ -44,7 +44,43 @@
       </section>
       <section id="category-page"></section>
       <section id="food-item-page"></section>
-      <section id="cart-page"></section>
+      <section id="cart-page">
+        <header>
+          <button class="return-btn flex-center"><img src="./resources/images/other/arrow.svg" alt="" /></button>
+          <div>
+            <h1 class="font-semibold text-center">Cart</h1>
+          </div>
+          <button class="clear-cart-btn"><h4 class="font-semibold">Clear Cart</h4></button>
+        </header>
+        <div id="cart-container">
+          <div id="cart-items-container">
+            <!-- created with jquery -->
+          </div>
+          <div id="cart-totals-container">
+            <div id="cart-totals">
+              <div class="info">
+                <h4>Subtotal</h4>
+                <div class="flex-grow"></div>
+                <h4 id="subtotal">$7.00</h4>
+              </div>
+              <div class="info">
+                <h4>Tax</h4>
+                <div class="flex-grow"></div>
+                <h4 id="tax">$2.00</h4>
+              </div>
+              <div class="separator-line"></div>
+              <div class="info">
+                <h4>Total</h4>
+                <div class="flex-grow"></div>
+                <h4 id="total">$9.00</h4>
+              </div>
+            </div>
+            <button id="cart-confirm-order">
+              <h2>Place Order</h2>
+            </button>
+          </div>
+        </div>
+      </section>
       <section id="order-complete-page"></section>
     </main>
   </body>

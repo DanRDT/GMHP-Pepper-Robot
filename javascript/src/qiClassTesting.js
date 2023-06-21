@@ -10,9 +10,10 @@ export class QiSessionConnection {
   // initialize class
   constructor() {
     $('#connection-status').text('Connecting...')
-    setTimeout(() => {
+    setTimeout(function () {
       $('#connection-status').text('Connected')
       this.#connected = true
+      alert('Fake Connected')
     }, secs(2))
   }
 
@@ -40,6 +41,7 @@ export class QiSessionConnection {
     setTimeout(() => {
       $('#connection-status').text('Connected')
       this.#connected = true
+      alert('connected')
     }, secs(2))
   }
 }

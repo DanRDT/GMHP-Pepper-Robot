@@ -1,4 +1,5 @@
 class Cart {
+<<<<<<< HEAD
     constructor() {
           this.cart = [];
     }
@@ -29,3 +30,12 @@ class Cart {
 }
       
 
+=======
+  cart = []
+  constructor() {}
+  getCart() {}
+  addToCart() {}
+  removeFromCart() {}
+  clearCart() {}
+}
+>>>>>>> 7209bf4e42618a0b79e9f5331f53c42239f21d2d
