@@ -330,7 +330,7 @@ export const coffeeItems = [
   {
     name: 'Tea (various flavors) - Small',
     price: 2.0,
-    calories: 0 - 5,
+    calories: 5,
     image: 'menu/smalltea.jpg',
     ingredients: [
       { name: 'Tea leaves', price: 0.5, calories: 0, image: 'menu/tealeaves.jpg' },
@@ -341,7 +341,7 @@ export const coffeeItems = [
   {
     name: 'Tea (various flavors) - Large',
     price: 2.5,
-    calories: 0 - 10,
+    calories: 10,
     image: 'menu/largetea.jpg',
     ingredients: [
       { name: 'Tea leaves', price: 0.7, calories: 0, image: 'menu/tealeaves.jpg' },
