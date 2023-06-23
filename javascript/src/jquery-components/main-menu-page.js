@@ -1,5 +1,7 @@
 // @ts-check
 
+import { twoDecimalPlaces } from '../utils/global'
+
 /**
  *
  * @param {string} itemName
@@ -12,7 +14,7 @@ export function itemCard(itemName, price, calories, image) {
   <div id="${itemName}" class="food-card">
     <img class="image" src="./resources/images/${image}" alt="" />
     <div class="item-details">
-      <p>${price}</p>
+      <p>${twoDecimalPlaces(price)}</p>
       <p class="text-nowrap">${calories} cal</p>
     </div>
     <div class="flex-grow"></div>

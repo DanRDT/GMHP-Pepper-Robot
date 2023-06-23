@@ -1,5 +1,7 @@
 // @ts-check
 
+import { twoDecimalPlaces } from '../utils/global'
+
 /**
  *
  * @param {string} itemName
@@ -21,7 +23,7 @@ export function cartItem(itemName, price, count, image) {
         <h4 class="count">${count}</h4>
         <div class="plus"><img src="./resources/images/other/plus.svg" alt="" /></div>
       </div>
-      <h4 class="cart-item-price">${price}</h4>
+      <h4 class="cart-item-price">${twoDecimalPlaces(price)}</h4>
     </div>
   </div>
   `

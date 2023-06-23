@@ -42,8 +42,51 @@
           <!-- will be created on launch based on menuItems variable -->
         </div>
       </section>
-      <section id="category-page"></section>
-      <section id="food-item-page"></section>
+      <section id="food-item-page">
+        <div class="bg-semicircle"></div>
+        <header>
+          <button class="return-btn flex-center"><img src="./resources/images/other/arrow.svg" alt="" /></button>
+          <h2 id="item-page-name" class="font-semibold text-center">Classic Cheese Pizza</h2>
+          <button class="view-cart-btn"><h4 class="font-semibold">View Cart</h4></button>
+        </header>
+        <h4 id="item-page-calories">250 Calories</h4>
+        <img id="item-page-image" src="./resources/images/menu/Pizza.jpg" alt="" />
+        <div class="quantity">
+          <div class="minus">
+            <svg width="26" height="3" viewBox="0 0 26 3" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M23.6326 0H1.39015C1.02146 0 0.66787 0.128768 0.407166 0.35798C0.146462 0.587191 0 0.898068 0 1.22222C0 1.54638 0.146462 1.85725 0.407166 2.08646C0.66787 2.31567 1.02146 2.44444 1.39015 2.44444H23.6326C24.0013 2.44444 24.3548 2.31567 24.6155 2.08646C24.8762 1.85725 25.0227 1.54638 25.0227 1.22222C25.0227 0.898068 24.8762 0.587191 24.6155 0.35798C24.3548 0.128768 24.0013 0 23.6326 0Z"
+                fill="#000" />
+            </svg>
+          </div>
+          <h2 class="count font-semibold">1</h2>
+          <div class="plus">
+            <svg width="26" height="24" viewBox="0 0 26 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M13 0.75C13.3647 0.75 13.7144 0.881696 13.9723 1.11612C14.2301 1.35054 14.375 1.66848 14.375 2V12C14.375 12.3315 14.2301 12.6495 13.9723 12.8839C13.7144 13.1183 13.3647 13.25 13 13.25H2C1.63533 13.25 1.28559 13.1183 1.02773 12.8839C0.769866 12.6495 0.625 12.3315 0.625 12C0.625 11.6685 0.769866 11.3505 1.02773 11.1161C1.28559 10.8817 1.63533 10.75 2 10.75H11.625V2C11.625 1.66848 11.7699 1.35054 12.0277 1.11612C12.2856 0.881696 12.6353 0.75 13 0.75V0.75Z"
+                fill="#000" />
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M11.625 12C11.625 11.6685 11.7699 11.3505 12.0277 11.1161C12.2856 10.8817 12.6353 10.75 13 10.75H24C24.3647 10.75 24.7144 10.8817 24.9723 11.1161C25.2301 11.3505 25.375 11.6685 25.375 12C25.375 12.3315 25.2301 12.6495 24.9723 12.8839C24.7144 13.1183 24.3647 13.25 24 13.25H14.375V22C14.375 22.3315 14.2301 22.6495 13.9723 22.8839C13.7144 23.1183 13.3647 23.25 13 23.25C12.6353 23.25 12.2856 23.1183 12.0277 22.8839C11.7699 22.6495 11.625 22.3315 11.625 22V12Z"
+                fill="#000" />
+            </svg>
+          </div>
+        </div>
+        <div class="bottom-page-container">
+          <div class="price">
+            <h3 style="color: #363636">Price</h3>
+            <h2 id="item-page-price" class="font-semibold">$3.50</h2>
+          </div>
+          <div class="flex-grow"></div>
+          <div class="add-to-cart">
+            <img src="./resources/images/other/bag-icon.svg" alt="" />
+            <h3 class="font-semibold">Add To Cart</h3>
+          </div>
+        </div>
+      </section>
       <section id="cart-page">
         <header>
           <button class="return-btn flex-center"><img src="./resources/images/other/arrow.svg" alt="" /></button>

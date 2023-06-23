@@ -2,7 +2,7 @@
 /**
  * @type {Array<string>}
  */
-const pages = ['start-page', 'main-menu-page', 'category-page', 'food-item-page', 'cart-page', 'order-complete-page']
+const pages = ['start-page', 'main-menu-page', 'food-item-page', 'cart-page', 'order-complete-page']
 
 /**
  * Navigates to specified page

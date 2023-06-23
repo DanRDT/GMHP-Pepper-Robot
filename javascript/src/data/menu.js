@@ -230,7 +230,7 @@ export const beverages = [
 
 export const coffeeItems = [
   {
-    name: 'Regular Coffee - Small',
+    name: 'Regular Coffee',
     price: 2.0,
     calories: 5,
     image: 'menu/smallcoffee.jpg',
@@ -240,17 +240,7 @@ export const coffeeItems = [
     ],
   },
   {
-    name: 'Regular Coffee - Large',
-    price: 2.5,
-    calories: 10,
-    image: 'menu/largecoffee.jpg',
-    ingredients: [
-      { name: 'Coffee beans', price: 0.7, calories: 10, image: 'menu/coffeebeans.jpg' },
-      { name: 'Water', price: 0.1, calories: 0, image: 'menu/water.jpg' },
-    ],
-  },
-  {
-    name: 'Iced Coffee - Small',
+    name: 'Iced Coffee',
     price: 2.5,
     calories: 30,
     image: 'menu/smallicedcoffee.jpg',
@@ -261,18 +251,7 @@ export const coffeeItems = [
       { name: 'Milk', price: 0.3, calories: 25, image: 'menu/milk.jpg' },
     ],
   },
-  {
-    name: 'Iced Coffee - Large',
-    price: 3.0,
-    calories: 60,
-    image: 'menu/largeicedcoffee.jpg',
-    ingredients: [
-      { name: 'Coffee beans', price: 0.7, calories: 10, image: 'menu/coffeebeans.jpg' },
-      { name: 'Water', price: 0.1, calories: 0, image: 'menu/water.jpg' },
-      { name: 'Ice', price: 0.1, calories: 0, image: 'menu/ice.jpg' },
-      { name: 'Milk', price: 0.4, calories: 50, image: 'menu/milk.jpg' },
-    ],
-  },
+
   {
     name: 'Cappuccino',
     price: 3.0,
@@ -306,18 +285,6 @@ export const coffeeItems = [
       { name: 'Coffee beans', price: 0.7, calories: 10, image: 'menu/coffeebeans.jpg' },
       { name: 'Water', price: 0.1, calories: 0, image: 'menu/water.jpg' },
       { name: 'Sugar', price: 0.2, calories: 5, image: 'menu/sugar.jpg' },
-    ],
-  },
-  {
-    name: 'Mocha',
-    price: 3.5,
-    calories: 180,
-    image: 'menu/mocha.jpg',
-    ingredients: [
-      { name: 'Coffee beans', price: 0.7, calories: 10, image: 'menu/coffeebeans.jpg' },
-      { name: 'Water', price: 0.1, calories: 0, image: 'menu/water.jpg' },
-      { name: 'Milk', price: 0.7, calories: 70, image: 'menu/milk.jpg' },
-      { name: 'Chocolate', price: 0.8, calories: 100, image: 'menu/chocolate.jpg' },
     ],
   },
   {
@@ -386,17 +353,6 @@ export const healthyOptions = [
       { name: 'Vegetable Stock', price: 1, calories: 30, image: 'menu/vegstock.jpg' },
       { name: 'Mixed Vegetables', price: 1.5, calories: 50, image: 'menu/mixedveg.jpg' },
       { name: 'Spices', price: 0.5, calories: 20, image: 'menu/spices.jpg' },
-    ],
-  },
-  {
-    name: 'Fresh Fruit Smoothie (various flavors)',
-    price: 4.0,
-    calories: 250,
-    image: 'menu/fruitsmoothie.jpg',
-    ingredients: [
-      { name: 'Fresh Fruit', price: 2, calories: 100, image: 'menu/freshfruit.jpg' },
-      { name: 'Yogurt', price: 1, calories: 100, image: 'menu/yogurt.jpg' },
-      { name: 'Honey', price: 0.5, calories: 50, image: 'menu/honey.jpg' },
     ],
   },
   {

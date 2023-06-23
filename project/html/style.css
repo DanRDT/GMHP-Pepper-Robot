@@ -57,8 +57,8 @@ main {
   /* Pepper Tablet has set screen dimensions */
   width: 1280px;
   /* Use 736px when the screen is glitched and has part of the screen cut off on the bottom. This is cause when you use alert() in javascript. */
-  height: 736px;
-  /* height: 800px; */
+  /* height: 736px; */
+  height: 800px;
   position: relative;
 }
 
@@ -153,6 +153,7 @@ h5 {
   background-color: #1f2b5d;
   position: relative;
   display: flex;
+  /* display: none; */
   flex-direction: column;
   align-items: center;
   color: white;
@@ -471,3 +472,129 @@ h5 {
 }
 
 /* Item Page */
+#food-item-page {
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  background: linear-gradient(#ddd, #fff);
+  position: relative;
+  display: none;
+  /* display: flex; */
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  z-index: 2;
+}
+
+#food-item-page header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#food-item-page .return-btn {
+  border-radius: 10px;
+  background-color: #f7f7f7;
+  border: #ebebeb 1px solid;
+  width: 3.7rem;
+  height: 3.3rem;
+  margin-right: 4.5rem;
+}
+#food-item-page .return-btn img {
+  width: 1.2rem;
+  height: 1.7rem;
+}
+#food-item-page .view-cart-btn {
+  border-radius: 400px;
+  background-color: #1f2b5d;
+  color: white;
+  width: 7.5rem;
+  height: 3.25rem;
+}
+#food-item-page .view-cart-btn:active {
+  background-color: #36488f;
+  height: 3.25rem;
+}
+
+.bg-semicircle {
+  position: absolute;
+  top: -68rem;
+  width: 120rem;
+  height: 100rem;
+  border-radius: 100%;
+  background-color: white;
+  border: #f0f0f0 1px solid;
+  z-index: -1;
+}
+
+#item-page-calories {
+  margin: 1rem 0 1.5rem;
+  color: #646464;
+}
+#item-page-image {
+  border-radius: 15px;
+  border: #ebebeb 1px solid;
+  height: 20rem;
+  width: 30rem;
+  object-fit: cover;
+}
+
+#food-item-page .quantity {
+  margin-top: 7rem;
+  display: flex;
+  width: 15rem;
+  justify-content: space-between;
+}
+
+#food-item-page .plus,
+#food-item-page .minus {
+  width: 4rem;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 100px;
+  background-color: #f27d82;
+}
+#food-item-page .plus:active,
+#food-item-page .minus:active {
+  background-color: #f15860;
+}
+#food-item-page .count {
+  width: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#food-item-page .bottom-page-container {
+  display: flex;
+  width: 100%;
+  position: absolute;
+  bottom: 2.5rem;
+}
+
+#food-item-page .price {
+  margin-left: 2rem;
+}
+
+.add-to-cart {
+  display: flex;
+  background-color: #c8161d;
+  color: #fff;
+  padding: 1rem 2rem 1rem 1.5rem;
+  border-radius: 10px 0 0 10px;
+  align-items: center;
+  cursor: pointer;
+}
+.add-to-cart:active {
+  background-color: #a71318;
+}
+.add-to-cart img {
+  height: 2.5rem;
+  width: 2.5rem;
+  margin-right: 1rem;
+}
