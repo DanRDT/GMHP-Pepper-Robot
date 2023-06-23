@@ -56,7 +56,9 @@ body {
 main {
   /* Pepper Tablet has set screen dimensions */
   width: 1280px;
+  /* Use 736px when the screen is glitched and has part of the screen cut off on the bottom. This is cause when you use alert() in javascript. */
   height: 736px;
+  /* height: 800px; */
   position: relative;
 }
 
@@ -187,7 +189,7 @@ h5 {
   width: 100%;
   overflow-x: hidden;
   overflow-y: scroll;
-  background-color: hwb(195 94% 10%);
+  background-color: #e6e6e6;
   position: relative;
   display: none;
   flex-direction: column;
@@ -225,7 +227,7 @@ h5 {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: 2rem;
+  margin: 2rem 0 1.3rem;
 }
 .food-categories-card {
   display: flex;
@@ -237,7 +239,7 @@ h5 {
   padding: 1rem 1rem 0.4rem;
   background-color: #ffffff;
   cursor: pointer;
-  margin-right: 1rem;
+  margin: 0 1rem 1rem 0;
 }
 .food-categories-card:last-of-type {
   margin-right: 0;
@@ -260,7 +262,7 @@ h5 {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 .food-card {
   display: flex;
@@ -299,7 +301,7 @@ h5 {
   width: 100%;
   overflow-x: hidden;
   overflow-y: scroll;
-  background-color: hwb(195 94% 10%);
+  background-color: #e6e6e6;
   /* background-color: #e5e5e5; */
   position: relative;
   display: none;
@@ -455,3 +457,5 @@ h5 {
 #cart-confirm-order:active {
   opacity: 0.8;
 }
+
+/* Item Page */

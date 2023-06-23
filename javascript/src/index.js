@@ -10,8 +10,7 @@ import {
   healthyOptions,
 } from './data/menu.js'
 import { itemCard, categoryCard } from './jquery-components/main-menu-page.js'
-//import { QiSessionConnection } from './qiClass.js'
-import { secs } from './utils/global.js'
+// import { QiSessionConnection } from './qiClass.js'
 import { QiSessionConnection } from './qiClassTesting.js'
 import { navigateToPage } from './utils/pages.js'
 import { cartItem } from './jquery-components/cart-page.js'

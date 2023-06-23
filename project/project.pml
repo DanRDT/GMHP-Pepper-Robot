@@ -135,6 +135,12 @@
         <File name="chaser-dog-paw" src="html/resources/images/scc/chaser-dog-paw.png" />
         <File name="scc-logo" src="html/resources/images/scc/scc-logo.png" />
         <File name="style" src="html/style.css" />
+        <File name="Back" src="html/resources/images/other/Back.png" />
+        <File name="arrow-in-circle-white" src="html/resources/images/other/arrow-in-circle-white.svg" />
+        <File name="arrow" src="html/resources/images/other/arrow.svg" />
+        <File name="minus" src="html/resources/images/other/minus.svg" />
+        <File name="plus" src="html/resources/images/other/plus.svg" />
+        <File name="x-shape" src="html/resources/images/other/x-shape.svg" />
     </Resources>
     <Topics />
     <IgnoredPaths />
