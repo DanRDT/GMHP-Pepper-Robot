@@ -33,10 +33,10 @@ $(function () {
   foodCategories.map(category => {
     $('#food-categories-container').append(categoryCard(category.name, category.image))
   })
+  $('#food-categories-container').children('.food-categories-card').first().attr('data-active', 'true')
 
-  // setup navigation buttons
   // Define object to story category information
-  var categoryInfo = {
+  const categoryInfo = {
     'Daily Specials': dailySpecials,
     Sides: sides,
     Desserts: desserts,
@@ -48,8 +48,12 @@ $(function () {
   // Show food items when category is clicked
   $('#food-categories-container').on('click', '.food-categories-card', function () {
     // Access the clicked image using $(this)
-    var clickedImage = $(this)
-    var divId = clickedImage.attr('id')
+    const clickedCard = $(this)
+    const divId = clickedCard.attr('id')
+
+    // Show it as active
+    $('.food-categories-card').attr('data-active', 'false')
+    clickedCard.attr('data-active', 'true')
 
     // Clear the #food-items-container before appending item cards from new category
     $('#food-items-container').empty()
@@ -60,7 +64,6 @@ $(function () {
     })
   })
 
-  // open main menu page
   $('#start-order-btn').click(function () {
     navigateToPage('main-menu-page')
   })

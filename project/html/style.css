@@ -257,6 +257,21 @@ h5 {
   outline: #ececec 1px solid;
 }
 
+.food-categories-card[data-active='true'] {
+  background-color: #1f2b5d;
+  color: white;
+}
+.food-categories-card[data-active='true'] .image {
+  outline-width: 0px;
+}
+.food-categories-card[data-active='true'] .arrow-in-circle {
+  transition: all 200ms;
+  transform: rotate(90deg);
+}
+.food-categories-card[data-active='true'] .arrow-in-circle path {
+  fill: white;
+}
+
 #food-items-container {
   width: 100%;
   display: flex;
@@ -275,6 +290,7 @@ h5 {
   background-color: white;
   cursor: pointer;
   margin-right: 1rem;
+  margin-bottom: 1rem;
 }
 .food-card:last-of-type {
   margin-right: 0;
@@ -417,14 +433,10 @@ h5 {
 }
 
 #cart-totals-container {
-  position: sticky;
-  position: -webkit-sticky;
-  position: -moz-sticky;
-  position: -ms-sticky;
-  position: -o-sticky;
-  /* position: fixed; */
-  top: 5rem;
-  flex-basis: 40%;
+  position: fixed;
+  top: 8.5rem;
+  right: 3rem;
+  width: 28rem;
   display: flex;
   flex-direction: column;
   align-self: flex-start;
