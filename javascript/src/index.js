@@ -14,6 +14,8 @@ import { itemCard, categoryCard } from './jquery-components/main-menu-page.js'
 import { QiSessionConnection } from './qiClassTesting.js'
 import { navigateToPage } from './utils/pages.js'
 import { cartItem } from './jquery-components/cart-page.js'
+import { twoDecimalPlaces } from './utils/global.js'
+import { goToItemPage } from './pages/item-page.js'
 
 // alert('App Running')
 
@@ -29,6 +31,9 @@ $(function () {
   // pages setup
   dailySpecials.map(item => {
     $('#food-items-container').append(itemCard(item.name, item.price, item.calories, item.image))
+    $('.food-card').on('click', function () {
+      goToItemPage($(this))
+    })
   })
   foodCategories.map(category => {
     $('#food-categories-container').append(categoryCard(category.name, category.image))
@@ -62,6 +67,9 @@ $(function () {
     categoryInfo[divId].forEach(item => {
       $('#food-items-container').append(itemCard(item.name, item.price, item.calories, item.image))
     })
+    $('.food-card').on('click', function () {
+      goToItemPage($(this))
+    })
   })
 
   $('#start-order-btn').click(function () {
@@ -76,5 +84,26 @@ $(function () {
   })
   $('#cart-page .return-btn').click(function () {
     navigateToPage('main-menu-page')
+  })
+  $('#food-item-page .return-btn').click(function () {
+    navigateToPage('main-menu-page')
+  })
+  $('#food-item-page .view-cart-btn').click(function () {
+    navigateToPage('cart-page')
+    $('#cart-items-container').append(cartItem('Pizza', 7, 1, 'menu/Pizza.jpg'))
+  })
+
+  $('#food-item-page .minus').click(function () {
+    const prevCount = Number($('#food-item-page').attr('data-quantity'))
+    let newCount = prevCount - 1
+    if (newCount < 1) newCount = 1
+    $('#food-item-page .count').text(newCount)
+    $('#food-item-page').attr('data-quantity', newCount)
+  })
+  $('#food-item-page .plus').click(function () {
+    const prevCount = Number($('#food-item-page').attr('data-quantity'))
+    let newCount = prevCount + 1
+    $('#food-item-page .count').text(newCount)
+    $('#food-item-page').attr('data-quantity', newCount)
   })
 })

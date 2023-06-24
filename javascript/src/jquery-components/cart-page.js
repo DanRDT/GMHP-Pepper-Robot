@@ -11,7 +11,7 @@ import { twoDecimalPlaces } from '../utils/global'
  */
 export function cartItem(itemName, price, count, image) {
   return `
-  <div class="cart-item">
+  <div class="cart-item" data-name="${itemName}" data-price="${price}" data-image="${image}" data-quantity="${count}">
     <img src="./resources/images/${image}" alt="" />
     <div class="details">
       <h4 class="cart-item-name">${itemName}</h4>
@@ -23,7 +23,7 @@ export function cartItem(itemName, price, count, image) {
         <h4 class="count">${count}</h4>
         <div class="plus"><img src="./resources/images/other/plus.svg" alt="" /></div>
       </div>
-      <h4 class="cart-item-price">${twoDecimalPlaces(price)}</h4>
+      <h4 class="cart-item-price">$${twoDecimalPlaces(price)}</h4>
     </div>
   </div>
   `

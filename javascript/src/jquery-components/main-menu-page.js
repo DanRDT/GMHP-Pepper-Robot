@@ -11,10 +11,10 @@ import { twoDecimalPlaces } from '../utils/global'
  */
 export function itemCard(itemName, price, calories, image) {
   return `
-  <div id="${itemName}" class="food-card">
+  <div id="${itemName}" class="food-card" data-name="${itemName}" data-price="${price}" data-calories="${calories}" data-image="${image}">
     <img class="image" src="./resources/images/${image}" alt="" />
     <div class="item-details">
-      <p>${twoDecimalPlaces(price)}</p>
+      <p>$${twoDecimalPlaces(price)}</p>
       <p class="text-nowrap">${calories} cal</p>
     </div>
     <div class="flex-grow"></div>
