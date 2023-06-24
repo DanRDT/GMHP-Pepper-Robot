@@ -153,14 +153,13 @@ h5 {
   background-color: #1f2b5d;
   position: relative;
   display: flex;
-  /* display: none; */
   flex-direction: column;
   align-items: center;
   color: white;
   padding: 3rem 1rem 1rem;
 }
 
-.chaser-paw {
+#start-page .chaser-paw {
   position: absolute;
   left: 0;
   bottom: 0;
@@ -597,4 +596,37 @@ h5 {
   height: 2.5rem;
   width: 2.5rem;
   margin-right: 1rem;
+}
+
+/* Order Complete Page */
+#order-complete-page {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background-color: #1f2b5d;
+  position: relative;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  padding: 3rem 1rem 1rem;
+}
+
+#order-complete-page .chaser-paw {
+  position: absolute;
+  right: 0;
+  bottom: 2rem;
+  width: 22rem;
+  transform: scaleX(-1);
+}
+
+#new-order-btn {
+  border-radius: 10px;
+  background-color: white;
+  color: black;
+  padding: 1rem 2rem;
+  margin-top: 4rem;
+}
+#new-order-btn:active {
+  opacity: 0.8;
 }

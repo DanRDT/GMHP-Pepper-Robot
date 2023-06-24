@@ -75,6 +75,9 @@ $(function () {
   $('#start-order-btn').click(function () {
     navigateToPage('main-menu-page')
   })
+  $('#new-order-btn').click(function () {
+    navigateToPage('main-menu-page')
+  })
   $('#main-menu-page .cancel-btn').click(function () {
     navigateToPage('start-page')
   })
