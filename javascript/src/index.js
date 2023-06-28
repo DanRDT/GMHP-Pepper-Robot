@@ -8,6 +8,7 @@ import {
   beverages,
   coffeeItems,
   healthyOptions,
+  categoryInfo
 } from './data/menu.js'
 import { itemCard, categoryCard } from './jquery-components/main-menu-page.js'
 // import { QiSessionConnection } from './qiClass.js'
@@ -40,16 +41,6 @@ $(function () {
     $('#food-categories-container').append(categoryCard(category.name, category.image))
   })
   $('#food-categories-container').children('.food-categories-card').first().attr('data-active', 'true')
-
-  // Define object to store category information
-  const categoryInfo = {
-    'Daily Specials': dailySpecials,
-    Sides: sides,
-    Desserts: desserts,
-    Beverages: beverages,
-    Coffee: coffeeItems,
-    'Healthy Options': healthyOptions,
-  }
 
   // Show food items when category is clicked
   $('#food-categories-container').on('click', '.food-categories-card', function () {
@@ -110,7 +101,7 @@ $(function () {
   })
   //Remove item from Cart
   $('#cart-page').on('click', '.delete-cart-item-btn', function () {
-    var itemContainer = $(this).closest('.cart-item')
+    const itemContainer = $(this).closest('.cart-item')
     itemContainer.remove()
     updateCartTotals()
   })
@@ -134,8 +125,8 @@ $(function () {
     $('#food-item-page').attr('data-quantity', newCount)
   })
   $('#cart-page').on('click', '.plus', function () {
-    var itemContainer = $(this).closest('.cart-item')
-    var countElement = itemContainer.find('.count')
+    const itemContainer = $(this).closest('.cart-item')
+    const countElement = itemContainer.find('.count')
     const prevCount = Number(itemContainer.attr('data-quantity'))
     let newCount = prevCount + 1
     countElement.text(newCount)
@@ -143,8 +134,8 @@ $(function () {
     updateCartTotals()
   })
   $('#cart-page').on('click', '.minus', function () {
-    var itemContainer = $(this).closest('.cart-item')
-    var countElement = itemContainer.find('.count')
+    const itemContainer = $(this).closest('.cart-item')
+    const countElement = itemContainer.find('.count')
     const prevCount = Number(itemContainer.attr('data-quantity'))
     let newCount = prevCount - 1
     if (newCount < 1) newCount = 1

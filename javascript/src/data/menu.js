@@ -413,3 +413,13 @@ export const foodCategories = [
     image: healthyOptions[0].image,
   },
 ]
+
+  // Define object to store category information
+  export const categoryInfo = {
+    'Daily Specials': dailySpecials,
+    Sides: sides,
+    Desserts: desserts,
+    Beverages: beverages,
+    Coffee: coffeeItems,
+    'Healthy Options': healthyOptions,
+  }

@@ -10,20 +10,20 @@ import { cartItem } from '../jquery-components/cart-page'
  * 
  */
 export function addToCart(itemPage) {
-  var cartItemsContainer = $('#cart-items-container')
-  var itemName = itemPage.attr('data-name')
-  var itemPrice = Number(itemPage.attr('data-price'))
-  var itemQuantity = Number(itemPage.attr('data-quantity'))
-  var itemImage = itemPage.attr('data-image')
+  const cartItemsContainer = $('#cart-items-container')
+  const itemName = itemPage.attr('data-name')
+  const itemPrice = Number(itemPage.attr('data-price'))
+  const itemQuantity = Number(itemPage.attr('data-quantity'))
+  const itemImage = itemPage.attr('data-image')
 
 
   // Check if an item with the same name already exists in the cart
-  var existingItem = cartItemsContainer.find("[data-name='" + itemName + "']")
+  const existingItem = cartItemsContainer.find("[data-name='" + itemName + "']")
 
   if (existingItem.length > 0) {
     // If the item already exists, update its quantity
-    var existingQuantity = Number(existingItem.attr('data-quantity'))
-    var newQuantity = existingQuantity + itemQuantity
+    const existingQuantity = Number(existingItem.attr('data-quantity'))
+    const newQuantity = existingQuantity + itemQuantity
     existingItem.attr('data-quantity', newQuantity)
     existingItem.find('.count').text(newQuantity)
   } else {
@@ -37,12 +37,12 @@ export function addToCart(itemPage) {
   
 //Calculate Cart totals
 export function calcTotal(){
-  var subTotal = 0.00
+  let subTotal = 0.00
   //for each item in cart, calculate cost and accumulate subtotal
   $('.cart-item').each(function() {
-    var price = Number($(this).attr('data-price'))
-    var quantity = Number($(this).attr('data-quantity'))
-    var itemCost = price * quantity;
+    const price = Number($(this).attr('data-price'))
+    const quantity = Number($(this).attr('data-quantity'))
+    const itemCost = price * quantity;
     subTotal += itemCost
   })
  
@@ -50,10 +50,10 @@ return subTotal
 }
 
 export function updateCartTotals() {
-  var subtotal = calcTotal();
-  var taxRate = 0.06; // 6% tax in SC
-  var tax = subtotal * taxRate;
-  var total = subtotal + tax;
+  const subtotal = calcTotal();
+  const taxRate = 0.06; // 6% tax in SC
+  const tax = subtotal * taxRate;
+  const total = subtotal + tax;
 
   $('#subtotal').text('$' + subtotal.toFixed(2));
   $('#tax').text('$' + tax.toFixed(2));
