@@ -28,3 +28,5 @@ export function cartItem(itemName, price, count, image) {
   </div>
   `
 }
+
+

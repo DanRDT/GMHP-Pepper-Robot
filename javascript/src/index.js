@@ -16,7 +16,7 @@ import { navigateToPage } from './utils/pages.js'
 import { cartItem } from './jquery-components/cart-page.js'
 import { twoDecimalPlaces } from './utils/global.js'
 import { goToItemPage } from './pages/item-page.js'
-import { addToCart } from './pages/cart-page.js'
+import { addToCart, updateCartTotals } from './pages/cart-page.js'
 
 // alert('App Running')
 
@@ -72,32 +72,6 @@ $(function () {
       goToItemPage($(this))
     })
   })
-
-  
-//Calculate Cart totals
-function calcTotal(){
-  var subTotal = 0.00
-  //for each item in cart, calculate cost and accumulate subtotal
-  $('.cart-item').each(function() {
-    var price = Number($(this).attr('data-price'))
-    var quantity = Number($(this).attr('data-quantity'))
-    var itemCost = price * quantity;
-    subTotal += itemCost
-  })
- 
-return subTotal
-}
-
-function updateCartTotals() {
-  var subtotal = calcTotal();
-  var taxRate = 0.06; // 6% tax in SC
-  var tax = subtotal * taxRate;
-  var total = subtotal + tax;
-
-  $('#subtotal').text('$' + subtotal.toFixed(2));
-  $('#tax').text('$' + tax.toFixed(2));
-  $('#total').text('$' + total.toFixed(2));
-}
 
   //Start Order
   $('#start-order-btn').click(function () {

@@ -34,6 +34,32 @@ export function addToCart(itemPage) {
   navigateToPage('cart-page')
 }
 
+  
+//Calculate Cart totals
+export function calcTotal(){
+  var subTotal = 0.00
+  //for each item in cart, calculate cost and accumulate subtotal
+  $('.cart-item').each(function() {
+    var price = Number($(this).attr('data-price'))
+    var quantity = Number($(this).attr('data-quantity'))
+    var itemCost = price * quantity;
+    subTotal += itemCost
+  })
+ 
+return subTotal
+}
+
+export function updateCartTotals() {
+  var subtotal = calcTotal();
+  var taxRate = 0.06; // 6% tax in SC
+  var tax = subtotal * taxRate;
+  var total = subtotal + tax;
+
+  $('#subtotal').text('$' + subtotal.toFixed(2));
+  $('#tax').text('$' + tax.toFixed(2));
+  $('#total').text('$' + total.toFixed(2));
+}
+
 
  
 
