@@ -16,6 +16,7 @@ import { navigateToPage } from './utils/pages.js'
 import { cartItem } from './jquery-components/cart-page.js'
 import { twoDecimalPlaces } from './utils/global.js'
 import { goToItemPage } from './pages/item-page.js'
+import { addToCart } from './pages/cart-page.js'
 
 // alert('App Running')
 
@@ -40,7 +41,7 @@ $(function () {
   })
   $('#food-categories-container').children('.food-categories-card').first().attr('data-active', 'true')
 
-  // Define object to story category information
+  // Define object to store category information
   const categoryInfo = {
     'Daily Specials': dailySpecials,
     Sides: sides,
@@ -72,30 +73,79 @@ $(function () {
     })
   })
 
+  
+//Calculate Cart totals
+function calcTotal(){
+  var subTotal = 0.00
+  //for each item in cart, calculate cost and accumulate subtotal
+  $('.cart-item').each(function() {
+    var price = Number($(this).attr('data-price'))
+    var quantity = Number($(this).attr('data-quantity'))
+    var itemCost = price * quantity;
+    subTotal += itemCost
+  })
+ 
+return subTotal
+}
+
+function updateCartTotals() {
+  var subtotal = calcTotal();
+  var taxRate = 0.06; // 6% tax in SC
+  var tax = subtotal * taxRate;
+  var total = subtotal + tax;
+
+  $('#subtotal').text('$' + subtotal.toFixed(2));
+  $('#tax').text('$' + tax.toFixed(2));
+  $('#total').text('$' + total.toFixed(2));
+}
+
+  //Start Order
   $('#start-order-btn').click(function () {
     navigateToPage('main-menu-page')
+    updateCartTotals()
   })
   $('#new-order-btn').click(function () {
     navigateToPage('main-menu-page')
+    $('#cart-items-container').empty()
+    updateCartTotals()
   })
+  //Cancel Order
   $('#main-menu-page .cancel-btn').click(function () {
+    $('#cart-items-container').empty()
+    updateCartTotals()
     navigateToPage('start-page')
   })
+  //View Cart
   $('#main-menu-page .view-cart-btn').click(function () {
     navigateToPage('cart-page')
-    $('#cart-items-container').append(cartItem('Pizza', 7, 1, 'menu/Pizza.jpg'))
   })
+  $('#food-item-page .view-cart-btn').click(function () {
+    navigateToPage('cart-page')
+  })
+  //Return to Main Menu
   $('#cart-page .return-btn').click(function () {
     navigateToPage('main-menu-page')
   })
   $('#food-item-page .return-btn').click(function () {
     navigateToPage('main-menu-page')
   })
-  $('#food-item-page .view-cart-btn').click(function () {
-    navigateToPage('cart-page')
-    $('#cart-items-container').append(cartItem('Pizza', 7, 1, 'menu/Pizza.jpg'))
+  //Add item to Cart
+  $('#food-item-page .add-to-cart').click(function () {
+    addToCart($('#food-item-page'))
+    updateCartTotals()
   })
-
+  //Remove item from Cart
+  $('#cart-page').on('click', '.delete-cart-item-btn', function () {
+    var itemContainer = $(this).closest('.cart-item')
+    itemContainer.remove()
+    updateCartTotals()
+  })
+  //Clear Cart
+  $('#cart-page .clear-cart-btn').click(function () {
+    $('#cart-items-container').empty()
+    updateCartTotals()
+  })
+  //Change quantity of item
   $('#food-item-page .minus').click(function () {
     const prevCount = Number($('#food-item-page').attr('data-quantity'))
     let newCount = prevCount - 1
@@ -108,5 +158,28 @@ $(function () {
     let newCount = prevCount + 1
     $('#food-item-page .count').text(newCount)
     $('#food-item-page').attr('data-quantity', newCount)
+  })
+  $('#cart-page').on('click', '.plus', function () {
+    var itemContainer = $(this).closest('.cart-item')
+    var countElement = itemContainer.find('.count')
+    const prevCount = Number(itemContainer.attr('data-quantity'))
+    let newCount = prevCount + 1
+    countElement.text(newCount)
+    itemContainer.attr('data-quantity', newCount)
+    updateCartTotals()
+  })
+  $('#cart-page').on('click', '.minus', function () {
+    var itemContainer = $(this).closest('.cart-item')
+    var countElement = itemContainer.find('.count')
+    const prevCount = Number(itemContainer.attr('data-quantity'))
+    let newCount = prevCount - 1
+    if (newCount < 1) newCount = 1
+    countElement.text(newCount)
+    itemContainer.attr('data-quantity', newCount)
+    updateCartTotals()
+  })
+  //Place Order
+  $('#cart-confirm-order').click(function () {
+  navigateToPage('order-complete-page')
   })
 })

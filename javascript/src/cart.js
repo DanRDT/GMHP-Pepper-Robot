@@ -1,6 +1,6 @@
 //@ts-check
 
-class Cart {
+export class Cart {
   /**
    * @type {Array<{
    *  name: string;
