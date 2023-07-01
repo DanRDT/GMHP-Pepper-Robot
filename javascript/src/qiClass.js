@@ -6,14 +6,14 @@ export class QiSessionConnection {
   #session
   #connected = false
   #speechListener
+  #wordRecognizedSubscriber
+  #wordRecognizedSubscriberSignalLink
 
   // initialize class
   constructor() {
     function connectionSuccessful(session) {
       // alert('connect success')
-      alert(this.#connected)
       this.#connected = true
-      alert(this.#connected)
       $('#connection-status').text('Connected')
     }
     function connectionFailed() {
@@ -61,39 +61,39 @@ export class QiSessionConnection {
     function subscribeToSpeech(asr) {
       this.#speechListener = asr
       this.#speechListener.setVocabulary(phrases, wordSpotting)
-      this.#startListening()
+      this.#speechListener.subscribe('ListenerID')
     }
     const subscribeToSpeechBound = subscribeToSpeech.bind(this)
 
     this.#session.service('ALSpeechRecognition').then(subscribeToSpeechBound)
   }
+
   setupSpeechRecognition() {
     /**
-     * Index 0 is the string heard.
-     * Index 1 is the confidence level.
-     * @param {[string, number]} value
+     * @param {[string, number]} value Index 0 is the string heard. Index 1 is the confidence level.
      */
     function getSpokenText(value) {
-      alert(JSON.stringify(value))
-      alert(this.#connected)
+      alert(`String heard: ${value[0]}, Confidence: ${value[1]}`)
     }
     const getSpokenTextBound = getSpokenText.bind(this)
+
+    function subscriberFunc(subscriber) {
+      this.#wordRecognizedSubscriber = subscriber
+      this.#wordRecognizedSubscriber.signal.connect(getSpokenTextBound)
+    }
+    const boundSubscriberFunc = subscriberFunc.bind(this)
 
     // connect to ALMemory
     this.#session.service('ALMemory').then(function (ALMemory) {
       // connect to event listener
-      ALMemory.subscriber('WordRecognized').then(function (subscriber) {
-        // subscribe to event
-        subscriber.signal.connect(getSpokenTextBound)
-      })
+      ALMemory.subscriber('WordRecognized').then(
+        //   function (subscriber) {
+        //   // subscribe to event
+        //   subscriber.signal.connect(getSpokenTextBound)
+        // }
+        boundSubscriberFunc
+      )
     })
-  }
-
-  #startListening() {
-    this.#speechListener.subscribe('ListenerID')
-  }
-  stopListening() {
-    this.#speechListener.unsubscribe('ListenerID')
   }
 
   // faceDetection(phrases, wordSpotting) {
@@ -127,7 +127,70 @@ export class QiSessionConnection {
     const dialog = getRandomPepperDialog()
     this.performSpeech(dialog)
   }
+
+  /**
+   * Function to run went speech recognized.
+   * @callback SpeechRecFunction
+   * @param {[string, number]} value Index 0 is the string heard. Index 1 is the confidence level.
+   */
+  /** @param {SpeechRecFunction} SpeechRecFunction */
+  setSpeechRecognitionFunc(SpeechRecFunction = defaultSpeechRecFunction) {
+    // more specific?
+    if (this.#wordRecognizedSubscriberSignalLink && this.#wordRecognizedSubscriber)
+      this.#wordRecognizedSubscriber.signal.disconnect(this.#wordRecognizedSubscriberSignalLink)
+
+    const boundSpeechRecFunction = SpeechRecFunction.bind(this)
+
+    function setSignalLink(link) {
+      this.#wordRecognizedSubscriberSignalLink = link
+      alert(link)
+    }
+    const boundSetSignalLink = setSignalLink.bind(this)
+
+    function subscriberFunc(subscriber) {
+      this.#wordRecognizedSubscriber = subscriber
+      // connect to subscriber
+      this.#wordRecognizedSubscriber.signal.connect(boundSpeechRecFunction).then(boundSetSignalLink, function (error) {
+        alert('An error occurred: ' + error)
+      })
+    }
+    const boundSubscriberFunc = subscriberFunc.bind(this)
+
+    // connect to ALMemory
+    this.#session.service('ALMemory').then(function (ALMemory) {
+      // subscribe to event listener
+      ALMemory.subscriber('WordRecognized').then(boundSubscriberFunc)
+    })
+  }
+
+  /**
+   * @param {Array<string>} phrases - An array of phrases or words to listen for
+   * @param {boolean} wordSpotting - If word spotting is disabled (default), the engine expects to hear one of the specified words, nothing more, nothing less. If enabled, the specified words can be pronounced in the middle of a whole speech stream, the engine will try to spot them.
+   */
+  listenForPhrases(phrases, wordSpotting) {
+    // more specific?
+    if (this.#speechListener) this.stopListening
+    // this.restartSpeechListener()
+
+    function subscribeToSpeech(asr) {
+      this.#speechListener = asr
+      this.#speechListener.setVocabulary(phrases, wordSpotting)
+      this.#speechListener.subscribe('ListenerID')
+      // this.restartSpeechListener()
+    }
+    const subscribeToSpeechBound = subscribeToSpeech.bind(this)
+
+    this.#session.service('ALSpeechRecognition').then(subscribeToSpeechBound)
+  }
+  stopListening() {
+    this.#speechListener.unsubscribe('ListenerID')
+  }
+  restartSpeechListener() {
+    this.#speechListener.pause(false)
+  }
 }
+
+// var signalLink
 
 // function onServiceAdded(serviceId, serviceName) {
 //   console.log('New service', serviceId, serviceName)
@@ -167,3 +230,8 @@ export class QiSessionConnection {
 //       )
 //   })
 // })
+
+/** @param {[string, number]} value */
+function defaultSpeechRecFunction(value) {
+  alert(`String heard: ${value[0]}, Confidence: ${value[1]}`)
+}

@@ -11,9 +11,8 @@ export class QiSessionConnection {
   constructor() {
     $('#connection-status').text('Connecting...')
     setTimeout(function () {
-      $('#connection-status').text('Connected')
+      $('#connection-status').text('Fake Connected')
       this.#connected = true
-      alert('Fake Connected')
     }, secs(2))
   }
 
