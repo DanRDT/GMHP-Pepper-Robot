@@ -1,4 +1,5 @@
 const path = require('path')
+const { EnvironmentPlugin } = require('webpack')
 
 // exports final file to /project/html/app.js
 module.exports = {
@@ -43,4 +44,9 @@ module.exports = {
       },
     ],
   },
+  plugins: [
+    new EnvironmentPlugin({
+      ORDERS_API_LINK: 'https://localhost:5500/project/html/orders',
+    }),
+  ],
 }
