@@ -70,13 +70,13 @@ export class QiSessionConnection {
    */
   /**
    * Sets the function that will be run when speech is recognized
-   *  @param {SpeechRecFunction} SpeechRecFunction */
-  setSpeechRecognitionFunc(SpeechRecFunction = defaultSpeechRecFunction) {
+   *  @param {SpeechRecFunction} speechRecFunction */
+  setSpeechRecognitionFunc(speechRecFunction = defaultSpeechRecFunction) {
     // more specific?
     if (this.#wordRecognizedSubscriberSignalLink && this.#wordRecognizedSubscriber)
       this.#wordRecognizedSubscriber.signal.disconnect(this.#wordRecognizedSubscriberSignalLink)
 
-    const boundSpeechRecFunction = SpeechRecFunction.bind(this)
+    const boundSpeechRecFunction = speechRecFunction.bind(this)
 
     function setSignalLink(link) {
       this.#wordRecognizedSubscriberSignalLink = link
