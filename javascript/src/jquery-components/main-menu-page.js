@@ -9,7 +9,7 @@ import { twoDecimalPlaces } from '../utils/global'
  * @param {number} calories
  * @param {string} image
  */
-export function itemCard(itemName, price, calories, image) {
+export function itemCardComponent(itemName, price, calories, image) {
   return `
   <div id="${itemName}" class="food-card" data-name="${itemName}" data-price="${price}" data-calories="${calories}" data-image="${image}">
     <img class="image" src="./resources/images/${image}" alt="" />
@@ -28,7 +28,7 @@ export function itemCard(itemName, price, calories, image) {
  * @param {string} categoryName
  * @param {string} image
  */
-export function categoryCard(categoryName, image) {
+export function categoryCardComponent(categoryName, image) {
   return `
   <div id="${categoryName}" class="food-categories-card" data-active="false">
     <img class="image" src="./resources/images/${image}" alt="" />

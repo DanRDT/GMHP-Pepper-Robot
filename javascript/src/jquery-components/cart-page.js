@@ -9,7 +9,7 @@ import { twoDecimalPlaces } from '../utils/global'
  * @param {number} count
  * @param {string} image
  */
-export function cartItem(itemName, price, count, image) {
+export function cartItemComponent(itemName, price, count, image) {
   return `
   <div class="cart-item" data-name="${itemName}" data-price="${price}" data-image="${image}" data-quantity="${count}">
     <div class="cart-item-image">

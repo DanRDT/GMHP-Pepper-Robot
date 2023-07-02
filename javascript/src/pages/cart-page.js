@@ -2,7 +2,7 @@
 
 import { twoDecimalPlaces } from '../utils/global'
 import { navigateToPage } from '../utils/pages'
-import { cartItem } from '../jquery-components/cart-page'
+import { cartItemComponent } from '../jquery-components/cart-page'
 
 /**
  * @param {JQuery<any>} itemPage
@@ -26,7 +26,7 @@ export function addToCart(itemPage) {
     existingItem.find('.count').text(newQuantity)
   } else {
     // If the item does not exist, add a new container
-    cartItemsContainer.append(cartItem(itemName, itemPrice, itemQuantity, itemImage))
+    cartItemsContainer.append(cartItemComponent(itemName, itemPrice, itemQuantity, itemImage))
   }
 
   navigateToPage('cart-page')

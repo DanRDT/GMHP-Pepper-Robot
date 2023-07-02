@@ -1,6 +1,6 @@
 // @ts-check
 import { categoryInfo, dailySpecials, foodCategories } from '../../data/menu'
-import { categoryCard, itemCard } from '../../jquery-components/main-menu-page'
+import { categoryCardComponent, itemCardComponent } from '../../jquery-components/main-menu-page'
 import { navigateToPage } from '../../utils/pages'
 import { updateCartTotals } from '../cart-page'
 import { goToItemPage } from '../item-page'
@@ -18,8 +18,8 @@ export function setupMenuPage() {
   })
 
   // Setup food categories
-  foodCategories.map(category => {
-    $('#food-categories-container').append(categoryCard(category.name, category.image))
+  foodCategories.forEach(category => {
+    $('#food-categories-container').append(categoryCardComponent(category.name, category.image))
   })
 
   // Show food items when category is clicked
@@ -37,7 +37,7 @@ export function setupMenuPage() {
 
     // Append item cards for the specified category
     categoryInfo[divId].forEach(item => {
-      $('#food-items-container').append(itemCard(item.name, item.price, item.calories, item.image))
+      $('#food-items-container').append(itemCardComponent(item.name, item.price, item.calories, item.image))
     })
     $('.food-card').on('click', function () {
       goToItemPage($(this))

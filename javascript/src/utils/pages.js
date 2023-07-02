@@ -10,7 +10,7 @@ const pages = ['start-page', 'main-menu-page', 'food-item-page', 'cart-page', 'o
  * @param {pages} newPage
  */
 export function navigateToPage(newPage) {
-  pages.map(page => {
+  pages.forEach(page => {
     if (newPage === page) $(`#${newPage}`).css('display', 'flex')
     else $(`#${page}`).hide()
   })
