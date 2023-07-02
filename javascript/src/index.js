@@ -6,6 +6,7 @@ import { setupMenuPage } from './pages/setup/menu-setup.js'
 import { setupCartPage } from './pages/setup/cart-setup.js'
 import { setupFoodItemPage } from './pages/setup/item-setup.js'
 import { Cart } from './cart.js'
+import { newPopup } from './utils/global.js'
 
 // alert('App Running')
 
@@ -18,7 +19,7 @@ $(function () {
   try {
     session = new QiSessionConnection()
   } catch (error) {
-    alert(`Can't connect to robot. \nUsing fake connection instead.`)
+    newPopup(`Can't connect to robot. Using fake connection instead.`, 5)
     session = new QiSessionConnectionFake()
   }
 

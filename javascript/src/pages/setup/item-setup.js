@@ -1,4 +1,5 @@
 // @ts-check
+import { newPopup } from '../../utils/global'
 import { navigateToPage } from '../../utils/pages'
 import { addToCart, updateCartTotals } from '../cart-page'
 

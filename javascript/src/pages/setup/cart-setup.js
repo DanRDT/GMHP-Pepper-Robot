@@ -32,7 +32,7 @@ export function setupCartPage() {
     itemContainer.attr('data-quantity', newCount)
     updateCartTotals()
   })
-  // Minus
+  // Minus btn
   $('#cart-page').on('click', '.minus', function () {
     const itemContainer = $(this).closest('.cart-item')
     const countElement = itemContainer.find('.count')
