@@ -12,7 +12,9 @@ import { twoDecimalPlaces } from '../utils/global'
 export function cartItem(itemName, price, count, image) {
   return `
   <div class="cart-item" data-name="${itemName}" data-price="${price}" data-image="${image}" data-quantity="${count}">
-    <img src="./resources/images/${image}" alt="" />
+    <div class="cart-item-image">
+      <img src="./resources/images/${image}" alt="" />
+    </div>  
     <div class="details">
       <h4 class="cart-item-name">${itemName}</h4>
       <div class="delete-cart-item-btn">
@@ -28,5 +30,3 @@ export function cartItem(itemName, price, count, image) {
   </div>
   `
 }
-
-

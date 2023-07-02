@@ -1,13 +1,12 @@
 //@ts-check
 
-
 import { twoDecimalPlaces } from '../utils/global'
 import { navigateToPage } from '../utils/pages'
 import { cartItem } from '../jquery-components/cart-page'
 
 /**
  * @param {JQuery<any>} itemPage
- * 
+ *
  */
 export function addToCart(itemPage) {
   const cartItemsContainer = $('#cart-items-container')
@@ -16,9 +15,8 @@ export function addToCart(itemPage) {
   const itemQuantity = Number(itemPage.attr('data-quantity'))
   const itemImage = itemPage.attr('data-image')
 
-
   // Check if an item with the same name already exists in the cart
-  const existingItem = cartItemsContainer.find("[data-name='" + itemName + "']")
+  const existingItem = cartItemsContainer.find(`[data-name="${itemName}"]`)
 
   if (existingItem.length > 0) {
     // If the item already exists, update its quantity
@@ -34,33 +32,27 @@ export function addToCart(itemPage) {
   navigateToPage('cart-page')
 }
 
-  
 //Calculate Cart totals
-export function calcTotal(){
-  let subTotal = 0.00
+export function calcSubTotal() {
+  let subTotal = 0
   //for each item in cart, calculate cost and accumulate subtotal
-  $('.cart-item').each(function() {
+  $('.cart-item').each(function () {
     const price = Number($(this).attr('data-price'))
     const quantity = Number($(this).attr('data-quantity'))
-    const itemCost = price * quantity;
+    const itemCost = price * quantity
     subTotal += itemCost
   })
- 
-return subTotal
+
+  return subTotal
 }
 
 export function updateCartTotals() {
-  const subtotal = calcTotal();
-  const taxRate = 0.06; // 6% tax in SC
-  const tax = subtotal * taxRate;
-  const total = subtotal + tax;
+  const subtotal = calcSubTotal()
+  const taxRate = 0.06 // 6% tax in SC
+  const tax = subtotal * taxRate
+  const total = subtotal + tax
 
-  $('#subtotal').text('$' + subtotal.toFixed(2));
-  $('#tax').text('$' + tax.toFixed(2));
-  $('#total').text('$' + total.toFixed(2));
+  $('#subtotal').text('$' + twoDecimalPlaces(subtotal))
+  $('#tax').text('$' + twoDecimalPlaces(tax))
+  $('#total').text('$' + twoDecimalPlaces(total))
 }
-
-
- 
-
-
