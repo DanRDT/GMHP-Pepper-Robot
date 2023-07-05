@@ -43,7 +43,18 @@ export class Cart {
   }
 
   /** @param {CartItem} param */
-  removeFromCart({ name, variant }) {}
+removeFromCart({ name, variant }) {
+  // find index of the item to be removed
+  const index = this.cart.findIndex(item => item.name === name && item.variant === variant);
+
+  // if the item is found, remove it from the cart
+  if (index !== -1) {
+      this.cart.splice(index, 1);
+  }
+
+  // update the totals
+  this.updateTotals();
+}
 
   updateTotals() {
     let subtotal = 0
@@ -63,16 +74,17 @@ export class Cart {
 
   updateCartUI() {
     // update cart cards
-    const cartItemsContainer = $('#cart-items-container')
-    cartItemsContainer.empty()
+    const cartItemsContainer = $('#cart-items-container');
+    cartItemsContainer.empty();
     this.cart.forEach(({ name, price, quantity, image, variant }) => {
-      cartItemsContainer.append(cartItemComponent(name, price, quantity, image))
-    })
-
+      const cartItem = { name, price, quantity, image, variant };
+      cartItemsContainer.append(cartItemComponent(cartItem));
+    });
+  
     // update totals
-    $('#subtotal').text('$' + twoDecimalPlaces(this.totals.subtotal))
-    $('#tax').text('$' + twoDecimalPlaces(this.totals.tax))
-    $('#total').text('$' + twoDecimalPlaces(this.totals.total))
+    $('#subtotal').text('$' + twoDecimalPlaces(this.totals.subtotal));
+    $('#tax').text('$' + twoDecimalPlaces(this.totals.tax));
+    $('#total').text('$' + twoDecimalPlaces(this.totals.total));
   }
 
   clearCart() {
@@ -83,4 +95,5 @@ export class Cart {
       total: 0,
     }
   }
+  
 }

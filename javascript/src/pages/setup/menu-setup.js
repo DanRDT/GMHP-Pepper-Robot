@@ -2,16 +2,21 @@
 import { categoryInfo, dailySpecials, foodCategories } from '../../data/menu'
 import { categoryCardComponent, itemCardComponent } from '../../jquery-components/main-menu-page'
 import { navigateToPage } from '../../utils/pages'
-import { updateCartTotals } from '../cart-page'
+import { Cart } from 'C:/Users/Joseph/Documents/School/CPT 275 Comp Tech Sr Project/GMHP-Pepper-Robot/javascript/src/cart'
 import { goToItemPage } from '../item-page'
+
+// Create a new instance of Cart
+const cart = new Cart()
 
 export function setupMenuPage() {
   //Cancel order btn
   $('#main-menu-page .cancel-btn').on('click', function () {
     $('#cart-items-container').empty()
-    updateCartTotals()
+    cart.clearCart()
+    cart.updateCartUI()
     navigateToPage('start-page')
   })
+
   // View cart btn
   $('#main-menu-page .view-cart-btn').on('click', function () {
     navigateToPage('cart-page')
@@ -43,6 +48,7 @@ export function setupMenuPage() {
       goToItemPage($(this))
     })
   })
+
   // Set first category as first
   $('#food-categories-container').children('.food-categories-card').first().trigger('click')
 
