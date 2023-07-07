@@ -1,5 +1,5 @@
 // @ts-check
-import { secs } from './utils/global.js'
+import { newPopup, secs } from './utils/global.js'
 import { getRandomPepperDialog } from './utils/pepper.js'
 
 export class QiSessionConnectionFake {
@@ -19,7 +19,7 @@ export class QiSessionConnectionFake {
 
   /** @param {string} speech - What it will say */
   performSpeech(speech) {
-    alert(speech)
+    newPopup(`Pepper: "${speech}"`)
   }
 
   /** @param {number} duration - Duration of random eyes */
@@ -56,10 +56,10 @@ export class QiSessionConnectionFake {
   /**
    * Stops and restarts the speech recognition engine according to the input parameter.
    * @param {boolean} isPaused True (stops ASR) or False (restarts ASR) */
-  restartSpeechListener(isPaused) {}
+  restartSpeechListener(isPaused = false) {}
 }
 
 /** @param {[string, number]} value */
 function defaultSpeechRecFunction(value) {
-  alert(`String heard: ${value[0]}, Confidence: ${value[1]}`)
+  newPopup(`String heard: ${value[0]}, Confidence: ${value[1]}`)
 }
