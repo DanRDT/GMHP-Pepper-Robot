@@ -1,12 +1,16 @@
 // @ts-check
-import { newPopup } from '../../utils/global'
+import { getItemAsObject, newPopup } from '../../utils/global'
 import { navigateToPage } from '../../utils/pages'
-import { addToCart, updateCartTotals } from '../cart-page'
+import { Cart } from '../../cart.js'
+import { goToCartPage } from '../cart-page'
 
-export function setupFoodItemPage() {
+/**
+ * @param {Cart} cart
+ */
+export function setupFoodItemPage(cart) {
   // View cart btn
   $('#food-item-page .view-cart-btn').on('click', function () {
-    navigateToPage('cart-page')
+    goToCartPage(cart)
   })
   // Return btn
   $('#food-item-page .return-btn').on('click', function () {
@@ -14,8 +18,11 @@ export function setupFoodItemPage() {
   })
   //Add item to cart
   $('#food-item-page .add-to-cart').on('click', function () {
-    addToCart($('#food-item-page'))
-    updateCartTotals()
+    const page = $('#food-item-page')
+    const item = getItemAsObject(page)
+    cart.addToCart(item)
+    newPopup('Added to cart')
+    goToCartPage(cart)
   })
 
   // Minus btn

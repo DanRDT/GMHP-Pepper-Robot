@@ -27,8 +27,8 @@ $(function () {
 
   // Setup Pages
   setupStartPage()
-  setupMenuPage()
-  setupCartPage()
-  setupFoodItemPage()
-  setupOrderCompletePage()
+  setupMenuPage(cart)
+  setupCartPage(cart)
+  setupFoodItemPage(cart)
+  setupOrderCompletePage(cart)
 })

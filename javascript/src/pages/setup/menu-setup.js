@@ -1,25 +1,24 @@
 // @ts-check
-import { categoryInfo, dailySpecials, foodCategories } from '../../data/menu'
+import { Cart } from '../../cart'
+import { categoryInfo, foodCategories } from '../../data/menu'
 import { categoryCardComponent, itemCardComponent } from '../../jquery-components/main-menu-page'
 import { navigateToPage } from '../../utils/pages'
-import { Cart } from 'C:/Users/Joseph/Documents/School/CPT 275 Comp Tech Sr Project/GMHP-Pepper-Robot/javascript/src/cart'
+import { goToCartPage } from '../cart-page'
 import { goToItemPage } from '../item-page'
 
-// Create a new instance of Cart
-const cart = new Cart()
-
-export function setupMenuPage() {
+/**
+ * @param {Cart} cart
+ */
+export function setupMenuPage(cart) {
   //Cancel order btn
   $('#main-menu-page .cancel-btn').on('click', function () {
-    $('#cart-items-container').empty()
-    cart.clearCart()
-    cart.updateCartUI()
     navigateToPage('start-page')
+    cart.clearCart()
   })
 
   // View cart btn
   $('#main-menu-page .view-cart-btn').on('click', function () {
-    navigateToPage('cart-page')
+    goToCartPage(cart)
   })
 
   // Setup food categories
@@ -42,7 +41,7 @@ export function setupMenuPage() {
 
     // Append item cards for the specified category
     categoryInfo[divId].forEach(item => {
-      $('#food-items-container').append(itemCardComponent(item.name, item.price, item.calories, item.image))
+      $('#food-items-container').append(itemCardComponent(item))
     })
     $('.food-card').on('click', function () {
       goToItemPage($(this))
@@ -52,6 +51,7 @@ export function setupMenuPage() {
   // Set first category as first
   $('#food-categories-container').children('.food-categories-card').first().trigger('click')
 
+  // Go to item page on card click
   $('#food-items-container').on('click', '.food-card', function () {
     goToItemPage($(this))
   })

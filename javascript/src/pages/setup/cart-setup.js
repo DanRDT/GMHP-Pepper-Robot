@@ -1,7 +1,7 @@
 // @ts-check
-
 import { navigateToPage } from '../../utils/pages'
-import { Cart } from '../../cart.js' // Make sure this path is correct
+import { Cart } from '../../cart.js'
+import { getItemAsObject } from '../../utils/global'
 
 /**
  * @param {Cart} cart
@@ -22,33 +22,23 @@ export function setupCartPage(cart) {
   $('#cart-page').on('click', '.delete-cart-item-btn', function () {
     const itemName = $(this).parents('.cart-item').attr('data-name')
     const itemVariant = $(this).parents('.cart-item').attr('data-variant')
-    cart.removeFromCart({name: itemName, variant: itemVariant})
+    cart.removeFromCart({ name: itemName, variant: itemVariant })
     cart.updateCartUI()
   })
 
   // Plus btn
   $('#cart-page').on('click', '.plus', function () {
-    const itemName = $(this).parents('.cart-item').attr('data-name')
-    const itemVariant = $(this).parents('.cart-item').attr('data-variant')
-    const itemInCart = cart.getCart().find(item => item.name === itemName && item.variant === itemVariant)
-    
-    if (itemInCart) {
-      itemInCart.quantity += 1
-    }
-    cart.updateTotals()
+    const item = getItemAsObject($(this).parents('.cart-item'))
+
+    cart.increaseQuantity(1, item)
     cart.updateCartUI()
   })
-  
+
   // Minus btn
   $('#cart-page').on('click', '.minus', function () {
-    const itemName = $(this).parents('.cart-item').attr('data-name')
-    const itemVariant = $(this).parents('.cart-item').attr('data-variant')
-    const itemInCart = cart.getCart().find(item => item.name === itemName && item.variant === itemVariant)
-    
-    if (itemInCart && itemInCart.quantity > 1) {
-      itemInCart.quantity -= 1
-    }
-    cart.updateTotals()
+    const item = getItemAsObject($(this).parents('.cart-item'))
+
+    cart.decreaseQuantity(1, item)
     cart.updateCartUI()
   })
 

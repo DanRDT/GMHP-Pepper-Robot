@@ -1,16 +1,20 @@
 // @ts-check
+import { Cart } from '../../cart'
 import { navigateToPage } from '../../utils/pages'
-import { updateCartTotals } from '../cart-page'
 
 export function setupStartPage() {
   $('#start-order-btn').on('click', function () {
     navigateToPage('main-menu-page')
   })
 }
-export function setupOrderCompletePage() {
+
+/**
+ * @param {Cart} cart
+ */
+export function setupOrderCompletePage(cart) {
   $('#new-order-btn').on('click', function () {
-    navigateToPage('main-menu-page')
-    $('#cart-items-container').empty()
-    updateCartTotals()
+    navigateToPage('start-page')
+
+    cart.clearCart()
   })
 }

@@ -39,7 +39,7 @@ export function generateRandomString(length) {
 
 /**
  *
- * @param {string} text Text to display in popup
+ * @param {string | number | boolean} text Text to display in popup
  * @param {number} length Time to wait before deleting popup - Default: 3 */
 export function newPopup(text, length = 3) {
   const id = generateRandomString(10)
@@ -49,4 +49,15 @@ export function newPopup(text, length = 3) {
   setTimeout(() => {
     $('#popup-container').children(`[data-id="${id}"]`).remove()
   }, secs(length))
+}
+
+/** @param {JQuery<any>} htmlElement */
+export function getItemAsObject(htmlElement) {
+  const name = htmlElement.attr('data-name')
+  const price = Number(htmlElement.attr('data-price'))
+  const variant = htmlElement.attr('data-variant')
+  const quantity = Number(htmlElement.attr('data-quantity'))
+  const image = htmlElement.attr('data-image')
+
+  return { name, variant, price, quantity, image }
 }

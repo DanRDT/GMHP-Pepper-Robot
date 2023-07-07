@@ -2,7 +2,7 @@
 
 /**
  * @param {string} id
- * @param {string} text */
+ * @param {any} text */
 export function popupComponent(id, text) {
   return `
   <div class="popup" data-id="${id}">

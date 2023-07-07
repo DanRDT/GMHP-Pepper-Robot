@@ -1,7 +1,7 @@
 //@ts-check
 
 import { cartItemComponent } from './jquery-components/cart-page'
-import { twoDecimalPlaces } from './utils/global'
+import { newPopup, twoDecimalPlaces } from './utils/global'
 
 /**
  * @typedef {{
@@ -11,6 +11,15 @@ import { twoDecimalPlaces } from './utils/global'
  *  image: string;
  *  variant: string;
  *  }} CartItem
+ */
+
+/**
+ * @typedef {object} CartItem_Only_Name_Variant
+ * @property {CartItem['name']} name
+ * @property {CartItem['variant']} variant
+ * @property {CartItem['price']} [price] optional
+ * @property {CartItem['quantity']} [quantity] optional
+ * @property {CartItem['image']} [image] optional
  */
 
 export class Cart {
@@ -42,19 +51,49 @@ export class Cart {
     this.updateTotals()
   }
 
-  /** @param {CartItem} param */
-removeFromCart({ name, variant }) {
-  // find index of the item to be removed
-  const index = this.cart.findIndex(item => item.name === name && item.variant === variant);
+  /** @param {CartItem_Only_Name_Variant} param */
+  removeFromCart({ name, variant }) {
+    // find index of the item to be removed
+    const index = this.cart.findIndex(item => item.name === name && item.variant === variant)
 
-  // if the item is found, remove it from the cart
-  if (index !== -1) {
-      this.cart.splice(index, 1);
+    // if the item is found, remove it from the cart
+    if (index !== -1) {
+      this.cart.splice(index, 1)
+    }
+
+    // update the totals
+    this.updateTotals()
   }
 
-  // update the totals
-  this.updateTotals();
-}
+  /**
+   * @param {number} amountToAdd
+   * @param {CartItem_Only_Name_Variant} param */
+  increaseQuantity(amountToAdd, { name, variant }) {
+    const item = this.cart.find(item => item.name === name && item.variant === variant)
+
+    if (item) {
+      item.quantity += amountToAdd
+      this.updateTotals()
+    } else {
+      newPopup('Error: No such item found in cart.')
+    }
+  }
+
+  /**
+   * @param {number} amountToRemove
+   * @param {CartItem_Only_Name_Variant} param */
+  decreaseQuantity(amountToRemove, { name, variant }) {
+    const item = this.cart.find(item => item.name === name && item.variant === variant)
+
+    if (item) {
+      let newQuantity = item.quantity - amountToRemove
+      if (newQuantity < 1) newQuantity = 1
+      item.quantity = newQuantity
+      this.updateTotals()
+    } else {
+      newPopup('Error: No such item found in cart.')
+    }
+  }
 
   updateTotals() {
     let subtotal = 0
@@ -74,17 +113,16 @@ removeFromCart({ name, variant }) {
 
   updateCartUI() {
     // update cart cards
-    const cartItemsContainer = $('#cart-items-container');
-    cartItemsContainer.empty();
-    this.cart.forEach(({ name, price, quantity, image, variant }) => {
-      const cartItem = { name, price, quantity, image, variant };
-      cartItemsContainer.append(cartItemComponent(cartItem));
-    });
-  
+    const cartItemsContainer = $('#cart-items-container')
+    cartItemsContainer.empty()
+    this.cart.forEach(cartItem => {
+      cartItemsContainer.append(cartItemComponent(cartItem))
+    })
+
     // update totals
-    $('#subtotal').text('$' + twoDecimalPlaces(this.totals.subtotal));
-    $('#tax').text('$' + twoDecimalPlaces(this.totals.tax));
-    $('#total').text('$' + twoDecimalPlaces(this.totals.total));
+    $('#subtotal').text('$' + twoDecimalPlaces(this.totals.subtotal))
+    $('#tax').text('$' + twoDecimalPlaces(this.totals.tax))
+    $('#total').text('$' + twoDecimalPlaces(this.totals.total))
   }
 
   clearCart() {
@@ -95,5 +133,4 @@ removeFromCart({ name, variant }) {
       total: 0,
     }
   }
-  
 }
