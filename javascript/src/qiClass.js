@@ -40,13 +40,19 @@ export class QiSessionConnection {
     this.#session = new QiSession(connectionSuccessful.bind(this), connectionFailed.bind(this))
   }
 
-  /** @param {string} speech - What it will say */
-  performSpeech(speech) {
-    this.#session.service('ALAnimatedSpeech').then(function (tts) {
-      // this.#session.service('ALTextToSpeech').then(function (tts) {
-      // tts is the ALTextToSpeech service
-      tts.say(speech)
-    })
+  /**
+   * @param {string} speech - What it will say
+   * @param {boolean} animated - if true it will use `ALAnimatedSpeech` instead of `ALTextToSpeech` - Default: false */
+  performSpeech(speech, animated = false) {
+    if (animated) {
+      this.#session.service('ALAnimatedSpeech').then(function (tts) {
+        tts.say(speech)
+      })
+    } else {
+      this.#session.service('ALTextToSpeech').then(function (tts) {
+        tts.say(speech)
+      })
+    }
   }
 
   /** @param {number} duration - Duration of random eyes */
@@ -60,7 +66,7 @@ export class QiSessionConnection {
   /** Says something random from list of dialogs */
   saySomethingRandom() {
     const dialog = getRandomPepperDialog()
-    this.performSpeech(dialog)
+    this.performSpeech(dialog, true)
   }
 
   /**

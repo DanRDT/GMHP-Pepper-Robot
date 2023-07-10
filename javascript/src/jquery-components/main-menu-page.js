@@ -8,8 +8,7 @@ import { twoDecimalPlaces } from '../utils/global'
  * @param {string} item.variant
  * @param {number} item.price
  * @param {number} item.calories
- * @param {string} item.image
- */
+ * @param {string} item.image */
 export function itemCardComponent({ name, variant, price, calories, image }) {
   return `
   <div id="${name}" class="food-card" data-name="${name}" data-variant="${variant}" data-price="${price}" data-calories="${calories}" data-image="${image}">
@@ -25,10 +24,8 @@ export function itemCardComponent({ name, variant, price, calories, image }) {
 }
 
 /**
- *
  * @param {string} categoryName
- * @param {string} image
- */
+ * @param {string} image */
 export function categoryCardComponent(categoryName, image) {
   return `
   <div id="${categoryName}" class="food-categories-card" data-active="false">

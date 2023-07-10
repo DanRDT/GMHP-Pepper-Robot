@@ -41,10 +41,14 @@ export function setupMenuPage(cart) {
 
     // Append item cards for the specified category
     categoryInfo[divId].forEach(item => {
-      $('#food-items-container').append(itemCardComponent(item))
-    })
-    $('.food-card').on('click', function () {
-      goToItemPage($(this))
+      const itemVariant = {
+        name: item.name,
+        variant: item.variants[0].name,
+        price: item.variants[0].price,
+        calories: item.variants[0].calories,
+        image: item.variants[0].image,
+      }
+      $('#food-items-container').append(itemCardComponent(itemVariant))
     })
   })
 

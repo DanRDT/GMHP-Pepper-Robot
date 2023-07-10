@@ -17,8 +17,10 @@ export class QiSessionConnectionFake {
     }, secs(2))
   }
 
-  /** @param {string} speech - What it will say */
-  performSpeech(speech) {
+  /**
+   * @param {string} speech - What it will say
+   * @param {boolean} animated - if true it will use `ALAnimatedSpeech` instead of `ALTextToSpeech` - Default: false */
+  performSpeech(speech, animated = false) {
     alert(speech)
   }
 

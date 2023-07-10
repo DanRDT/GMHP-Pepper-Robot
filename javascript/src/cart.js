@@ -6,10 +6,10 @@ import { newPopup, twoDecimalPlaces } from './utils/global'
 /**
  * @typedef {{
  *  name: string;
+ *  variant: string;
  *  price: number;
  *  quantity: number;
  *  image: string;
- *  variant: string;
  *  }} CartItem
  */
 
