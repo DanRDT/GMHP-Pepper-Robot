@@ -6,9 +6,10 @@ import { setupMenuPage } from './pages/setup/menu-setup.js'
 import { setupCartPage } from './pages/setup/cart-setup.js'
 import { setupFoodItemPage } from './pages/setup/item-setup.js'
 import { Cart } from './cart.js'
-import { newPopup } from './utils/global.js'
+import { newPopup, secs } from './utils/global.js'
+import { menuItems, sides } from './data/menu.js'
 
-// alert('App Running')
+// newPopup('App Running')
 
 // modify the DOM (Website)
 // Shorthand for

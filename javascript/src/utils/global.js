@@ -29,15 +29,6 @@ export function generateRandomString(length) {
 }
 
 /**
- * @typedef {{
- *  id: string;
- *  text: string;
- *  color: string;
- *  image: string;
- *  }} Popup
- */
-
-/**
  *
  * @param {string | number | boolean} text Text to display in popup
  * @param {number} length Time to wait before deleting popup - Default: 3 */
