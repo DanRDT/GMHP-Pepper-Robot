@@ -1,8 +1,8 @@
-// @ts-check
 import { newPopup, secs } from './utils/global.js'
 import { getRandomPepperDialog } from './utils/pepper.js'
 
 export class QiSessionConnectionFake {
+  #currentlyListening = false
   /** Initializes class and connects to robot */
   constructor() {
     setTimeout(() => {
@@ -31,6 +31,10 @@ export class QiSessionConnectionFake {
     this.performSpeech(dialog)
   }
 
+  /** returns whether or not the speechListener is currently active */
+  currentlyListening() {
+    return this.#currentlyListening
+  }
   /**
    * Function to run went speech recognized.
    * @callback SpeechRecFunction
@@ -47,16 +51,27 @@ export class QiSessionConnectionFake {
   }
 
   /**
-   * Run this after running `setSpeechRecognitionFunc()`
+   * Run this after running `setSpeechRecognitionFunc()` to set the phrases to listen for
    * @param {Array<string>} phrases - An array of phrases or words to listen for
-   * @param {boolean} wordSpotting - If word spotting is disabled (default), the engine expects to hear one of the specified words, nothing more, nothing less. If enabled, the specified words can be pronounced in the middle of a whole speech stream, the engine will try to spot them. */
-  listenForPhrases(phrases, wordSpotting) {}
+   * @param {boolean} wordSpotting - If word spotting is disabled (default), the engine expects to hear one of the specified words, nothing more, nothing less. If enabled, the specified words can be pronounced in the middle of a whole speech stream, the engine will try to spot them.
+   * @param {number} duration - Duration in seconds to listen for
+   * @returns {boolean} If already listening it returns false, Else it returns true.  */
+  listenForPhrases(phrases, wordSpotting, duration) {
+    this.#currentlyListening = true
+    setTimeout(this.stopListening, secs(duration))
+    return true
+  }
   /** Unsubscribes from listener */
-  stopListening() {}
+  stopListening() {
+    this.#currentlyListening = false
+  }
   /**
    * Stops and restarts the speech recognition engine according to the input parameter.
    * @param {boolean} isPaused True (stops ASR) or False (restarts ASR) */
   restartSpeechListener(isPaused = false) {}
+
+  /** @param {string} moduleName  */
+  removeModule(moduleName) {}
 }
 
 /** @param {[string, number]} value */

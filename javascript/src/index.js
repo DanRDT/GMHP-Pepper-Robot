@@ -7,8 +7,9 @@ import { setupCartPage } from './pages/setup/cart-setup.js'
 import { setupFoodItemPage } from './pages/setup/item-setup.js'
 import { Cart } from './cart.js'
 import { newPopup, secs } from './utils/global.js'
+import { menuItems, sides } from './data/menu.js'
 
-newPopup('App Running')
+// newPopup('App Running')
 
 // modify the DOM (Website)
 // Shorthand for
@@ -34,16 +35,9 @@ $(function () {
 
   session.setSpeechRecognitionFunc()
   $('#start-order-btn').on('click', function () {
-    // session.stopListening()
-    // newPopup('stop listening')
-    session.listenForPhrases(['How are you doing', 'Whats up', 'Testing Pepper'], false)
-    newPopup('start listening')
+    session.listenForPhrases(['Testing Pepper', 'How you doing Pepper'], false, 15)
   })
   $('#main-menu-page .cancel-btn').on('click', function () {
-    // session.stopListening()
-    // newPopup('stop listening')
-    session.changePhrases(['add to my order', 'start order', 'clear order', 'place order'], false)
-    session.restartSpeechListener()
-    newPopup('start listening')
+    session.stopListening()
   })
 })

@@ -3,6 +3,14 @@ const { EnvironmentPlugin } = require('webpack')
 
 // exports final file to /project/html/app.js
 module.exports = {
+  plugins: [
+    new EnvironmentPlugin({
+      EMAIL_HOST: 'smtp-mail.outlook.com', // Email smtp server address
+      EMAIL_USERNAME: '', // Email address from which your sending
+      EMAIL_PASSWORD: '', // Password for that email
+      ORDERS_API: '', // Where to send orders in json format after order was completed
+    }),
+  ],
   entry: './src/index.js',
   output: {
     filename: 'app.js',
@@ -44,9 +52,4 @@ module.exports = {
       },
     ],
   },
-  plugins: [
-    new EnvironmentPlugin({
-      ORDERS_API_LINK: 'https://localhost:5500/project/html/orders',
-    }),
-  ],
 }

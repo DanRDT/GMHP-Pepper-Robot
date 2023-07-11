@@ -61,6 +61,11 @@ export class QiSessionConnection {
     this.performSpeech(dialog)
   }
 
+  /** returns whether or not the speechListener is currently active */
+  currentlyListening() {
+    return this.#currentlyListening
+  }
+
   /**
    * Function to run went speech recognized.
    * @callback SpeechRecFunction
@@ -74,29 +79,29 @@ export class QiSessionConnection {
     if (this.#wordRecognizedSubscriberSignalLink && this.#wordRecognizedSubscriber)
       this.#wordRecognizedSubscriber.signal.disconnect(this.#wordRecognizedSubscriberSignalLink)
 
-    const boundSpeechRecFunction = speechRecFunction.bind(this)
+    const speechRecFunctionBound = speechRecFunction.bind(this)
 
     function setSignalLink(link) {
       this.#wordRecognizedSubscriberSignalLink = link
       // newPopup(`Link: ${link}`)
     }
-    const boundSetSignalLink = setSignalLink.bind(this)
+    const setSignalLinkBound = setSignalLink.bind(this)
 
     function subscriberFunc(subscriber) {
       this.#wordRecognizedSubscriber = subscriber
       // connect to subscriber
-      this.#wordRecognizedSubscriber.signal.connect(boundSpeechRecFunction).then(boundSetSignalLink, function (error) {
+      this.#wordRecognizedSubscriber.signal.connect(speechRecFunctionBound).then(setSignalLinkBound, function (error) {
         newPopup('An error occurred: ' + error)
       })
     }
-    const boundSubscriberFunc = subscriberFunc.bind(this)
+    const subscriberFuncBound = subscriberFunc.bind(this)
 
     function waitForSession() {
       if (this.#session) {
         // connect to ALMemory
         this.#session.service('ALMemory').then(function (ALMemory) {
           // subscribe to event listener
-          ALMemory.subscriber('WordRecognized').then(boundSubscriberFunc)
+          ALMemory.subscriber('WordRecognized').then(subscriberFuncBound)
         })
         clearInterval(interval)
       }
@@ -106,73 +111,78 @@ export class QiSessionConnection {
   }
 
   /**
-   * Run this after running `setSpeechRecognitionFunc()`
+   * Run this after running `setSpeechRecognitionFunc()` to set the phrases to listen for
    * @param {Array<string>} phrases - An array of phrases or words to listen for
-   * @param {boolean} wordSpotting - If word spotting is disabled (default), the engine expects to hear one of the specified words, nothing more, nothing less. If enabled, the specified words can be pronounced in the middle of a whole speech stream, the engine will try to spot them. */
-  listenForPhrases(phrases, wordSpotting) {
-    // more specific?
-    // if (this.#speechListener) this.stopListening
-    // this.restartSpeechListener()
+   * @param {boolean} wordSpotting - If word spotting is disabled (default), the engine expects to hear one of the specified words, nothing more, nothing less. If enabled, the specified words can be pronounced in the middle of a whole speech stream, the engine will try to spot them.
+   * @param {number} duration - Duration in seconds to listen for
+   * @returns {boolean} If already listening it returns false, Else it returns true.  */
+  listenForPhrases(phrases, wordSpotting, duration) {
+    if (this.#currentlyListening) return false
 
     function subscribeToSpeech(asr) {
       this.#speechListener = asr
       this.#speechListener.setVocabulary(phrases, wordSpotting)
 
-      //
       function setActive() {
-        this.#currentlyListening = false
-        newPopup('started')
+        this.#currentlyListening = true
+        newPopup('Listening...')
       }
-      const boundSetActive = setActive.bind(this)
-      // start listening
+      const setActiveBound = setActive.bind(this)
 
-      // if (this.#currentlyListening) {
-      //   function waitForNotListening() {
-      //     if (!this.#currentlyListening) {
-      this.#speechListener.subscribe('ListenerID')
-      //       clearInterval(interval)
-      //     }
-      //   }
-      //   const waitForNotListeningBound = waitForNotListening.bind(this)
-      //   const interval = setInterval(waitForNotListeningBound, secs(0.3))
-      // } else this.#speechListener.subscribe('ListenerID').then(boundSetActive)
+      // // start listening
+      this.#speechListener.subscribe('ListenerID').then(setActiveBound)
     }
     const subscribeToSpeechBound = subscribeToSpeech.bind(this)
 
-    // if (this.#currentlyListening) {
-    // function waitForNotListening() {
-    // if (!this.#currentlyListening) {
     this.#session.service('ALSpeechRecognition').then(subscribeToSpeechBound)
-    // clearInterval(interval)
-    //     }
-    //   }
-    //   const waitForNotListeningBound = waitForNotListening.bind(this)
-    //   const interval = setInterval(waitForNotListeningBound, secs(0.3))
-    // } else this.#session.service('ALSpeechRecognition').then(subscribeToSpeechBound)
+
+    function stopAfterDuration() {
+      if (this.#currentlyListening) this.stopListening()
+    }
+    const stopAfterDurationBound = stopAfterDuration.bind(this)
+    let checkedDuration = duration < 0 ? 0 : duration // prevent negatives
+    setTimeout(stopAfterDurationBound, secs(checkedDuration))
+    return true
   }
 
-  changePhrases(phrases, wordSpotting) {
-    this.#speechListener.setVocabulary(phrases, wordSpotting)
-  }
   /** Unsubscribes from listener */
   stopListening() {
-    if (!this.#speechListener) return
-    function setInactive() {
-      newPopup('stopped.')
-      this.#currentlyListening = false
+    if (!this.#speechListener || !this.#currentlyListening) return
+
+    function stopListener() {
+      this.restartSpeechListener(true)
     }
-    const boundSetInactive = setInactive.bind(this)
-    this.#speechListener.unsubscribe('ListenerID').then(boundSetInactive)
+    const stopListenerBound = stopListener.bind(this)
+    this.#speechListener.unsubscribe('ListenerID').then(stopListenerBound)
   }
   /**
    * Stops and restarts the speech recognition engine according to the input parameter.
    * @param {boolean} isPaused True (stops ASR) or False (restarts ASR) */
   restartSpeechListener(isPaused = false) {
-    this.#speechListener.pause(isPaused)
+    function removeContext() {
+      function setInactive() {
+        this.#currentlyListening = false
+      }
+      const setInactiveBound = setInactive.bind(this)
+
+      this.#speechListener.removeAllContext().then(setInactiveBound)
+    }
+    const removeContextBound = removeContext.bind(this)
+
+    this.#speechListener.pause(isPaused).then(removeContextBound)
+  }
+
+  /** @param {string} moduleName  */
+  removeModule(moduleName) {
+    function unregister(memory) {
+      memory.unregisterModuleReference(moduleName)
+    }
+    this.#session.service('ALMemory').then(unregister)
   }
 }
 
 /** @param {[string, number]} value */
 function defaultSpeechRecFunction(value) {
-  newPopup(`String heard: ${value[0]}, Confidence: ${value[1]}`)
+  if (value[1] <= 0) newPopup('Stopped Listening')
+  else newPopup(`String heard: ${value[0]}, Confidence: ${value[1]}`)
 }
