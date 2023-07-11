@@ -18,7 +18,10 @@ export function cartItemComponent(item) {
       <img src="./resources/images/${image}" alt="" />
     </div>  
     <div class="details">
-      <h4 class="cart-item-name">${name}</h4>
+      <div class="cart-item-name-container">
+        <h4 class="text-nowrap">${name}</h4>
+        <h5 class="cart-item-variant">${variant}</h5>
+      </div>
       <div class="delete-cart-item-btn">
         <img src="./resources/images/other/x-shape.svg" alt="" />
       </div>

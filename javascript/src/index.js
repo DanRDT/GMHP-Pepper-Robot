@@ -7,7 +7,7 @@ import { setupCartPage } from './pages/setup/cart-setup.js'
 import { setupFoodItemPage } from './pages/setup/item-setup.js'
 import { Cart } from './cart.js'
 import { newPopup, secs } from './utils/global.js'
-import { menuItems, sides } from './data/menu.js'
+import { menuItems } from './data/menu.js'
 
 // newPopup('App Running')
 

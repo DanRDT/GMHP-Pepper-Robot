@@ -19,7 +19,7 @@ export function itemCardComponent({ name, variant, price, calories, image }) {
     </div>
     <div class="flex-grow"></div>
     <p class="text-center font-semibold">${name}</p>
-  </div> 
+  </div>
   `
 }
 
