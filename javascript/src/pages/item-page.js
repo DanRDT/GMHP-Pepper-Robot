@@ -1,5 +1,6 @@
 // @ts-check
 
+import { menuItems } from '../data/menu'
 import { twoDecimalPlaces } from '../utils/global'
 import { navigateToPage } from '../utils/pages'
 
@@ -13,12 +14,32 @@ export function goToItemPage(itemCard) {
 
   navigateToPage('food-item-page')
 
+  let item = {
+    name: 'No Item Found',
+    variants: [
+      {
+        name: 'Reg',
+        price: 0,
+        calories: 0,
+        image: '',
+      },
+    ],
+  }
+  menuItems.map(menuItem => {
+    if (menuItem.name === name) item = menuItem
+  })
+
   // set attributes
   $('#food-item-page').attr('data-name', name)
   $('#food-item-page').attr('data-price', price)
   $('#food-item-page').attr('data-image', image)
   $('#food-item-page').attr('data-variant', variant)
   $('#food-item-page').attr('data-quantity', '1')
+
+  $('.quantity').off('click')
+  $('.quantity').on('click', function () {
+    console.log('hey')
+  })
 
   // set user visible text
   $('#food-item-page #item-page-name').text(name)

@@ -3,7 +3,6 @@ import { getRandomPepperDialog } from './utils/pepper.js'
 
 export class QiSessionConnection {
   // variables
-  // `#` means private
   #session
   #connected = false
   #speechListener
@@ -21,7 +20,12 @@ export class QiSessionConnection {
       this.#connected = false
       $('#connection-status').text(`Disconnected`)
     }
-    this.#session = new QiSession(connectionSuccessful.bind(this), connectionFailed.bind(this))
+    try {
+      this.#session = new QiSession(connectionSuccessful.bind(this), connectionFailed.bind(this))
+    } catch (error) {
+      newPopup(`Can't connect to robot. Using fake connection instead.`, 5)
+      this.#session = {}
+    }
   }
 
   /** Resets connection with robot */

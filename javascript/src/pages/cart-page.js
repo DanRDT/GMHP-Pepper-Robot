@@ -12,3 +12,9 @@ export function goToCartPage(cart) {
   navigateToPage('cart-page')
   cart.updateCartUI()
 }
+
+/** @param {Cart} cart */
+export function placeOrder(cart) {
+  const items = cart.getCart()
+  // Place order code goes here
+}

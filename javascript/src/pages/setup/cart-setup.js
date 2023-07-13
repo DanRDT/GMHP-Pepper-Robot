@@ -2,6 +2,7 @@
 import { navigateToPage } from '../../utils/pages'
 import { Cart } from '../../cart.js'
 import { getItemAsObject } from '../../utils/global'
+import { placeOrder } from '../cart-page'
 
 /**
  * @param {Cart} cart
@@ -45,6 +46,8 @@ export function setupCartPage(cart) {
   // Place order btn
   $('#cart-confirm-order').on('click', function () {
     navigateToPage('order-complete-page')
+
+    placeOrder(cart)
     cart.clearCart()
   })
 }
