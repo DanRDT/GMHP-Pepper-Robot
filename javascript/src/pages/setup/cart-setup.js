@@ -44,7 +44,7 @@ export function setupCartPage(cart) {
   })
 
   // Place order btn
-  $('#cart-confirm-order').on('click', function () {
+  $('#place-order-btn').on('click', function () {
     navigateToPage('order-complete-page')
 
     placeOrder(cart)

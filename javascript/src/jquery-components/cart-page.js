@@ -9,11 +9,12 @@ import { twoDecimalPlaces } from '../utils/global'
  * @param {number} item.quantity
  * @param {string} item.image
  * @param {string} item.variant
+ * @param {number} item.calories
  */
 export function cartItemComponent(item) {
-  const { name, price, quantity, image, variant } = item
+  const { name, price, quantity, image, variant, calories } = item
   return `
-  <div class="cart-item" data-name="${name}" data-variant="${variant}" data-price="${price}" data-image="${image}" data-quantity="${quantity}">
+  <div class="cart-item" data-name="${name}" data-variant="${variant}" data-price="${price}" data-image="${image}" data-quantity="${quantity}" data-calories="${calories}">
     <div class="cart-item-image">
       <img src="./resources/images/${image}" alt="" />
     </div>  

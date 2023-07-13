@@ -23,7 +23,8 @@ export class QiSessionConnection {
     try {
       this.#session = new QiSession(connectionSuccessful.bind(this), connectionFailed.bind(this))
     } catch (error) {
-      newPopup(`Can't connect to robot. Using fake connection instead.`, 5)
+      newPopup(`Can't connect to robot`, 5)
+      $('#connection-status').text(`Failed to connect`)
       this.#session = {}
     }
   }
@@ -39,7 +40,13 @@ export class QiSessionConnection {
       this.#connected = false
       $('#connection-status').text(`Disconnected`)
     }
-    this.#session = new QiSession(connectionSuccessful.bind(this), connectionFailed.bind(this))
+    try {
+      this.#session = new QiSession(connectionSuccessful.bind(this), connectionFailed.bind(this))
+    } catch (error) {
+      newPopup(`Can't connect to robot`, 5)
+      $('#connection-status').text(`Failed to connect`)
+      this.#session = {}
+    }
   }
 
   /**
@@ -126,7 +133,7 @@ export class QiSessionConnection {
    * @param {boolean} wordSpotting - If word spotting is disabled (default), the engine expects to hear one of the specified words, nothing more, nothing less. If enabled, the specified words can be pronounced in the middle of a whole speech stream, the engine will try to spot them.
    * @param {number} duration - Duration in seconds to listen for
    * @returns {boolean} If already listening it returns false, Else it returns true.  */
-  listenForPhrases(phrases, wordSpotting, duration) {
+  startListening(phrases, wordSpotting, duration) {
     if (this.#currentlyListening) return false
 
     function subscribeToSpeech(asr) {
@@ -182,13 +189,30 @@ export class QiSessionConnection {
     this.#speechListener.pause(isPaused).then(removeContextBound)
   }
 
-  /** @param {string} moduleName  */
-  removeModule(moduleName) {
-    function unregister(memory) {
-      memory.unregisterModuleReference(moduleName)
+  /**
+   * Run this after running `setSpeechRecognitionFunc()` to set the phrases to listen for
+   * @param {Array<string>} phrases - An array of phrases or words to listen for
+   * @param {boolean} wordSpotting - If word spotting is disabled (default), the engine expects to hear one of the specified words, nothing more, nothing less. If enabled, the specified words can be pronounced in the middle of a whole speech stream, the engine will try to spot them.
+   * @param {number} duration - Duration in seconds to listen for */
+  listenForPhrases(phrases, wordSpotting, duration) {
+    this.stopListening()
+
+    function checkIfStillListening() {
+      if (!this.#currentlyListening) {
+        clearInterval(interval)
+        this.startListening(phrases, wordSpotting, duration)
+      }
     }
-    this.#session.service('ALMemory').then(unregister)
+    const interval = setInterval(checkIfStillListening.bind(this), secs(0.1))
   }
+
+  // /** @param {string} moduleName  */
+  // removeModule(moduleName) {
+  //   function unregister(memory) {
+  //     memory.unregisterModuleReference(moduleName)
+  //   }
+  //   this.#session.service('ALMemory').then(unregister)
+  // }
 }
 
 /** @param {[string, number]} value */

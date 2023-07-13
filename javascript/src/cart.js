@@ -1,5 +1,5 @@
 //@ts-check
-
+// This file contains all the logic to do with manipulating the cart
 import { cartItemComponent } from './jquery-components/cart-page'
 import { newPopup, twoDecimalPlaces } from './utils/global'
 
@@ -10,9 +10,9 @@ import { newPopup, twoDecimalPlaces } from './utils/global'
  *  price: number;
  *  quantity: number;
  *  image: string;
+ *  calories: number;
  *  }} CartItem
  */
-
 /**
  * @typedef {object} CartItem_Only_Name_Variant
  * @property {CartItem['name']} name
@@ -20,6 +20,7 @@ import { newPopup, twoDecimalPlaces } from './utils/global'
  * @property {CartItem['price']} [price] optional
  * @property {CartItem['quantity']} [quantity] optional
  * @property {CartItem['image']} [image] optional
+ * @property {CartItem['calories']} [calories] optional
  */
 
 export class Cart {
@@ -36,7 +37,7 @@ export class Cart {
   }
 
   /** @param {CartItem} param */
-  addToCart({ name, price, quantity, image, variant }) {
+  addToCart({ name, variant, price, quantity, image, calories }) {
     /** @param {CartItem} cartItem */
     function whereNameAndVariantIsSame(cartItem) {
       if (cartItem.name === name && cartItem.variant === variant) return true
@@ -45,7 +46,7 @@ export class Cart {
     // check if item exists in cart
     const existingIndex = this.cart.findIndex(whereNameAndVariantIsSame)
 
-    if (existingIndex === -1) this.cart.push({ name, price, quantity, image, variant })
+    if (existingIndex === -1) this.cart.push({ name, variant, price, quantity, image, calories })
     else this.cart[existingIndex].quantity += quantity
 
     this.updateTotals()

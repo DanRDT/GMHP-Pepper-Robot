@@ -166,9 +166,9 @@ export const coffeeItems = [
   {
     name: 'Iced Coffee',
     variants: [
-      { name: 'small', price: 2.5, calories: 30, image: 'menu/smallicedcoffee.jpg' },
-      { name: 'medium', price: 2.5, calories: 30, image: 'menu/smallicedcoffee.jpg' },
-      { name: 'large', price: 2.5, calories: 30, image: 'menu/smallicedcoffee.jpg' },
+      { name: 'S', price: 2.5, calories: 30, image: 'menu/smallicedcoffee.jpg' },
+      { name: 'M', price: 3.5, calories: 40, image: 'menu/smallcoffee.jpg' },
+      { name: 'L', price: 4.5, calories: 50, image: 'menu/americano.jpg' },
     ],
   },
   {

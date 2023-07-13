@@ -4,9 +4,7 @@ import { navigateToPage } from '../../utils/pages'
 import { Cart } from '../../cart.js'
 import { goToCartPage } from '../cart-page'
 
-/**
- * @param {Cart} cart
- */
+/** @param {Cart} cart */
 export function setupFoodItemPage(cart) {
   // View cart btn
   $('#food-item-page .view-cart-btn').on('click', function () {
@@ -16,7 +14,8 @@ export function setupFoodItemPage(cart) {
   $('#food-item-page .return-btn').on('click', function () {
     navigateToPage('main-menu-page')
   })
-  //Add item to cart
+
+  //Add item to cart btn
   $('#food-item-page .add-to-cart').on('click', function () {
     const page = $('#food-item-page')
     const item = getItemAsObject(page)

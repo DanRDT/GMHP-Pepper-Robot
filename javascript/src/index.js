@@ -1,32 +1,36 @@
 // @ts-check
+// All javascript code starts here
 import { QiSessionConnection } from './qiClass.js'
 import { setupOrderCompletePage, setupStartPage } from './pages/setup/other-setup.js'
 import { setupMenuPage } from './pages/setup/menu-setup.js'
 import { setupCartPage } from './pages/setup/cart-setup.js'
 import { setupFoodItemPage } from './pages/setup/item-setup.js'
 import { Cart } from './cart.js'
-import { newPopup, secs } from './utils/global.js'
+import { setupVoiceAssistant } from './voiceAssistant/setup.js'
+import { newPopup } from './utils/global.js'
+import { verifyMenuItems } from './pages/setup/verify-data.js'
 import { menuItems } from './data/menu.js'
-import { goToCartPage } from './pages/cart-page.js'
-import { navigateToPage } from './utils/pages.js'
-import { setupVoiceAssistant } from './pages/voiceAssistant.js'
 
-// newPopup('App Running')
+newPopup('App Running')
 
-// modify the DOM (Website)
-// Shorthand for
-// $(document).ready(function () {
+// Code that is run when the website has been loaded
 $(function () {
   // connect to robot
   const session = new QiSessionConnection()
 
+  // create cart object that is used throughout the project
   const cart = new Cart()
 
-  // Setup Pages
+  // verify menuItems are in correct format
+  verifyMenuItems(menuItems)
+
+  // Setup Pages and setup their button event listeners
   setupStartPage()
   setupMenuPage(cart)
   setupCartPage(cart)
   setupFoodItemPage(cart)
   setupOrderCompletePage(cart)
+
+  // Setup Voice Assistant Code
   setupVoiceAssistant(cart, session)
 })
