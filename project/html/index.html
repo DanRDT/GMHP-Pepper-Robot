@@ -14,17 +14,27 @@
     <main>
       <p id="connection-status">Trying to Connect...</p>
       <div id="popup-container"></div>
+      <div id="voice-assistant-container" data-active="false">
+        <div id="voice-assistant-btn">
+          <img class="voice-assistant-activate-btn mic-image" src="resources/images/other/mic.png" alt="" />
+          <img class="voice-assistant-cancel-btn siri-image" src="resources/images/other/siri.png" alt="" />
+          <img class="voice-assistant-cancel-btn x-button" class="" src="resources/images/other/circle-x.svg" alt="" />
+        </div>
+        <div id="voice-assistant-text-bubbles-container">
+          <div id="voice-assistant-text-bubbles"><!-- Generated --></div>
+          <div id="user-options-container"><!-- Generated --></div>
+        </div>
+      </div>
       <section id="start-page">
         <img class="scc-logo" src="./resources/images/scc/scc-logo.png" alt="" />
-        <h1 class="font-semibold" style="padding-top: 2rem">Hello! Welcome to Chaser's Cafe!</h1>
-        <h2 style="padding-top: 2rem">To order, please say “Order” or “Hello” to Pepper</h2>
-        <h4 class="text-center" style="padding-top: 3rem">
-          If you do not wish to interact with Pepper, Push the<br />button below to start your order<br />Thank you!
-        </h4>
+        <h1 class="font-semibold" style="padding-top: 2rem">Welcome to Chaser's Cafe!</h1>
+        <h2 style="padding-top: 4rem">To order, press “Start Order” or the Voice Assistant Button</h2>
         <button id="start-order-btn" class="flex-center">
           <h3 class="font-raleway text-center">Start My <br />Order</h3>
         </button>
         <img class="chaser-paw" src="./resources/images/scc/chaser-dog-paw.png" alt="" />
+        <img class="curved-arrow" src="./resources/images/other/curved-arrow.svg" alt="" />
+        <h3 class="curved-arrow-text">Press to talk with Pepper</h3>
       </section>
       <section id="main-menu-page">
         <header>

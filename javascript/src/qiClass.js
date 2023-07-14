@@ -25,12 +25,13 @@ export class QiSessionConnection {
     } catch (error) {
       newPopup(`Can't connect to robot`, 5)
       $('#connection-status').text(`Failed to connect`)
-      this.#session = {}
+      this.#session = null
     }
   }
 
   /** Resets connection with robot */
   resetConnection() {
+    if (!this.#session) return
     this.#connected = false
     function connectionSuccessful(session) {
       this.#connected = true
@@ -53,6 +54,7 @@ export class QiSessionConnection {
    * @param {string} speech - What it will say
    * @param {boolean} animated - if true it will use `ALAnimatedSpeech` instead of `ALTextToSpeech` - Default: false */
   performSpeech(speech, animated = false) {
+    if (!this.#session) return
     if (animated) {
       this.#session.service('ALAnimatedSpeech').then(function (tts) {
         tts.say(speech)
@@ -66,6 +68,7 @@ export class QiSessionConnection {
 
   /** @param {number} duration - Duration of random eyes */
   randomEyes(duration) {
+    if (!this.#session) return
     this.#session.service('ALLeds').then(function (leds) {
       // leds is the ALLeds service
       leds.rasta(duration)
@@ -92,11 +95,16 @@ export class QiSessionConnection {
    * Sets the function that will be run when speech is recognized
    *  @param {SpeechRecFunction} speechRecFunction */
   setSpeechRecognitionFunc(speechRecFunction = defaultSpeechRecFunction) {
-    // more specific?
+    if (!this.#session) return
     if (this.#wordRecognizedSubscriberSignalLink && this.#wordRecognizedSubscriber)
       this.#wordRecognizedSubscriber.signal.disconnect(this.#wordRecognizedSubscriberSignalLink)
 
-    const speechRecFunctionBound = speechRecFunction.bind(this)
+    /** @param {[string, number]} data */
+    function speechRecFunctionWrapper(data) {
+      const speechRecFunctionBound = speechRecFunction.bind(this)
+      speechRecFunctionBound([data[0].replace(/<...>/g, ''), data[1]])
+    }
+    const speechRecFunctionWrapperBound = speechRecFunctionWrapper.bind(this)
 
     function setSignalLink(link) {
       this.#wordRecognizedSubscriberSignalLink = link
@@ -107,9 +115,11 @@ export class QiSessionConnection {
     function subscriberFunc(subscriber) {
       this.#wordRecognizedSubscriber = subscriber
       // connect to subscriber
-      this.#wordRecognizedSubscriber.signal.connect(speechRecFunctionBound).then(setSignalLinkBound, function (error) {
-        newPopup('An error occurred: ' + error)
-      })
+      this.#wordRecognizedSubscriber.signal
+        .connect(speechRecFunctionWrapperBound)
+        .then(setSignalLinkBound, function (error) {
+          newPopup('An error occurred: ' + error)
+        })
     }
     const subscriberFuncBound = subscriberFunc.bind(this)
 
@@ -134,6 +144,7 @@ export class QiSessionConnection {
    * @param {number} duration - Duration in seconds to listen for
    * @returns {boolean} If already listening it returns false, Else it returns true.  */
   startListening(phrases, wordSpotting, duration) {
+    if (!this.#session) return
     if (this.#currentlyListening) return false
 
     function subscribeToSpeech(asr) {
@@ -142,7 +153,7 @@ export class QiSessionConnection {
 
       function setActive() {
         this.#currentlyListening = true
-        newPopup('Listening...')
+        newPopup('Listening...') // TODO change
       }
       const setActiveBound = setActive.bind(this)
 
@@ -164,6 +175,7 @@ export class QiSessionConnection {
 
   /** Unsubscribes from listener */
   stopListening() {
+    if (!this.#session) return
     if (!this.#speechListener || !this.#currentlyListening) return
 
     function stopListener() {
@@ -176,6 +188,7 @@ export class QiSessionConnection {
    * Stops and restarts the speech recognition engine according to the input parameter.
    * @param {boolean} isPaused True (stops ASR) or False (restarts ASR) */
   restartSpeechListener(isPaused = false) {
+    if (!this.#session) return
     function removeContext() {
       function setInactive() {
         this.#currentlyListening = false
@@ -195,6 +208,7 @@ export class QiSessionConnection {
    * @param {boolean} wordSpotting - If word spotting is disabled (default), the engine expects to hear one of the specified words, nothing more, nothing less. If enabled, the specified words can be pronounced in the middle of a whole speech stream, the engine will try to spot them.
    * @param {number} duration - Duration in seconds to listen for */
   listenForPhrases(phrases, wordSpotting, duration) {
+    if (!this.#session) return
     this.stopListening()
 
     function checkIfStillListening() {
@@ -215,8 +229,9 @@ export class QiSessionConnection {
   // }
 }
 
-/** @param {[string, number]} value */
-function defaultSpeechRecFunction(value) {
-  if (value[1] <= 0) newPopup('Stopped Listening')
-  else newPopup(`String heard: ${value[0]}, Confidence: ${value[1]}`)
+/** @param {[string, number]} data */
+function defaultSpeechRecFunction(data) {
+  const [value, confidence] = data
+  if (confidence <= 0) newPopup('Stopped Listening')
+  else newPopup(`String heard: ${value}, Confidence: ${confidence}`)
 }

@@ -14,3 +14,11 @@ export const listOfRandomPepperDialogs = [
   'hope your turing good!',
   'i am a robot',
 ]
+
+export const listOfRandomPepperHowCanIHelpDialogs = [
+  'How can I help?',
+  'What can I help you with?',
+  'What can I do for you?',
+  'Hello, how can I help?',
+  `What's up?`,
+]

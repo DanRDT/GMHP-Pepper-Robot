@@ -4,9 +4,11 @@ import { Cart } from '../cart'
 import { menuItems } from '../data/menu'
 import { goToCartPage } from '../pages/cart-page'
 import { QiSessionConnection } from '../qiClass'
-import { secs } from '../utils/global'
+import { newPopup, secs } from '../utils/global'
 import { navigateToPage } from '../utils/pages'
+import { getRandomPepperHowCanIHelp } from '../utils/pepper'
 import { addItemToOrderVoiceAssistant } from './addToOrder'
+import { newRobotChat, newUserOptions } from './textPopups'
 
 /**
  * @param {Cart} cart
@@ -63,7 +65,8 @@ export function setupVoiceAssistant(cart, session) {
   }
 
   // Voice assistant btn
-  $('#voice-assistant-btn').on('click', function () {
+  $('.voice-assistant-activate-btn').on('click', function () {
+    resetVoiceAssistantTextBubbles()
     // set function that will run when phrase is heard
     session.setSpeechRecognitionFunc(voiceAssistant)
     // phrases to listen for
@@ -80,16 +83,27 @@ export function setupVoiceAssistant(cart, session) {
     ]
     // set phrases to listen for and the length of time in seconds to listen for
     session.listenForPhrases(voiceAssistantValues, false, 25)
-    $(this).attr('data-active', 'true') // set btn active
+    const howCanIHelp = getRandomPepperHowCanIHelp()
+    session.performSpeech(howCanIHelp, true)
+    console.log('yes')
+    newRobotChat(howCanIHelp)
+    newUserOptions(voiceAssistantValues)
+    $('#voice-assistant-container').attr('data-active', 'true') // set inactive
   })
 
-  // Voice assistant btn after it was set to active
-  $('#voice-assistant-cancel-btn').on('click', function () {
+  // Voice assistant cancel btn
+  $('.voice-assistant-cancel-btn').on('click', function () {
     session.stopListening() // Stop listening early
-    $(this).attr('data-active', 'false') // set btn inactive
+    $('#voice-assistant-container').attr('data-active', 'false') // set inactive
+    resetVoiceAssistantTextBubbles()
   })
 }
 
 export function cancelVoiceAssistant() {
-  $('#voice-assistant-cancel-btn').trigger('click')
+  $('.voice-assistant-cancel-btn.x-button').trigger('click')
+}
+
+export function resetVoiceAssistantTextBubbles() {
+  $('#voice-assistant-text-bubbles').empty()
+  $('#user-options-container').empty()
 }

@@ -141,6 +141,12 @@
         <File name="plus" src="html/resources/images/other/plus.svg" />
         <File name="x-shape" src="html/resources/images/other/x-shape.svg" />
         <File name="bag-icon" src="html/resources/images/other/bag-icon.svg" />
+        <File name="siri" src="html/resources/images/other/siri.png" />
+        <File name="circle-x" src="html/resources/images/other/circle-x.svg" />
+        <File name="curved-arrow" src="html/resources/images/other/curved-arrow.svg" />
+        <File name="mic" src="html/resources/images/other/mic.png" />
+        <File name="mic" src="html/resources/images/other/mic.svg" />
+        <File name="waves" src="html/resources/images/other/waves.png" />
     </Resources>
     <Topics />
     <IgnoredPaths />

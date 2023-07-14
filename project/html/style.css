@@ -152,7 +152,7 @@ h5 {
   left: 0;
   width: 100%;
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   align-items: center;
   z-index: 100;
   pointer-events: none;
@@ -168,6 +168,170 @@ h5 {
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 1px solid #363636;
+}
+/* Voice Assistant */
+#voice-assistant-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-content: flex-start;
+  z-index: 110;
+  pointer-events: none;
+}
+#voice-assistant-btn {
+  position: relative;
+  pointer-events: all;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  width: 5rem;
+  height: 5rem;
+  margin-bottom: 0.7rem;
+  z-index: 5;
+}
+.siri-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  animation: fade 3s linear infinite, spin 25s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes fade {
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes scale {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.mic-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 100px;
+  /* background-image: url(./resources/images/other/waves.png); */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #0a0644;
+  background-color: #dadada;
+  border: 1px solid #283153;
+}
+#voice-assistant-btn .x-button {
+  position: absolute;
+  right: -4rem;
+  /* top: 1rem; */
+  height: 3.25rem;
+  width: 3.25rem;
+}
+
+#voice-assistant-container[data-active='false'] .voice-assistant-cancel-btn {
+  visibility: hidden;
+}
+#voice-assistant-container[data-active='false'] .voice-assistant-activate-btn {
+  visibility: visible;
+}
+#voice-assistant-container[data-active='true'] .voice-assistant-cancel-btn {
+  visibility: visible;
+}
+#voice-assistant-container[data-active='true'] .voice-assistant-activate-btn {
+  visibility: hidden;
+}
+
+#voice-assistant-text-bubbles-container {
+  background-color: rgba(0, 0, 0, 0.85);
+  position: absolute;
+  margin-bottom: 0.5rem;
+  bottom: 5.8rem;
+  display: flex;
+  flex-direction: column;
+  width: 40rem;
+  min-height: 2rem;
+  max-height: 42rem;
+  border-radius: 2rem;
+  pointer-events: all;
+}
+#voice-assistant-text-bubbles {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  border-radius: 2rem;
+  padding-top: 1.5rem;
+  padding-bottom: 0.8rem;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  -ms-overflow-style: none;
+}
+
+#voice-assistant-text-bubbles > * {
+  margin-bottom: 0.5rem;
+}
+#voice-assistant-text-bubbles > *:last-of-type {
+  margin-bottom: 0;
+}
+#voice-assistant-container[data-active='false'] #voice-assistant-text-bubbles-container {
+  visibility: hidden;
+}
+
+#voice-assistant-text-bubbles-container .robot-speech {
+  color: white;
+  padding: 0.7rem 1rem;
+  margin-left: 1.3rem;
+  background-color: #293874;
+  border-radius: 13px;
+  width: fit-content;
+  max-width: 32rem;
+}
+#voice-assistant-text-bubbles-container .user-speech {
+  color: white;
+  padding: 0.7rem 1rem;
+  margin-right: 1.3rem;
+  background-color: #425466;
+  border-radius: 13px;
+  width: fit-content;
+  max-width: 32rem;
+  align-self: flex-end;
+}
+
+#voice-assistant-text-bubbles-container #user-options-container {
+  display: flex;
+  max-width: 100%;
+  overflow-x: scroll;
+  padding: 0 1rem;
+  margin-bottom: 1.3rem;
+  align-self: center;
+}
+#voice-assistant-text-bubbles-container #user-options-container .user-option {
+  color: white;
+  padding: 0.7rem 1rem;
+  border: 2px solid #4b5a69;
+  background-color: rgba(51, 57, 68, 0.9);
+  border-radius: 13px;
+  width: fit-content;
+  max-width: 32rem;
+  margin: 0 0.2rem;
 }
 
 /* Start Page */
@@ -195,6 +359,20 @@ h5 {
   width: 12rem;
   height: 9rem;
 }
+#start-page .curved-arrow {
+  position: absolute;
+  bottom: 1.3rem;
+  right: 29rem;
+  width: 7rem;
+  height: 7rem;
+  transform: rotate(10deg);
+}
+#start-page .curved-arrow-text {
+  position: absolute;
+  bottom: 7.5rem;
+  left: 48rem;
+  transform: rotate(10deg);
+}
 
 #start-order-btn {
   border-radius: 1000rem;
@@ -202,7 +380,7 @@ h5 {
   color: #1f2b5d;
   width: 9rem;
   height: 9rem;
-  margin-top: 4rem;
+  margin-top: 5rem;
 }
 #start-order-btn:active {
   opacity: 0.8;
@@ -587,7 +765,7 @@ h5 {
 
 #food-item-page .variants-container {
   display: flex;
-  margin-top: 5rem;
+  margin-top: 3.8rem;
   min-height: 64px;
 }
 #food-item-page .variant {
@@ -612,7 +790,7 @@ h5 {
 }
 
 #food-item-page .quantity {
-  margin-bottom: 3rem;
+  margin-bottom: 7.5rem;
   position: absolute;
   bottom: 0;
   display: flex;
