@@ -42,7 +42,16 @@ export function setupVoiceAssistant(cart, session) {
         goToCartPage(cart)
         // TODO
         // Ask them if the order looks right and then run code below
+        const confirmationPopupText = 'Does your order look right?'
+        global.newPopup(confirmationPopupText)
+        session.performSpeech("Does your order look right?")
         // $('#cart-page .place-order-btn').trigger('click')
+        session.setSpeechRecognitionFunc(([response]) => {
+          if (response === 'yes') {
+            navigateToPage('order-complete-page')
+          }
+          cancelVoiceAssistant()
+        })
         break
       case 'remove item from cart':
         // TODO
