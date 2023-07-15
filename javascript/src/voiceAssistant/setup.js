@@ -6,9 +6,7 @@ import { goToCartPage } from '../pages/cart-page'
 import { QiSessionConnection } from '../qiClass'
 import { newPopup, secs } from '../utils/global'
 import { navigateToPage } from '../utils/pages'
-import { getRandomPepperHowCanIHelp } from '../utils/pepper'
 import { addItemToOrderVoiceAssistant } from './addToOrder'
-import { newRobotChat, newUserOptions } from './textPopups'
 
 /**
  * @param {Cart} cart
@@ -33,26 +31,58 @@ export function setupVoiceAssistant(cart, session) {
         break
       case 'cancel my order':
         // TODO
+        const confirmationPopupText3 = 'Are you sure you want to cancel your order?'
+        newPopup(confirmationPopupText3)
+        session.performSpeech('Are you sure you want to cancel your order?', true)
+        session.listenForPhrases(['yes', 'no', 'yeah', 'nope', 'yup', 'nah'], false, 10)
+        session.setSpeechRecognitionFunc(([response, confidence]) => {
+          if (confidence < 0.55) return
+          if (response === 'yes' || response === 'yeah' || response === 'yup') {
+          $('#main-menu-page .cancel-btn').trigger('click')
+            cancelVoiceAssistant()
+          } else if (response === 'no' || response === 'nope' || response === 'nah') {
+            session.performSpeech('Okay, your order will not be canceled.')
+            cancelVoiceAssistant()
+          }
+        })
         break
       case 'clear cart':
         goToCartPage(cart)
         // TODO
         // Ask them if they are sure and then run code below
-        // $('#cart-page .clear-cart-btn').trigger('click')
+        const confirmationPopupText2 = 'Are you sure you want to clear your cart?'
+        newPopup(confirmationPopupText2)
+        session.performSpeech('Are you sure you want to clear your cart?', true)
+        session.listenForPhrases(['yes', 'no', 'yeah', 'nope', 'yup', 'nah'], false, 10)
+        session.setSpeechRecognitionFunc(([response, confidence]) => {
+          if (confidence < 0.55) return
+          if (response === 'yes' || response === 'yeah' || response === 'yup') {
+            $('#cart-page .clear-cart-btn').trigger('click')
+            cancelVoiceAssistant()
+          } else if (response === 'no' || response === 'nope' || response === 'nah') {
+            session.performSpeech('Okay, your cart will not be cleared.')
+            cancelVoiceAssistant()
+          }
+        })
         break
       case 'place order':
         goToCartPage(cart)
         // TODO
         // Ask them if the order looks right and then run code below
         const confirmationPopupText = 'Does your order look right?'
-        global.newPopup(confirmationPopupText)
-        session.performSpeech("Does your order look right?")
-        // $('#cart-page .place-order-btn').trigger('click')
-        session.setSpeechRecognitionFunc(([response]) => {
-          if (response === 'yes') {
-            navigateToPage('order-complete-page')
+        newPopup(confirmationPopupText)
+        session.performSpeech("Does your order look right?", true )
+        session.listenForPhrases(['yes', 'no', 'yeah', 'nope', 'yup', 'nah'], false, 10)
+        session.setSpeechRecognitionFunc(([response, confidence]) => {
+          if (confidence > .55) return
+          if (response === 'yes' || response === 'yeah' || response === 'yup') {
+            $('#cart-page .place-order-btn').trigger('click')
+            cancelVoiceAssistant()
           }
-          cancelVoiceAssistant()
+          else if (response === "no" || response === "nope" || response === 'nah') {
+            session.performSpeech("Okay nevermind")
+            cancelVoiceAssistant()
+          }
         })
         break
       case 'remove item from cart':
@@ -66,6 +96,31 @@ export function setupVoiceAssistant(cart, session) {
       case 'show me a category':
         // TODO
         break
+      
+        case 'How many calories are in ':
+          const speechText = 'Please provide the name of the item from the menu for which you want to know the calories.';
+          newPopup(speechText);
+          session.performSpeech(speechText, true);
+
+          const menuItemsList = menuItems.map(item => item.name.toLowerCase());
+          session.listenForPhrases(menuItemsList, false, 10);
+          session.setSpeechRecognitionFunc(([itemToCheck, confidence]) => {
+            if (confidence > .55) return
+              const menuItem = menuItems.find(item => item.name.toLowerCase() === itemToCheck.toLowerCase());
+              if (menuItem && 'calories' in menuItem.variants[0]) {
+                const { name, calories } = menuItem.variants[0];
+                session.performSpeech(`There are ${calories} calories in ${name}.`);
+              } else {
+                session.performSpeech(`I'm sorry, I don't have the calorie information for ${itemToCheck}.`);
+              }
+            
+            cancelVoiceAssistant();
+          });
+          break;
+
+        
+        
+ 
       default:
         session.performSpeech(`Something went wrong. I didn't understand that.`)
         cancelVoiceAssistant()
@@ -74,8 +129,7 @@ export function setupVoiceAssistant(cart, session) {
   }
 
   // Voice assistant btn
-  $('.voice-assistant-activate-btn').on('click', function () {
-    resetVoiceAssistantTextBubbles()
+  $('#voice-assistant-btn').on('click', function () {
     // set function that will run when phrase is heard
     session.setSpeechRecognitionFunc(voiceAssistant)
     // phrases to listen for
@@ -92,27 +146,16 @@ export function setupVoiceAssistant(cart, session) {
     ]
     // set phrases to listen for and the length of time in seconds to listen for
     session.listenForPhrases(voiceAssistantValues, false, 25)
-    const howCanIHelp = getRandomPepperHowCanIHelp()
-    session.performSpeech(howCanIHelp, true)
-    console.log('yes')
-    newRobotChat(howCanIHelp)
-    newUserOptions(voiceAssistantValues)
-    $('#voice-assistant-container').attr('data-active', 'true') // set inactive
+    $(this).attr('data-active', 'true') // set btn active
   })
 
-  // Voice assistant cancel btn
-  $('.voice-assistant-cancel-btn').on('click', function () {
+  // Voice assistant btn after it was set to active
+  $('#voice-assistant-cancel-btn').on('click', function () {
     session.stopListening() // Stop listening early
-    $('#voice-assistant-container').attr('data-active', 'false') // set inactive
-    resetVoiceAssistantTextBubbles()
+    $(this).attr('data-active', 'false') // set btn inactive
   })
 }
 
 export function cancelVoiceAssistant() {
-  $('.voice-assistant-cancel-btn.x-button').trigger('click')
-}
-
-export function resetVoiceAssistantTextBubbles() {
-  $('#voice-assistant-text-bubbles').empty()
-  $('#user-options-container').empty()
+  $('#voice-assistant-cancel-btn').trigger('click')
 }
