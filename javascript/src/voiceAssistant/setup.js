@@ -7,6 +7,12 @@ import { QiSessionConnection } from '../qiClass'
 import { newPopup, secs } from '../utils/global'
 import { navigateToPage } from '../utils/pages'
 import { addItemToOrderVoiceAssistant } from './addToOrder'
+<<<<<<< HEAD
+=======
+import { removeItemFromCart } from './removeFromCart'
+import { newRobotChat, newUserOptions } from './textPopups'
+>>>>>>> 585882bb14767eabb9c36b3ea73c163ed484281a
+
 
 /**
  * @param {Cart} cart
@@ -86,7 +92,7 @@ export function setupVoiceAssistant(cart, session) {
         })
         break
       case 'remove item from cart':
-        // TODO
+        removeItemFromCart(cart,session)
         break
       case 'add item to order':
         addItemToOrderVoiceAssistant(cart, session)
