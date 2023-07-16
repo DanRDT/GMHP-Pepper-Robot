@@ -3,7 +3,6 @@ import { navigateToPage } from '../../utils/pages'
 import { Cart } from '../../cart.js'
 import { getItemAsObject } from '../../utils/global'
 import { placeOrder } from '../cart-page'
-import { updateOrderNumber } from '../order-complete-page'
 import { newPopup } from '../../utils/global'
 
 /**
@@ -47,14 +46,12 @@ export function setupCartPage(cart) {
 
   // Place order btn
   $('#place-order-btn').on('click', function () {
-    if ($('#cart-items-container').children().length > 0) {
+    if (cart.getCart().length > 0) {
       navigateToPage('order-complete-page')
-      updateOrderNumber()
       placeOrder(cart)
-    cart.clearCart()
-  }else{newPopup('Cart is empty')
-}})
+      cart.clearCart()
+    } else {
+      newPopup('Cart is empty')
+    }
+  })
 }
-    
-  
-

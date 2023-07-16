@@ -175,6 +175,7 @@ export class QiSessionConnection {
 
   /** Unsubscribes from listener */
   stopListening() {
+    cancelVoiceAssistant()
     if (!this.#session) return
     if (!this.#speechListener || !this.#currentlyListening) return
 

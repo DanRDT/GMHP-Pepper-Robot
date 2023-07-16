@@ -1,126 +1,220 @@
-import { menuItems, dailySpecials } from '../data/menu'   // Import the required menu items and daily specials
+// @ts-check
+import { Cart } from '../cart'
+import { menuItems } from '../data/menu'
+import { goToCartPage } from '../pages/cart-page'
+import { goToItemPage } from '../pages/item-page'
+import { QiSessionConnection } from '../qiClass'
+import { capitalize } from '../utils/global'
+import { cancelVoiceAssistant } from './setup'
+import { clearUserOptions, newRobotChat, newUserChat, newUserOptions } from './textPopups'
 
-let itemCard;                                           // These variables will hold the information throughout the lifecycle
-let selectedVariant;
+/**
+ * @param {Cart} cart
+ * @param {QiSessionConnection} session */
+export function addItemToOrderVoiceAssistant(cart, session) {
+  // Prompt the user to specify the item to add
+  session.performSpeech('Which item would you like to add?')
+  clearUserOptions()
+  newRobotChat('Which item would you like to add?')
 
-export function addItemToOrderVoiceAssistant(cart, session) {  // Main function starts here. It accepts cart and session as parameters
-  session.onPhraseHeard(async (data) => {               // Listener for the event when a phrase is heard by the Pepper bot
-    const [value, confidence] = data;                   // Destructure the array to get the value of the phrase and confidence score
+  // loops thru menu items and creates new array of just the item names
+  const itemNames = menuItems.map(item => item.name.toLowerCase())
+  const itemPhrases = itemNames.map(item => 'i want to order a ' + item.toLowerCase())
 
-    if (confidence < 0.45) return;                      // If the confidence score is too low (less than 0.45), it returns and exits the function
+  // Main function starts here. It accepts cart and session as parameters
+  session.setSpeechRecognitionFunc(
+    /** @param {[string, number]} data */
+    ([value, confidence]) => {
+      // Listener for the event when a phrase is heard by the Pepper bot
 
-    let casestatus = value.toLowerCase();               // Convert the heard phrase to lowercase to make it easier for comparison
+      if (confidence < 0.45) return // If the confidence score is too low (less than 0.45), it returns and exits the function
 
-    switch (true) {                                     // A switch-case is used to check the phrase against certain conditions
+      newUserChat(capitalize(value))
+      let caseStatus = value.toLowerCase() // Convert the heard phrase to lowercase to make it easier for comparison
 
-      case casestatus.startsWith('i want to order a '): // If the user wants to order a specific item, this case runs
-        let itemName = casestatus.slice(18);            // Extract the item name from the phrase
-        let menuItem = menuItems.find(item => item.name.toLowerCase() === itemName); // Find the item in the menu
-        if (!menuItem) {                                // If the item is not found, Pepper bot will apologize and the function will return
-          session.performSpeech('Sorry, I could not find the item ' + itemName);
-          return;
-        }
-        itemCard = menuItem;                            // If the item is found, save it to the itemCard variable
-        goToItemPage(itemCard);                          // Navigate to the item's page
-        session.performSpeech('You have selected ' + itemName);  // Pepper bot confirms the selection
-        itemVariantSelection(itemCard, cart, session);  // Call a function to handle item variant selection
-        break;
+      switch (
+        true // A switch-case is used to check the phrase against certain conditions
+      ) {
+        case caseStatus.startsWith('i want to order a ') || itemNames.includes(value): // If the user wants to order a specific item, this case runs
+          const itemName = caseStatus.startsWith('i want to order a ') ? caseStatus.slice(18) : caseStatus // Extract the item name from the phrase if its a phrase else just use the name
+          const menuItem = menuItems.find(item => item.name.toLowerCase() === itemName) // Find the item in the menu
+          if (!menuItem) {
+            // If the item is not found, Pepper bot will apologize and the function will return
+            session.performSpeech('Sorry, I could not find the item ' + itemName)
+            newRobotChat('Sorry, I could not find the item ' + capitalize(itemName))
+          } else {
+            const itemCard = $(`.food-card[data-name="${menuItem.name}"]`) // If the item is found, save it to the itemCard variable
+            goToItemPage(itemCard) // Navigate to the item's page
+            session.performSpeech('You have selected ' + itemName) // Pepper bot confirms the selection
+            itemVariantSelection(cart, session, menuItem) // Call a function to handle item variant selection
+          }
+          break
 
-      case casestatus === 'what would you recommend':   // If the user asks for a recommendation, this case runs
-        let recommendedSpecialName = recommendRandomSpecial();  // Call a function to get a random special
-        let recommendedSpecial = dailySpecials.find(item => item.name === recommendedSpecialName); // Find the special in the daily specials
-        itemCard = recommendedSpecial;                  // If the special is found, save it to the itemCard variable
-        goToItemPage(itemCard);                          // Navigate to the special's page
-        session.performSpeech('Did you want to order ' + recommendedSpecialName + '?');  // Pepper bot suggests the special
-        itemVariantSelection(itemCard, cart, session);  // Call a function to handle item variant selection
-        break;
+        case caseStatus === 'what would you recommend': // If the user asks for a recommendation, this case runs
+          clearUserOptions()
+          let recommendedName = recommendRandomItem() // Call a function to get a random special
+          let recommendedItem = menuItems.find(item => item.name === recommendedName) // Find the special in the daily specials
+          const itemCard = $(`.food-card[data-name="${recommendedItem.name}"]`) // If the special is found, save it to the itemCard variable
+          goToItemPage(itemCard) // Navigate to the special's page
+          WouldYouLikeToAddToCart(cart, session, recommendedItem)
+          break
 
-      case casestatus === 'add to cart':                // If the user wants to add the current item to the cart, this case runs
-        if (itemCard && selectedVariant) {              // If an item has been selected and its variant has been chosen, it gets added to the cart
-          addItemToCart(itemCard, selectedVariant);
-          session.performSpeech(selectedVariant + ' of ' + itemCard.name + ' has been added to your cart.');  // Pepper bot confirms the action
-          itemCard = null;                              // Clear the itemCard and selectedVariant variables for the next item
-          selectedVariant = null;
-        } else {                                        // If no item has been selected, Pepper bot will ask the user to select an item first
-          session.performSpeech("There's no selected item or variant to add to the cart. Please select an item and its variant first.");
-        }
-        break;
+        case caseStatus === 'nevermind' || caseStatus === 'cancel': // If the user wants to cancel
+          session.performSpeech('Okay')
+          newRobotChat('Okay')
+          cancelVoiceAssistant()
+          break
 
-      default:                                          // If the heard phrase doesn't match any of the above cases, Pepper bot will ask the user to repeat
-        session.performSpeech("Sorry, I didn't understand that. Could you please repeat?");
-        break;
-    }
-  });
-}
-
-function recommendRandomSpecial() {                     // This function gets a random special from the daily specials
-  const dailySpecialsArray = dailySpecials.map(item => item.name);
-  const randomIndex = Math.floor(Math.random() * dailySpecialsArray.length);
-  const randomSpecial = dailySpecialsArray[randomIndex];
-  return randomSpecial;
-}
-
-async function itemVariantSelection(itemCard, cart, session) {  // Function to handle the selection of an item variant
-  let variants = itemCard.variants;
-  
-  if (variants.length === 1) {                                // If the item has only one variant, it gets selected automatically
-    session.performSpeech('Would you like to add ' + itemCard.name + ' to the cart?');
-    selectedVariant = variants[0];
-  } else {                                                     // If the item has multiple variants, Pepper will list them and then listen for the user's choice
-    let variantsList = variants.map((variant, index) => `${index + 1}. ${variant}`).join(', ');
-    session.performSpeech(`Which variant would you like? We have: ${variantsList}`);
-    await session.setSpeechRecognitionFunc((data) => {
-      const [value, confidence] = data;
-      if (confidence < 0.45) return;
-      let variantIndex = parseInt(value) - 1;
-      if (variantIndex >= 0 && variantIndex < variants.length) {
-        selectedVariant = variants[variantIndex];
-        session.performSpeech('Would you like to add ' + selectedVariant + ' to the cart?');
-      } else {
-        session.performSpeech("I'm sorry, I didn't understand that. Please choose a variant by its number.");
+        default: // If the heard phrase doesn't match any of the above cases, then something went wrong and it cancels
+          session.performSpeech("Sorry, I didn't understand that.")
+          newRobotChat("Sorry, I didn't understand that.")
+          cancelVoiceAssistant()
+          break
       }
-    });
-    // listen for numbers only, for 10 seconds
-    session.listenForPhrases(Array.from({ length: variants.length }, (_, i) => (i + 1).toString()), false, 10);
+    }
+  )
+
+  const phrases = ['what would you recommend', 'nevermind', 'cancel', ...itemNames, ...itemPhrases]
+
+  // start listening for phrases
+  session.listenForPhrases(phrases, false, 25)
+  newUserOptions(phrases)
+}
+
+function recommendRandomItem() {
+  // This function gets a random special from the menu
+  const menuItemsArray = menuItems.map(item => item.name)
+  const randomIndex = Math.floor(Math.random() * menuItemsArray.length)
+  const randomSpecial = menuItemsArray[randomIndex]
+  return randomSpecial
+}
+
+/**
+ * @param {Cart} cart
+ * @param {QiSessionConnection} session
+ * @param {import('../data/menu').MenuItem} menuItem */
+function itemVariantSelection(cart, session, menuItem) {
+  // Function to handle the selection of an item variant
+  let variants = menuItem.variants
+
+  if (variants.length === 1) {
+    // If the item has only one variant, it gets selected automatically
+    const selectedVariant = variants[0]
+    addQuantity(cart, session, menuItem.name, selectedVariant)
+  } else {
+    // If the item has multiple variants, Pepper will list them and then listen for the user's choice
+    const variantsList = variants.map(variant => variant.name).join(', ')
+    session.performSpeech(`Which variant would you like? We have: ${variantsList}`)
+
+    const variantsArray = menuItem.variants.map(variant => variant.name)
+
+    session.setSpeechRecognitionFunc(
+      /** @param {[string, number]} data */
+      ([response, confidence]) => {
+        if (confidence < 0.45) return
+        newUserChat(capitalize(response))
+
+        if (response === 'cancel') {
+          session.performSpeech('Okay')
+          newRobotChat('Okay')
+          cancelVoiceAssistant()
+        } else if (variantsArray.includes(response)) {
+          const selectedVariant = variants.find(variant => variant.name === response)
+          addQuantity(cart, session, menuItem.name, selectedVariant)
+        } else {
+          session.performSpeech(`Something went wrong. I didn't understand what you said.`)
+          newRobotChat(`Something went wrong. I didn't understand what you said.`)
+          cancelVoiceAssistant()
+        }
+      }
+    )
+
+    const phrases = ['cancel', ...variantsArray]
+    session.listenForPhrases(phrases, false, 20)
+    newUserOptions(phrases)
   }
 }
 
-function goToItemPage(itemData) {
-  const item = this.menu.findItemByName(itemData.name);
+/**
+ * @param {Cart} cart
+ * @param {QiSessionConnection} session
+ * @param {string} name
+ * @param {import('../data/menu').Variant} variant */
+function addQuantity(cart, session, name, variant) {
+  session.performSpeech(`How many would you like to add to cart?`)
+  newRobotChat(`How many would you like to add to cart?`)
 
-  $('#item-image').attr('src', `./resources/images/${item.image}`);
-  $('#item-name').text(item.name);
-  $('#item-variant').text(item.variant);
-  $('#item-price').text(item.price);
-  $('#item-calories').text(item.calories);
+  const numbersArray = Array.from({ length: 20 }, (_, i) => (i + 1).toString())
 
-  // Remove old variants from previous item
-  $('#item-variants-container').empty();
-  
-  // Add all variants for this item
-  item.variants.forEach((variant) => {
-      $('#item-variants-container').append(variantComponent(variant));
-  });
+  session.setSpeechRecognitionFunc(
+    /** @param {[string, number]} data */
+    ([response, confidence]) => {
+      if (confidence < 0.45) return
+      newUserChat(capitalize(response))
 
-  // Change to the item page
-  displayPage('item');
+      if (response === 'cancel') {
+        session.performSpeech('Okay')
+        newRobotChat('Okay')
+        cancelVoiceAssistant()
+      } else if (numbersArray.includes(response)) {
+        session.performSpeech(`Added ${name} to your cart`)
+        newRobotChat(`Added ${name} to your cart`)
+
+        const quantity = Number(response)
+        cart.addToCart({
+          name: name,
+          variant: variant.name,
+          price: variant.price,
+          quantity: quantity,
+          image: variant.image,
+          calories: variant.calories,
+        })
+
+        goToCartPage(cart)
+
+        cancelVoiceAssistant()
+      } else {
+        session.performSpeech(`Something went wrong. I didn't understand what you said.`)
+        newRobotChat(`Something went wrong. I didn't understand what you said.`)
+        cancelVoiceAssistant()
+      }
+    }
+  )
+
+  const phrases = ['cancel', ...numbersArray]
+  session.listenForPhrases(phrases, false, 10)
+  newUserOptions(phrases)
 }
 
-function addItemToCart(_item, selectedVariant) {
-  const item = this.menu.findItemByName(_item.name);
-  // Assuming quantity is a predefined value, like 1. If the quantity is 
-  // variable, it should be passed as a parameter to the function.
-  const quantity = 1;
+/**
+ * @param {Cart} cart
+ * @param {QiSessionConnection} session
+ * @param {import('../data/menu').MenuItem} menuItem */
+function WouldYouLikeToAddToCart(cart, session, menuItem) {
+  session.performSpeech('Did you want to order ' + menuItem.name + '?') // Pepper bot suggests the special
+  newRobotChat('Did you want to order ' + menuItem.name + '?')
 
-  this.cart.addToCart({
-      name: foundItem.name,
-      variant: selectedVariant,
-      price: foundItem.price,
-      quantity: quantity,
-      image: foundItem.image,
-      calories: foundItem.calories
-  });
+  session.setSpeechRecognitionFunc(
+    /** @param {[string, number]} data */
+    ([response, confidence]) => {
+      if (confidence < 0.45) return
+      newUserChat(capitalize(response))
 
-  // Update cart UI
-  this.cart.updateCartUI();
+      if (response === 'yes' || response === 'yeah' || response === 'yup') {
+        itemVariantSelection(cart, session, menuItem) // Call a function to handle item variant selection
+      } else if (response === 'no' || response === 'nope' || response === 'nah') {
+        session.performSpeech('Okay')
+        newRobotChat('Okay')
+        cancelVoiceAssistant()
+      } else {
+        session.performSpeech(`Something went wrong. I didn't understand what you said.`)
+        newRobotChat(`Something went wrong. I didn't understand what you said.`)
+        cancelVoiceAssistant()
+      }
+    }
+  )
+
+  const phrases = ['yes', 'no', 'yeah', 'nope', 'yup', 'nah']
+  session.listenForPhrases(phrases, false, 20)
+  newUserOptions(phrases)
 }

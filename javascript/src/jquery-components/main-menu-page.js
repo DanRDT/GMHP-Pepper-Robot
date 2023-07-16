@@ -11,7 +11,7 @@ import { twoDecimalPlaces } from '../utils/global'
  * @param {string} item.image */
 export function itemCardComponent({ name, variant, price, calories, image }) {
   return `
-  <div id="${name}" class="food-card" data-name="${name}" data-variant="${variant}" data-price="${price}" data-calories="${calories}" data-image="${image}">
+  <div class="food-card" data-name="${name}" data-variant="${variant}" data-price="${price}" data-calories="${calories}" data-image="${image}">
     <img class="image" src="./resources/images/${image}" alt="" />
     <div class="item-details">
       <p>$${twoDecimalPlaces(price)}</p>

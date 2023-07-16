@@ -1,5 +1,21 @@
 // @ts-check
 
+/**
+ * @typedef {{
+ *    name: string;
+ *    price: number;
+ *    calories: number;
+ *    image: string;
+ *    } } Variant
+ */
+
+/**
+ * @typedef {{
+ *  name: string;
+ *  variants: Array<Variant>
+ *  } } MenuItem
+ */
+
 export const dailySpecials = [
   {
     name: 'BBQ Chicken Pizza',
@@ -216,17 +232,7 @@ export const healthyOptions = [
   },
 ]
 
-/**
- * @type {Array<{
- *  name: string;
- *  variants: Array<{
- *    name: string;
- *    price: number;
- *    calories: number;
- *    image: string;
- *    }>
- *  }> }
- */
+/** @type {Array<MenuItem>} menuItems */
 export const menuItems = [...dailySpecials, ...sides, ...desserts, ...beverages, ...coffeeItems, ...healthyOptions]
 
 /** @type {Array<{ name: string; image: string; }> } */

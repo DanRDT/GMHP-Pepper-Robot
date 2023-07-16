@@ -19,3 +19,7 @@ export function newUserOptions(options) {
     $('#user-options-container').append(userOptionComponent(capitalize(option)))
   })
 }
+
+export function clearUserOptions() {
+  $('#user-options-container').empty()
+}
