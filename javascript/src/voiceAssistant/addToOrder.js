@@ -77,7 +77,7 @@ export function addItemToOrderVoiceAssistant(cart, session) {
   const phrases = ['what would you recommend', 'nevermind', 'cancel', ...itemNames, ...itemPhrases]
 
   // start listening for phrases
-  session.listenForPhrases(phrases, false, 25)
+  session.listenForPhrases(phrases, false)
   newUserOptions(phrases)
 }
 
@@ -130,7 +130,7 @@ function itemVariantSelection(cart, session, menuItem) {
     )
 
     const phrases = ['cancel', ...variantsArray]
-    session.listenForPhrases(phrases, false, 20)
+    session.listenForPhrases(phrases, false)
     newUserOptions(phrases)
   }
 }
@@ -182,7 +182,7 @@ function addQuantity(cart, session, name, variant) {
   )
 
   const phrases = ['cancel', ...numbersArray]
-  session.listenForPhrases(phrases, false, 10)
+  session.listenForPhrases(phrases, false)
   newUserOptions(phrases)
 }
 
@@ -215,6 +215,6 @@ function WouldYouLikeToAddToCart(cart, session, menuItem) {
   )
 
   const phrases = ['yes', 'no', 'yeah', 'nope', 'yup', 'nah']
-  session.listenForPhrases(phrases, false, 20)
+  session.listenForPhrases(phrases, false)
   newUserOptions(phrases)
 }

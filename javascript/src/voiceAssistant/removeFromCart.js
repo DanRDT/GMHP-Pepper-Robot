@@ -23,10 +23,17 @@ export function removeItemFromCart(cart, session) {
 
       newUserChat(capitalize(response))
 
+      if (response === 'cancel') {
+        session.performSpeech('Okay')
+        newRobotChat('Okay')
+        cancelVoiceAssistant()
+        return
+      }
+
       const itemToRemove = response.toLowerCase()
       // Pull current cart
       const myCart = cart.getCart()
-        
+
       // Filter cart items that match the specified name
       const matchingItems = myCart.filter(item => item.name.toLowerCase() === itemToRemove)
 
@@ -40,6 +47,7 @@ export function removeItemFromCart(cart, session) {
 
       if (matchingItems.length === 1) {
         // Single variant item found in the cart, remove it
+        // TODO double check
         const [removedItem] = myCart.splice(myCart.indexOf(matchingItems[0]), 1)
         session.performSpeech(`The ${removedItem.name} has been removed from your cart.`)
         newRobotChat(`The ${removedItem.name} has been removed from your cart.`)
@@ -51,33 +59,45 @@ export function removeItemFromCart(cart, session) {
       session.performSpeech(`Which option of ${itemToRemove} would you like to remove?`)
       clearUserOptions()
       newRobotChat(`Which variant of ${itemToRemove} would you like to remove?`)
-        session.setSpeechRecognitionFunc(
-          /** @param {[string, number]} data */
-          ([variantResponse, variantConfidence]) => {
-            if (variantConfidence < 0.45) return
+      session.setSpeechRecognitionFunc(
+        /** @param {[string, number]} data */
+        ([variantResponse, variantConfidence]) => {
+          if (variantConfidence < 0.5) return
+          newUserChat(capitalize(variantResponse))
+
+          if (response === 'cancel') {
+            session.performSpeech('Okay')
+            newRobotChat('Okay')
+            cancelVoiceAssistant()
+            return
+          }
 
           const variantToRemove = variantResponse.toLowerCase()
-          const itemIndex = myCart.findIndex(item => item.name.toLowerCase() === itemToRemove && item.variant.toLowerCase() === variantToRemove)
+          const itemIndex = myCart.findIndex(
+            item => item.name.toLowerCase() === itemToRemove && item.variant.toLowerCase() === variantToRemove
+          )
 
           if (itemIndex !== -1) {
             // Item found in the cart, remove it
-            const [removedItem] = myCart.splice(itemIndex, 1);
+            const [removedItem] = myCart.splice(itemIndex, 1)
             session.performSpeech(`The ${removedItem.name} (${removedItem.variant}) has been removed from your cart.`)
             newRobotChat(`The ${removedItem.name} (${removedItem.variant}) has been removed from your cart.`)
           } else {
             // Item not found in the cart
             session.performSpeech(`Sorry, ${itemToRemove} (${variantToRemove}) not found in your cart.`)
             newRobotChat(`Sorry, ${itemToRemove} (${variantToRemove}) not found in your cart.`)
-          }})
-        })
+          }
+        }
+      )
+      const variantPhrases = ['cancel', ...variants]
+      session.listenForPhrases(variantPhrases, false)
+      newUserOptions(variantPhrases)
+    }
+  )
 
   // Phrases to listen for
-  const menuItemsArray = menuItems.map(item => item.name.toLowerCase())
-  const variantArray = menuItems.map(variants => variants.name.toLowerCase())
-  const phrases = ['nevermind', 'cancel', ...menuItemsArray, ...variantArray]
-  session.listenForPhrases(phrases, false, 25)
+  const cartItemsArray = cart.getCart().map(item => item.name.toLowerCase())
+  const phrases = ['cancel', ...cartItemsArray]
+  session.listenForPhrases(phrases, false)
   newUserOptions(phrases)
 }
-
-
-

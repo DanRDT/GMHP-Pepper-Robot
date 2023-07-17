@@ -28,17 +28,17 @@ export function setupVoiceAssistant(cart, session) {
     switch (value) {
       case 'view cart':
         goToCartPage(cart)
-        cancelVoiceAssistant()
         break
       case 'start my order':
         navigateToPage('main-menu-page')
-        cancelVoiceAssistant()
+        newRobotChat('What can I help you with?')
         break
       case 'cancel my order':
         const confirmationPopupText3 = 'Are you sure you want to cancel your order?'
         newRobotChat(confirmationPopupText3)
         session.performSpeech(confirmationPopupText3, true)
-        session.listenForPhrases(['yes', 'no', 'yeah', 'nope', 'yup', 'nah'], false, 10)
+        session.listenForPhrases(['yes', 'no', 'yeah', 'nope', 'yup', 'nah'], false)
+        newUserOptions(['yes', 'no', 'yeah', 'nope', 'yup', 'nah'])
         session.setSpeechRecognitionFunc(([response, confidence]) => {
           if (confidence < 0.55) return
           newUserChat(response)
@@ -53,36 +53,42 @@ export function setupVoiceAssistant(cart, session) {
         break
       case 'clear cart':
         goToCartPage(cart)
-        // TODO
-        // Ask them if they are sure and then run code below
         const confirmationPopupText2 = 'Are you sure you want to clear your cart?'
         newRobotChat(confirmationPopupText2)
-        session.performSpeech('Are you sure you want to clear your cart?', true)
-        session.listenForPhrases(['yes', 'no', 'yeah', 'nope', 'yup', 'nah'], false, 10)
+        session.performSpeech(confirmationPopupText2, true)
+        session.listenForPhrases(['yes', 'no', 'yeah', 'nope', 'yup', 'nah'], false)
+        newUserOptions(['yes', 'no', 'yeah', 'nope', 'yup', 'nah'])
         session.setSpeechRecognitionFunc(([response, confidence]) => {
           if (confidence < 0.55) return
+          newUserChat(response)
           if (response === 'yes' || response === 'yeah' || response === 'yup') {
             $('#cart-page .clear-cart-btn').trigger('click')
+            session.performSpeech('Okay, cart cleared.')
+            newRobotChat('Okay, cart cleared.')
           } else if (response === 'no' || response === 'nope' || response === 'nah') {
             session.performSpeech('Okay, your cart will not be cleared.')
+            newRobotChat('Okay, your cart will not be cleared.')
           }
           cancelVoiceAssistant()
         })
         break
       case 'place order':
         goToCartPage(cart)
-        // TODO
-        // Ask them if the order looks right and then run code below
         const confirmationPopupText = 'Does your order look right?'
         newRobotChat(confirmationPopupText)
-        session.performSpeech('Does your order look right?', true)
-        session.listenForPhrases(['yes', 'no', 'yeah', 'nope', 'yup', 'nah'], false, 10)
+        session.performSpeech(confirmationPopupText, true)
+        session.listenForPhrases(['yes', 'no', 'yeah', 'nope', 'yup', 'nah'], false)
+        newUserOptions(['yes', 'no', 'yeah', 'nope', 'yup', 'nah'])
         session.setSpeechRecognitionFunc(([response, confidence]) => {
           if (confidence > 0.55) return
+          newUserChat(response)
           if (response === 'yes' || response === 'yeah' || response === 'yup') {
             $('#cart-page .place-order-btn').trigger('click')
+            session.performSpeech('Okay')
+            newRobotChat('Okay')
           } else if (response === 'no' || response === 'nope' || response === 'nah') {
-            session.performSpeech('Okay nevermind')
+            session.performSpeech('Okay')
+            newRobotChat('Okay')
           }
           cancelVoiceAssistant()
         })
@@ -99,26 +105,58 @@ export function setupVoiceAssistant(cart, session) {
       case 'show me a category':
         // TODO
         break
-
-      case 'How many calories are in ':
-        const speechText = 'Please provide the name of the item from the menu for which you want to know the calories.'
-        newPopup(speechText)
+      case 'how many calories are in ':
+        const speechText = 'What item would you like to know the calorie count for?'
+        newRobotChat(speechText)
         session.performSpeech(speechText, true)
 
         const menuItemsList = menuItems.map(item => item.name.toLowerCase())
-        session.listenForPhrases(menuItemsList, false, 10)
         session.setSpeechRecognitionFunc(([itemToCheck, confidence]) => {
           if (confidence > 0.55) return
+
+          if (itemToCheck === 'cancel') {
+            session.performSpeech('Okay')
+            newRobotChat('Okay')
+            cancelVoiceAssistant()
+            return
+          }
+
           const menuItem = menuItems.find(item => item.name.toLowerCase() === itemToCheck.toLowerCase())
-          if (menuItem && 'calories' in menuItem.variants[0]) {
-            const { name, calories } = menuItem.variants[0]
-            session.performSpeech(`There are ${calories} calories in ${name}.`)
+          if (menuItem) {
+            if (menuItem.variants.length <= 1) {
+              const { name } = menuItem
+              const { calories } = menuItem.variants[0]
+              session.performSpeech(`There are ${calories} calories in ${name}.`)
+              newRobotChat(`There are ${calories} calories in ${name}.`)
+            } else {
+              const { name } = menuItem
+              let totalCalories = 0
+              const variantCalories = menuItem.variants.map(variant => {
+                totalCalories += variant.calories
+                return { name: variant.name, calories: variant.calories }
+              })
+              const avgCalories = totalCalories / menuItem.variants.length
+              let calorieVariantText = ''
+
+              variantCalories.forEach(variantCalorie => {
+                calorieVariantText += `${variantCalorie.name} has ${variantCalorie.calories} calories. \n`
+              })
+
+              const calorieText = `${name} has multiple options with an average calorie count of ${avgCalories}.
+                ${calorieVariantText}`
+              session.performSpeech(calorieText)
+              newRobotChat(calorieText)
+            }
           } else {
             session.performSpeech(`I'm sorry, I don't have the calorie information for ${itemToCheck}.`)
+            newRobotChat(`I'm sorry, I don't have the calorie information for ${itemToCheck}.`)
           }
 
           cancelVoiceAssistant()
         })
+        const caloriePhrases = ['cancel', ...menuItemsList]
+        session.listenForPhrases(caloriePhrases, false)
+        newUserOptions(caloriePhrases)
         break
 
       default:
@@ -148,9 +186,10 @@ export function setupVoiceAssistant(cart, session) {
       'cancel my order',
       'update quantity',
       'place order',
+      'how many calories are in ',
     ]
     // set phrases to listen for and the length of time in seconds to listen for
-    session.listenForPhrases(voiceAssistantValues, false, 25)
+    session.listenForPhrases(voiceAssistantValues, false)
     newUserOptions(voiceAssistantValues)
     $(this).attr('data-active', 'true') // set btn active
   })

@@ -141,9 +141,9 @@ export class QiSessionConnection {
    * Run this after running `setSpeechRecognitionFunc()` to set the phrases to listen for
    * @param {Array<string>} phrases - An array of phrases or words to listen for
    * @param {boolean} wordSpotting - If word spotting is disabled (default), the engine expects to hear one of the specified words, nothing more, nothing less. If enabled, the specified words can be pronounced in the middle of a whole speech stream, the engine will try to spot them.
-   * @param {number} duration - Duration in seconds to listen for
+   * @param {number} duration - Duration in seconds to listen for. If zero it will listen until canceled. Default: 0
    * @returns {boolean} If already listening it returns false, Else it returns true.  */
-  startListening(phrases, wordSpotting, duration) {
+  startListening(phrases, wordSpotting, duration = 0) {
     if (!this.#session) return
     if (this.#currentlyListening) return false
 
@@ -164,12 +164,14 @@ export class QiSessionConnection {
 
     this.#session.service('ALSpeechRecognition').then(subscribeToSpeechBound)
 
-    function stopAfterDuration() {
-      if (this.#currentlyListening) this.stopListening()
+    if (duration > 0) {
+      function stopAfterDuration() {
+        if (this.#currentlyListening) this.stopListening()
+      }
+      const stopAfterDurationBound = stopAfterDuration.bind(this)
+      let checkedDuration = duration < 0 ? 0 : duration // prevent negatives
+      setTimeout(stopAfterDurationBound, secs(checkedDuration))
     }
-    const stopAfterDurationBound = stopAfterDuration.bind(this)
-    let checkedDuration = duration < 0 ? 0 : duration // prevent negatives
-    setTimeout(stopAfterDurationBound, secs(checkedDuration))
     return true
   }
 
@@ -207,8 +209,8 @@ export class QiSessionConnection {
    * Run this after running `setSpeechRecognitionFunc()` to set the phrases to listen for
    * @param {Array<string>} phrases - An array of phrases or words to listen for
    * @param {boolean} wordSpotting - If word spotting is disabled (default), the engine expects to hear one of the specified words, nothing more, nothing less. If enabled, the specified words can be pronounced in the middle of a whole speech stream, the engine will try to spot them.
-   * @param {number} duration - Duration in seconds to listen for */
-  listenForPhrases(phrases, wordSpotting, duration) {
+   * @param {number} duration - Duration in seconds to listen for. If zero it will listen until canceled. Default: 0 */
+  listenForPhrases(phrases, wordSpotting, duration = 0) {
     if (!this.#session) return
     this.stopListening()
 
