@@ -4,6 +4,7 @@ import { Cart } from '../../cart.js'
 import { getItemAsObject } from '../../utils/global'
 import { placeOrder } from '../cart-page'
 import { newPopup } from '../../utils/global'
+import { goToItemPage } from '../item-page'
 
 /**
  * @param {Cart} cart
@@ -53,5 +54,16 @@ export function setupCartPage(cart) {
     } else {
       newPopup('Cart is empty')
     }
+  })
+
+  // navigate to item page on card click
+  $('#cart-page').on('click', '.cart-item-image', function () {
+    goToItemPage($(this).parents('.cart-item'))
+  })
+  $('#cart-page').on('click', '.cart-item-name-container', function () {
+    goToItemPage($(this).parents('.cart-item'))
+  })
+  $('#cart-page').on('click', '.cart-item-price', function () {
+    goToItemPage($(this).parents('.cart-item'))
   })
 }
