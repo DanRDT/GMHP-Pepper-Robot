@@ -1,6 +1,8 @@
 // @ts-check
 import { Cart } from '../../cart'
 import { navigateToPage } from '../../utils/pages'
+import { printReceipt } from '../../services/printReceipt'
+import { newPopup } from '../../utils/global'
 
 export function setupStartPage() {
   // Start order btn
@@ -18,5 +20,19 @@ export function setupOrderCompletePage(cart) {
     navigateToPage('start-page')
 
     cart.clearCart()
+  })
+
+  // Email Receipt btn
+  $('#email-receipt-btn').on('click', function () {
+    const email = prompt('Please enter your email address:')
+    //emailReceipt(email,cart)
+    if (email !== null && email != '') {
+    newPopup('Receipt has been sent to '+email+'. Thank you!')
+}})
+
+  // Print Receipt btn
+  $('#print-receipt-btn').on('click', function () {
+    printReceipt(cart)
+    newPopup('Receipt has been printed. Thank you!')
   })
 }
