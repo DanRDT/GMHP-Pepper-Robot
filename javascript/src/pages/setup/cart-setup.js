@@ -50,7 +50,7 @@ export function setupCartPage(cart) {
     if (cart.getCart().length > 0) {
       navigateToPage('order-complete-page')
       placeOrder(cart)
-      cart.clearCart()
+      //cart.clearCart()
     } else {
       newPopup('Cart is empty')
     }
