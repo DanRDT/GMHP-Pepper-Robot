@@ -5,6 +5,7 @@ import { getItemAsObject } from '../../utils/global'
 import { placeOrder } from '../cart-page'
 import { newPopup } from '../../utils/global'
 import { goToItemPage } from '../item-page'
+import { printTicket } from '../../services/printTicket'
 
 /**
  * @param {Cart} cart
@@ -50,6 +51,7 @@ export function setupCartPage(cart) {
     if (cart.getCart().length > 0) {
       navigateToPage('order-complete-page')
       placeOrder(cart)
+      printTicket(cart)
     } else {
       newPopup('Cart is empty')
     }
