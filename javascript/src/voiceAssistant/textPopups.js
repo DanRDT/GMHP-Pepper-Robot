@@ -6,10 +6,15 @@ import { capitalize } from '../utils/global'
 /** @param {string} text  */
 export function newRobotChat(text) {
   $('#voice-assistant-text-bubbles').append(speechComponent(text, 'robot'))
+  $('#voice-assistant-text-bubbles').animate({ scrollTop: $('#voice-assistant-text-bubbles').height() }, 500)
 }
 /** @param {string} text  */
 export function newUserChat(text) {
   $('#voice-assistant-text-bubbles').append(speechComponent(text, 'user'))
+  $('#voice-assistant-text-bubbles').animate({ scrollTop: $('#voice-assistant-text-bubbles').height() }, 500)
+}
+export function clearChats() {
+  $('#voice-assistant-text-bubbles').empty()
 }
 
 /** @param {Array<string>} options  */

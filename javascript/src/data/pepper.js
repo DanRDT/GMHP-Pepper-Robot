@@ -22,3 +22,5 @@ export const listOfRandomPepperHowCanIHelpDialogs = [
   'Hello, how can I help?',
   `What's up?`,
 ]
+
+export const yesNoPhrases = ['yes', 'no', 'yeah', 'nope', 'yup', 'nah']

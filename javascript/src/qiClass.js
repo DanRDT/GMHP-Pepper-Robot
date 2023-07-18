@@ -15,6 +15,13 @@ export class QiSessionConnection {
     function connectionSuccessful(session) {
       this.#connected = true
       $('#connection-status').text('Connected')
+      session.service('ALDialog').then(function (dialog) {
+        dialog.clearConcepts()
+        dialog.resetAll()
+      })
+      session.service('ALSpeechRecognition').then(function (asr) {
+        asr.removeAllContext()
+      })
     }
     function connectionFailed() {
       this.#connected = false
@@ -102,7 +109,13 @@ export class QiSessionConnection {
     /** @param {[string, number]} data */
     function speechRecFunctionWrapper(data) {
       const speechRecFunctionBound = speechRecFunction.bind(this)
-      speechRecFunctionBound([data[0].replace(/<...>/g, ''), data[1]])
+      speechRecFunctionBound([removeSymbols(data[0]), data[1]])
+    }
+    /** @param {string} string */
+    function removeSymbols(string) {
+      let str = string.replace(/<...> /g, '')
+      str = str.replace(/ <...>/g, '')
+      return str
     }
     const speechRecFunctionWrapperBound = speechRecFunctionWrapper.bind(this)
 
@@ -153,7 +166,7 @@ export class QiSessionConnection {
 
       function setActive() {
         this.#currentlyListening = true
-        newPopup('Listening...') // TODO change
+        // newPopup('Listening...')
       }
       const setActiveBound = setActive.bind(this)
 
@@ -177,7 +190,7 @@ export class QiSessionConnection {
 
   /** Unsubscribes from listener */
   stopListening() {
-    cancelVoiceAssistant()
+    // cancelVoiceAssistant()
     if (!this.#session) return
     if (!this.#speechListener || !this.#currentlyListening) return
 
@@ -223,13 +236,23 @@ export class QiSessionConnection {
     const interval = setInterval(checkIfStillListening.bind(this), secs(0.1))
   }
 
-  // /** @param {string} moduleName  */
-  // removeModule(moduleName) {
-  //   function unregister(memory) {
-  //     memory.unregisterModuleReference(moduleName)
-  //   }
-  //   this.#session.service('ALMemory').then(unregister)
+  // resetSpeech() {
+  //   this.#session.service('ALDialog').then(function (dialog) {
+  //     dialog.clearConcepts()
+  //     dialog.resetAll()
+  //   })
+  //   this.#session.service('ALSpeechRecognition').then(function (asr) {
+  //     asr.removeAllContext()
+  //   })
   // }
+
+  /** @param {string} moduleName  */
+  removeModule(moduleName) {
+    function unregister(memory) {
+      memory.unregisterModuleReference(moduleName)
+    }
+    this.#session.service('ALMemory').then(unregister)
+  }
 }
 
 /** @param {[string, number]} data */

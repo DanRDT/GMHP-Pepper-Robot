@@ -2,7 +2,8 @@
 
 import { menuItems } from '../data/menu'
 import { variantComponent } from '../jquery-components/item-page'
-import { twoDecimalPlaces } from '../utils/global'
+import { itemCardComponent } from '../jquery-components/main-menu-page'
+import { secs, twoDecimalPlaces } from '../utils/global'
 import { navigateToPage } from '../utils/pages'
 
 /** @param {JQuery<any>} itemCard */
@@ -103,4 +104,20 @@ function setUserVisibleData(name, price, image, calories, quantity = 1) {
   // If calories are negative show nothing
   if (calories >= 0) $('#food-item-page #item-page-calories').text(`${calories} Calories`)
   else $('#food-item-page #item-page-calories').text(' ')
+}
+
+/** @param {import('../data/menu').MenuItem} item */
+export function goToItemPageWithObject(item) {
+  $('#black-box').append(
+    itemCardComponent({
+      name: item.name,
+      variant: item.variants[0].name,
+      price: item.variants[0].price,
+      image: item.variants[0].image,
+      calories: item.variants[0].calories,
+    })
+  )
+  goToItemPage($(`.food-card[data-name="${item.name}"]`))
+
+  setTimeout(() => $('#black-box').empty(), secs(5))
 }

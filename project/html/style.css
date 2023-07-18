@@ -72,6 +72,10 @@ button {
   outline: inherit;
 }
 
+#black-box {
+  display: none;
+}
+
 /* reusable styles */
 :root {
   --dark-blue-color: #1f2b5d;
@@ -261,9 +265,9 @@ h5 {
 
 #voice-assistant-text-bubbles-container {
   background-color: rgba(0, 0, 0, 0.85);
-  position: absolute;
+  /* position: absolute; */
   margin-bottom: 0.5rem;
-  bottom: 5.8rem;
+  /* bottom: 5.8rem; */
   display: flex;
   flex-direction: column;
   width: 40rem;
@@ -303,6 +307,7 @@ h5 {
   border-radius: 13px;
   width: fit-content;
   max-width: 32rem;
+  min-height: 3.5rem;
 }
 #voice-assistant-text-bubbles-container .user-speech {
   color: white;
@@ -313,6 +318,7 @@ h5 {
   width: fit-content;
   max-width: 32rem;
   align-self: flex-end;
+  min-height: 3.5rem;
 }
 
 #voice-assistant-text-bubbles-container #user-options-container {
@@ -322,6 +328,7 @@ h5 {
   padding: 0 1rem;
   margin-bottom: 1.3rem;
   align-self: center;
+  min-height: 3.5rem;
 }
 #voice-assistant-text-bubbles-container #user-options-container .user-option {
   color: white;
@@ -332,6 +339,7 @@ h5 {
   width: fit-content;
   max-width: 32rem;
   margin: 0 0.2rem;
+  min-height: 3rem;
 }
 
 /* Start Page */
@@ -793,9 +801,10 @@ h5 {
   margin-bottom: 7.5rem;
   position: absolute;
   bottom: 0;
+  left: 0;
   display: flex;
-  width: 15rem;
-  justify-content: space-between;
+  width: 100%;
+  justify-content: center;
   z-index: 2;
 }
 #food-item-page .plus,
@@ -803,6 +812,7 @@ h5 {
   width: 4rem;
   height: 4rem;
   display: flex;
+  margin: 0 1rem;
   align-items: center;
   justify-content: center;
   cursor: pointer;

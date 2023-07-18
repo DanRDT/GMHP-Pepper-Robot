@@ -1,5 +1,10 @@
 // @ts-check
 // All javascript code starts here
+import 'jspolyfill-array.prototype.findIndex'
+import 'jspolyfill-array.prototype.find'
+import 'polyfill-array-includes'
+import 'ie-string-startswith-polyfill'
+import 'array-from-polyfill'
 import { QiSessionConnection } from './qiClass.js'
 import { setupOrderCompletePage, setupStartPage } from './pages/setup/other-setup.js'
 import { setupMenuPage } from './pages/setup/menu-setup.js'
@@ -7,7 +12,7 @@ import { setupCartPage } from './pages/setup/cart-setup.js'
 import { setupFoodItemPage } from './pages/setup/item-setup.js'
 import { Cart } from './cart.js'
 import { setupVoiceAssistant } from './voiceAssistant/setup.js'
-import { newPopup } from './utils/global.js'
+import { newPopup, secs } from './utils/global.js'
 import { verifyMenuItems } from './pages/setup/verify-data.js'
 import { menuItems } from './data/menu.js'
 
@@ -30,6 +35,10 @@ $(function () {
   setupCartPage(cart)
   setupFoodItemPage(cart)
   setupOrderCompletePage(cart)
+
+  setTimeout(() => {
+    // session.resetSpeech()
+  }, secs(4))
 
   // Setup Voice Assistant Code
   setupVoiceAssistant(cart, session)
