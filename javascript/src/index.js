@@ -30,16 +30,14 @@ $(function () {
   verifyMenuItems(menuItems)
 
   // Setup Pages and setup their button event listeners
-  setupStartPage()
+  setupStartPage(cart)
   setupMenuPage(cart)
   setupCartPage(cart)
   setupFoodItemPage(cart)
   setupOrderCompletePage(cart)
 
-  setTimeout(() => {
-    // session.resetSpeech()
-  }, secs(4))
-
   // Setup Voice Assistant Code
   setupVoiceAssistant(cart, session)
+
+  newPopup('Setup complete without errors')
 })

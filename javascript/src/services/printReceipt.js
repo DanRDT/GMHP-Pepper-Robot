@@ -1,18 +1,20 @@
 //@ts-check
-import { Cart } from "../cart"
-import { generateReceipt } from "./generateReceipt"
+import { Cart } from '../cart'
+import { generateReceipt } from './generateReceipt'
 
 /**
  * @param {Cart} cart
  */
 export function printReceipt(cart) {
-
   // Generate the receipt content
   const receiptContent = generateReceipt(cart)
-  const receiptWindow = window.open('', '_blank')
-  receiptWindow.document.open()
-  receiptWindow.document.write(receiptContent)
-  receiptWindow.document.close()
+  // const receiptWindow = window.open('', '_blank')
+  // receiptWindow.document.open()
+  // receiptWindow.document.write(
+  //   receiptContent +
+  //     '<a href="javascript:window.close();" style="width:100%; text-align:center; display:inline-block;">close</a>'
+  // )
+  // receiptWindow.document.close()
 
   // Create a hidden iframe to load the receipt content
   const iframe = document.createElement('iframe')
@@ -33,6 +35,3 @@ export function printReceipt(cart) {
     document.body.removeChild(iframe)
   }
 }
-
-
-

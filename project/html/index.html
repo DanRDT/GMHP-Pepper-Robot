@@ -148,14 +148,21 @@
       <section id="order-complete-page">
         <img class="scc-logo" src="./resources/images/scc/scc-logo.png" alt="" />
         <h2 class="font-semibold text-center" style="padding-top: 4rem; line-height: 3rem">
-          Thank you for placing your order.<br />Your order number is #23.<br />Please wait to hear your number called.
+          Thank you for placing your order.<br />Your order number is #<span id="order-number"></span><br />Please wait to
+          hear your number called.
         </h2>
-        <button id="new-order-btn" class="flex-center">
-          <h3 class="font-semibold text-center">Start New Order</h3>
-        </button>
+        <div id="receipt-btns">
+          <div id="print-receipt-btn"><h3>Print Receipt</h3></div>
+        </div>
+        <div id="order-complete-btns">
+          <button id="new-order-btn" class="flex-center">
+            <h2 class="font-semibold text-center">Start New Order</h2>
+          </button>
+          <div id="done-btn"><h2 class="font-semibold">Exit</h2></div>
+        </div>
         <img class="chaser-paw" src="./resources/images/scc/chaser-dog-paw.png" alt="" />
       </section>
-      <div id="black-box"></div>
+      <div id="black-box"><!-- for temp elements --></div>
     </main>
   </body>
 </html>

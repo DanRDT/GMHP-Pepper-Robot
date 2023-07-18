@@ -751,6 +751,8 @@ h5 {
 .bg-semicircle {
   position: absolute;
   top: -68rem;
+  left: 50%;
+  transform: translateX(-50%);
   width: 120rem;
   height: 100rem;
   border-radius: 100%;
@@ -881,13 +883,42 @@ h5 {
   transform: scaleX(-1);
 }
 
+#order-complete-btns {
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+}
+#receipt-btns > *:active,
+#order-complete-btns > *:active {
+  opacity: 0.8;
+}
+#receipt-btns > *,
+#order-complete-btns > * {
+  margin: 0.5rem 0.9rem;
+}
 #new-order-btn {
   border-radius: 10px;
   background-color: white;
   color: black;
   padding: 1rem 2rem;
-  margin-top: 4rem;
 }
-#new-order-btn:active {
-  opacity: 0.8;
+
+#done-btn {
+  border-radius: 10px;
+  background-color: white;
+  color: black;
+  padding: 1rem 2rem;
+}
+
+#receipt-btns {
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+}
+#email-receipt-btn,
+#print-receipt-btn {
+  padding: 0.5rem 1rem;
+  background-color: white;
+  color: black;
+  border-radius: 10px;
 }

@@ -21,23 +21,23 @@ export const dailySpecials = [
     name: 'BBQ Chicken Pizza',
     variants: [
       {
-        name: 'S',
+        name: 'Small',
         price: 4.0,
         calories: 350,
         image: 'menu/bbqchickenpizza.jpg',
       },
       {
-        name: 'M',
+        name: 'Medium',
         price: 6.0,
         calories: 550,
         image: 'menu/bbqchickenpizza.jpg',
       },
       {
-        name: 'L',
+        name: 'Large',
         price: 8.0,
         calories: 750,
         image: 'menu/bbqchickenpizza.jpg',
-      }
+      },
     ],
   },
   {
@@ -78,7 +78,7 @@ export const dailySpecials = [
     name: 'Sushi Roll Sampler',
     variants: [
       {
-        name: "",
+        name: '',
         price: 6.0,
         calories: 375,
         image: 'menu/sushi.jpg',
@@ -96,7 +96,7 @@ export const dailySpecials = [
       },
       {
         name: '5-Piece',
-        price: 6.50,
+        price: 6.5,
         calories: 600,
         image: 'menu/fishandchips.jpg',
       },
@@ -109,19 +109,19 @@ export const sides = [
     name: 'French Fries',
     variants: [
       {
-        name: 'S',
+        name: 'Small',
         price: 2.0,
         calories: 365,
         image: 'menu/frenchfries.jpg',
       },
       {
-        name: 'M',
+        name: 'Medium',
         price: 3.0,
         calories: 465,
         image: 'menu/frenchfries.jpg',
       },
       {
-        name: 'L',
+        name: 'Large',
         price: 4.0,
         calories: 565,
         image: 'menu/frenchfries.jpg',
@@ -132,19 +132,19 @@ export const sides = [
     name: 'Sweet Potato Fries',
     variants: [
       {
-        name: 'S',
+        name: 'Small',
         price: 2.5,
         calories: 495,
         image: 'menu/sweetpotatofries.jpg',
       },
       {
-        name: 'M',
+        name: 'Medium',
         price: 3.5,
         calories: 595,
         image: 'menu/sweetpotatofries.jpg',
       },
       {
-        name: 'L',
+        name: 'Large',
         price: 4.5,
         calories: 695,
         image: 'menu/sweetpotatofries.jpg',
@@ -172,13 +172,13 @@ export const sides = [
     name: 'Fruit Cup',
     variants: [
       {
-        name: 'S',
+        name: 'Small',
         price: 2.5,
         calories: 60,
         image: 'menu/fruitcup.jpg',
       },
       {
-        name: 'L',
+        name: 'Large',
         price: 4.0,
         calories: 130,
         image: 'menu/fruitcup.jpg',
@@ -189,7 +189,7 @@ export const sides = [
     name: 'Hummus and Vegetable Sticks',
     variants: [
       {
-        name: "",
+        name: '',
         price: 3.0,
         calories: 200,
         image: 'menu/hummussticks.jpg',
@@ -206,19 +206,19 @@ export const desserts = [
         name: '1',
         price: 1.5,
         calories: 200,
-        image: 'menu/cookie.jpg' 
+        image: 'menu/cookie.jpg',
       },
       {
         name: '3',
         price: 2.5,
         calories: 600,
-        image: 'menu/cookie.jpg' 
+        image: 'menu/cookie.jpg',
       },
       {
         name: '5',
         price: 3.5,
         calories: 700,
-        image: 'menu/cookie.jpg' 
+        image: 'menu/cookie.jpg',
       },
     ],
   },
@@ -226,10 +226,10 @@ export const desserts = [
     name: 'Apple Pie Slice',
     variants: [
       {
-        name: "",
+        name: '',
         price: 2.5,
         calories: 320,
-        image: 'menu/applepie.jpg'
+        image: 'menu/applepie.jpg',
       },
     ],
   },
@@ -240,30 +240,30 @@ export const desserts = [
         name: 'Vanilla',
         price: 2.0,
         calories: 210,
-        image: 'menu/icecream.jpg'
+        image: 'menu/icecream.jpg',
       },
       {
         name: 'Chocolate',
         price: 2.0,
         calories: 210,
-        image: 'menu/icecream.jpg'
+        image: 'menu/icecream.jpg',
       },
     ],
   },
   {
     name: 'Fresh Fruit Parfait',
     variants: [
-      { 
-        name:'S',
+      {
+        name: 'Small',
         price: 3.0,
         calories: 150,
-        image: 'menu/parfait.jpg'
+        image: 'menu/parfait.jpg',
       },
-      { 
-        name:'L',
+      {
+        name: 'Large',
         price: 5.0,
         calories: 350,
-        image: 'menu/parfait.jpg'
+        image: 'menu/parfait.jpg',
       },
     ],
   },
@@ -274,10 +274,10 @@ export const beverages = [
     name: 'Bottled Water',
     variants: [
       {
-        name:"",
+        name: '',
         price: 1.5,
         calories: 0,
-        image: 'menu/water.jpg'
+        image: 'menu/water.jpg',
       },
     ],
   },
@@ -285,22 +285,22 @@ export const beverages = [
     name: 'Iced Tea',
     variants: [
       {
-        name: 'S',
+        name: 'Small',
         price: 2.0,
         calories: 70,
-        image: 'menu/icedtea.jpg'
+        image: 'menu/icedtea.jpg',
       },
       {
-        name: 'M',
+        name: 'Medium',
         price: 3.0,
         calories: 95,
-        image: 'menu/icedtea.jpg'
+        image: 'menu/icedtea.jpg',
       },
       {
-        name: 'L',
+        name: 'Large',
         price: 4.0,
         calories: 130,
-        image: 'menu/icedtea.jpg'
+        image: 'menu/icedtea.jpg',
       },
     ],
   },
@@ -308,22 +308,22 @@ export const beverages = [
     name: 'Lemonade',
     variants: [
       {
-        name: 'S',
+        name: 'Small',
         price: 2.0,
         calories: 120,
-        image: 'menu/lemonade.jpg'
+        image: 'menu/lemonade.jpg',
       },
       {
-        name: 'M',
+        name: 'Medium',
         price: 3.0,
         calories: 200,
-        image: 'menu/lemonade.jpg'
+        image: 'menu/lemonade.jpg',
       },
       {
-        name: 'L',
+        name: 'Large',
         price: 4.0,
         calories: 260,
-        image: 'menu/lemonade.jpg'
+        image: 'menu/lemonade.jpg',
       },
     ],
   },
@@ -331,22 +331,22 @@ export const beverages = [
     name: 'Assorted Soda (Coke, Sprite, Fanta)',
     variants: [
       {
-        name: 'S',
+        name: 'Small',
         price: 2.0,
         calories: 150,
-        image: 'menu/soda.jpg'
+        image: 'menu/soda.jpg',
       },
       {
-        name: 'M',
+        name: 'Medium',
         price: 3.0,
         calories: 250,
-        image: 'menu/soda.jpg'
+        image: 'menu/soda.jpg',
       },
       {
-        name: 'L',
+        name: 'Large',
         price: 4.0,
         calories: 350,
-        image: 'menu/soda.jpg'
+        image: 'menu/soda.jpg',
       },
     ],
   },
@@ -354,22 +354,22 @@ export const beverages = [
     name: 'Fresh Squeezed Orange Juice',
     variants: [
       {
-        name: 'S',
+        name: 'Small',
         price: 2.5,
         calories: 110,
-        image: 'menu/orangejuice.jpg'
+        image: 'menu/orangejuice.jpg',
       },
       {
-        name: 'M',
+        name: 'Medium',
         price: 3.5,
         calories: 210,
-        image: 'menu/orangejuice.jpg'
+        image: 'menu/orangejuice.jpg',
       },
       {
-        name: 'L',
+        name: 'Large',
         price: 4.5,
         calories: 310,
-        image: 'menu/orangejuice.jpg'
+        image: 'menu/orangejuice.jpg',
       },
     ],
   },
@@ -380,62 +380,68 @@ export const coffeeItems = [
     name: 'Regular Coffee',
     variants: [
       {
-        name: 'S',
+        name: 'Small',
         price: 2.0,
         calories: 5,
-        image: 'menu/smallcoffee.jpg'
+        image: 'menu/smallcoffee.jpg',
       },
       {
-        name: 'M',
+        name: 'Medium',
         price: 3.0,
         calories: 15,
-        image: 'menu/smallcoffee.jpg'
+        image: 'menu/smallcoffee.jpg',
       },
       {
-        name: 'L',
+        name: 'Large',
         price: 4.0,
         calories: 25,
-        image: 'menu/smallcoffee.jpg'
+        image: 'menu/smallcoffee.jpg',
       },
     ],
   },
   {
     name: 'Iced Coffee',
     variants: [
-      { 
-        name: 'S',
+      {
+        name: 'Small',
         price: 2.5,
         calories: 30,
-        image: 'menu/smallicedcoffee.jpg' 
+        image: 'menu/smallicedcoffee.jpg',
       },
       {
-        name: 'M',
+        name: 'Medium',
         price: 3.5,
         calories: 40,
-        image: 'menu/smallcoffee.jpg'
+        image: 'menu/smallcoffee.jpg',
       },
-      { 
-        name: 'L',
+      {
+        name: 'Large',
         price: 4.5,
         calories: 50,
-        image: 'menu/americano.jpg'
+        image: 'menu/americano.jpg',
+      },
+      {
+        name: 'Extra Large',
+        price: 5.5,
+        calories: 60,
+        image: 'menu/americano.jpg',
       },
     ],
   },
   {
     name: 'Cappuccino',
     variants: [
-      { 
+      {
         name: '12oz',
         price: 3.0,
         calories: 120,
-        image: 'menu/cappuccino.jpg' 
+        image: 'menu/cappuccino.jpg',
       },
-      { 
+      {
         name: '16oz',
         price: 4.0,
         calories: 180,
-        image: 'menu/cappuccino.jpg' 
+        image: 'menu/cappuccino.jpg',
       },
     ],
   },
@@ -446,30 +452,30 @@ export const coffeeItems = [
         name: '12oz',
         price: 3.0,
         calories: 150,
-        image: 'menu/latte.jpg'
+        image: 'menu/latte.jpg',
       },
       {
         name: '16oz',
         price: 4.0,
         calories: 190,
-        image: 'menu/latte.jpg'
+        image: 'menu/latte.jpg',
       },
     ],
   },
   {
     name: 'Americano',
     variants: [
-      { 
+      {
         name: '12oz',
         price: 2.5,
         calories: 15,
-        image: 'menu/americano.jpg'
+        image: 'menu/americano.jpg',
       },
-      { 
+      {
         name: '16oz',
         price: 3,
         calories: 25,
-        image: 'menu/americano.jpg'
+        image: 'menu/americano.jpg',
       },
     ],
   },
@@ -480,13 +486,13 @@ export const coffeeItems = [
         name: 'Single',
         price: 1.5,
         calories: 5,
-        image: 'menu/espresso.jpg'
+        image: 'menu/espresso.jpg',
       },
       {
         name: 'Double',
         price: 2.5,
         calories: 10,
-        image: 'menu/espresso.jpg'
+        image: 'menu/espresso.jpg',
       },
     ],
   },
@@ -494,22 +500,22 @@ export const coffeeItems = [
     name: 'Tea (various flavors) - Small',
     variants: [
       {
-        name: 'S',
+        name: 'Small',
         price: 2.0,
         calories: 5,
-        image: 'menu/smalltea.jpg'
+        image: 'menu/smalltea.jpg',
       },
       {
-        name: 'M',
+        name: 'Medium',
         price: 3.0,
         calories: 15,
-        image: 'menu/smalltea.jpg'
+        image: 'menu/smalltea.jpg',
       },
       {
-        name: 'L',
+        name: 'Large',
         price: 4.0,
         calories: 20,
-        image: 'menu/smalltea.jpg'
+        image: 'menu/smalltea.jpg',
       },
     ],
   },
