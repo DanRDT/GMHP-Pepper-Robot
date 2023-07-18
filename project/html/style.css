@@ -245,7 +245,7 @@ h5 {
 #voice-assistant-btn .x-button {
   position: absolute;
   right: -4rem;
-  /* top: 1rem; */
+  top: 0.75rem;
   height: 3.25rem;
   width: 3.25rem;
 }

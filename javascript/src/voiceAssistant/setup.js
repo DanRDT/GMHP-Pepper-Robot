@@ -106,12 +106,6 @@ export function setupVoiceAssistant(cart, session) {
       case 'add item to order':
         addItemToOrderVoiceAssistant(cart, session)
         break
-      case 'update quantity':
-        // TODO
-        break
-      case 'show me a category':
-        // TODO
-        break
       case 'how many calories are in ':
         robotTalk(session, 'What item would you like to know the calorie count for?')
 
