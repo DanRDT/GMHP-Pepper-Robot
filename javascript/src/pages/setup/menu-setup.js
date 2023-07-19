@@ -30,7 +30,7 @@ export function setupMenuPage(cart) {
   $('#food-categories-container').on('click', '.food-categories-card', function () {
     // Access the clicked image using $(this)
     const clickedCard = $(this)
-    const divId = clickedCard.attr('id')
+    const clickCategory = clickedCard.attr('data-category')
 
     // Show it as active
     $('.food-categories-card').attr('data-active', 'false')
@@ -40,7 +40,7 @@ export function setupMenuPage(cart) {
     $('#food-items-container').empty()
 
     // Append item cards for the specified category
-    categoryInfo[divId].forEach(item => {
+    categoryInfo[clickCategory].forEach(item => {
       const itemVariant = {
         name: item.name,
         variant: item.variants[0].name,

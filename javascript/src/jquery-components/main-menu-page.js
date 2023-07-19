@@ -28,7 +28,7 @@ export function itemCardComponent({ name, variant, price, calories, image }) {
  * @param {string} image */
 export function categoryCardComponent(categoryName, image) {
   return `
-  <div id="${categoryName}" class="food-categories-card" data-active="false">
+  <div class="food-categories-card" data-category="${categoryName}" data-active="false">
     <img class="image" src="./resources/images/${image}" alt="" />
     <p class="font-semibold text-center">${categoryName}</p>
     <div class="flex-grow"></div>

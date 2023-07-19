@@ -1,7 +1,7 @@
 //@ts-check
 // this file contains the setup code for the voice assistant
 import { Cart } from '../cart'
-import { menuItems } from '../data/menu'
+import { foodCategories, menuItems } from '../data/menu'
 import { yesNoPhrases } from '../data/pepper'
 import { goToCartPage } from '../pages/cart-page'
 import { QiSessionConnection } from '../qiClass'
@@ -158,6 +158,27 @@ export function setupVoiceAssistant(cart, session) {
         session.listenForPhrases(caloriePhrases, false)
         newUserOptions(caloriePhrases)
         break
+      case 'show me a category':
+        robotTalk(session, 'Which category would yo like to see?')
+        const categories = foodCategories.map(category => category.name)
+        const phrases = ['cancel', ...categories]
+        session.listenForPhrases(phrases, false)
+        newUserOptions(phrases)
+        session.setSpeechRecognitionFunc(([response, confidence]) => {
+          if (confidence < 0.55) return
+          newUserChat(capitalize(response))
+          if (categories.includes(response)) {
+            navigateToPage('main-menu-page')
+            $(`.food-categories-card[data-category="${response}"]`).trigger('click')
+            robotTalk(session, 'Okay')
+          } else if (response === 'cancel') {
+            robotTalk(session, 'Okay')
+          } else {
+            robotTalk(session, 'Something when wrong')
+          }
+          cancelVoiceAssistant()
+        })
+        break
       case 'cancel':
         robotTalk(session, 'Okay')
         cancelVoiceAssistant()
@@ -185,7 +206,6 @@ export function setupVoiceAssistant(cart, session) {
       'show me a category',
       'clear cart',
       'cancel my order',
-      'update quantity',
       'how many calories are in ',
       'place order',
       'cancel',
