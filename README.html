@@ -1,26 +1,48 @@
 <h1 id="gmhp-pepper-robot">GMHP-Pepper-Robot</h1>
-<p>This project is a Pepper Robot project that is designed to be used in a cafe environment to take orders from customers. The robot's tablet will display an interactive javascript app that will allow the customer to order food and drinks. The app also has a voice assistant button that when pressed will allow the customer to order by just talking to the robot.</p>
+<p>
+  This project is a Pepper Robot project that is designed to be used in a cafe environment to take orders from customers. The
+  robot's tablet will display an interactive javascript app that will allow the customer to order food and drinks. The app
+  also has a voice assistant button that when pressed will allow the customer to order by just talking to the robot.
+</p>
 <h2 id="authors">Authors</h2>
-<hr>
+<hr />
 <p>Daniel Pulber</p>
 <p>Giuseppe Marchuk</p>
 <p>Kelly Green</p>
 <p>Michelle Holgerson</p>
 <p>Alvaro Huerta-Flores</p>
-<hr>
+<hr />
 <h2 id="how-to-run">How to run</h2>
 <p>Make sure you have <code>NodeJs</code> and <code>npm</code> installed on your device first.</p>
 <p>Step 1: Open folder in terminal</p>
 <p>Step 2: Run <code>cd javascript</code> to enter the javascript folder</p>
 <p>Step 3: Run <code>npm install</code> to install the <code>node_modules</code></p>
-<p>Step 4: Run <code>npm run build</code> to run webpack and babel. This will build the bundled javascript file. The file will be put in <code>project/html/</code> as <code>app.js</code></p>
+<p>
+  Step 4: Run <code>npm run build</code> to run webpack and babel. This will build the bundled javascript file. The file will
+  be put in <code>project/html/</code> as <code>app.js</code>
+</p>
 <p>Step 5: Open the <code>project.pml</code> file in Choregraphe and click yes for any prompts that may appear</p>
-<p>Step 6: Connect to the robot and run the <code>behavior.xar</code> file. This will run the behavior and open the <code>index.html</code> on the robot tablet.</p>
-<p>Important: If you make any changes to the code in the <code>javascript</code> folder you will need to run <code>npm run build</code> again to build the bundled javascript file again and see the changes reflected.</p>
+<p>
+  Step 6: Connect to the robot and run the <code>behavior.xar</code> file. This will run the behavior and open the
+  <code>index.html</code> on the robot tablet.
+</p>
+<p>
+  Important: If you make any changes to the code in the <code>javascript</code> folder you will need to run
+  <code>npm run build</code> again to build the bundled javascript file again and see the changes reflected.
+</p>
 <h2 id="how-to-setup-menu-items">How to setup menu items</h2>
-<p>Step 1: Open the <code>menu.js</code> file in the <code>javascript/src/data/</code> folder and delete everything in it.</p>
-<p>Step 2: Open the <code>templateMenu.js</code> file in the <code>javascript/src/data/</code> folder and copy the contents of the file into the <code>menu.js</code> file.</p>
-<p>Step 3: Now add the menu items to the <code>menu.js</code> file by following steps 1-5 in the code you copied from <code>templateMenu.js</code>. Be sure to follow the <a href="#data-rules">Data Rules</a> below. Use the <code>exampleMenu.js</code> file as a reference.</p>
+<p>
+  Step 1: Open the <code>menu.js</code> file in the <code>javascript/src/data/</code> folder and delete everything in it.
+</p>
+<p>
+  Step 2: Open the <code>templateMenu.js</code> file in the <code>javascript/src/data/</code> folder and copy the contents of
+  the file into the <code>menu.js</code> file.
+</p>
+<p>
+  Step 3: Now add the menu items to the <code>menu.js</code> file by following steps 1-5 in the code you copied from
+  <code>templateMenu.js</code>. Be sure to follow the <a href="#data-rules">Data Rules</a> below. Use the
+  <code>exampleMenu.js</code> file as a reference.
+</p>
 <h3 id="data-rules">Data Rules</h3>
 <p>A menu Item should be and object with the following properties:</p>
 <pre><code class="lang-typescript">{
@@ -34,21 +56,26 @@
 }
 </code></pre>
 <ul>
-<li><p>name: The name of the menu item - type: String</p>
-</li>
-<li><p>variants: An array (min length is 1) of objects that contain the following properties:</p>
-<ul>
-<li><p>name: The name of the variant. View the <a href="#variant-name-rules">Variant Name Rules</a> for more details  - type: String</p>
-</li>
-<li><p>price: The price of the variant - type: Number</p>
-</li>
-<li><p>calories: The calories of the variant - type: Number</p>
-</li>
-<li><p>image: The image of the variant. View the <a href="#image-rules">Images Rules</a> for more details - type: String</p>
-</li>
-</ul>
-<p>Example</p>
-<pre><code class="lang-javascript">{
+  <li><p>name: The name of the menu item - type: String</p></li>
+  <li>
+    <p>variants: An array (min length is 1) of objects that contain the following properties:</p>
+    <ul>
+      <li>
+        <p>
+          name: The name of the variant. View the <a href="#variant-name-rules">Variant Name Rules</a> for more details -
+          type: String
+        </p>
+      </li>
+      <li><p>price: The price of the variant - type: Number</p></li>
+      <li><p>calories: The calories of the variant - type: Number</p></li>
+      <li>
+        <p>
+          image: The image of the variant. View the <a href="#image-rules">Images Rules</a> for more details - type: String
+        </p>
+      </li>
+    </ul>
+    <p>Example</p>
+    <pre><code class="lang-javascript">{
   <span class="hljs-attribute">name</span>: <span class="hljs-string">'Example Pizza'</span>,
   <span class="hljs-attribute">variants</span>: [
     {
@@ -72,23 +99,54 @@
   ],
 }
 </code></pre>
-</li>
+  </li>
 </ul>
 <h4 id="variant-name-rules">Variant Name Rules</h4>
-<p>The variant name should be a string that is the name of the variant. For example, if you have a chicken sandwich you could have a regular variant and a no pickles variant. The regular variant name would be <code>&quot;Regular&quot;</code> and the no pickles variant name would be <code>&quot;No Pickles&quot;</code>.</p>
-<p>If there is only one variant for a menu item then the variant name should an empty string ~ <code>&quot;&quot;</code>. </p>
-<p>If your variants are different size like small, medium, and large, don&#39;t put &quot;S&quot;, &quot;M&quot;, or &quot;L&quot; as the variant name. Instead put the full name of the variant like &quot;Small&quot;, &quot;Medium&quot;, or &quot;Large&quot;. This is because the robot won&#39;t be able to understand the abbreviations. The item page will automatically convert small, medium, etc. to &quot;S&quot;, &quot;M&quot;, etc. for the buttons.</p>
+<p>
+  The variant name should be a string that is the name of the variant. For example, if you have a chicken sandwich you could
+  have a regular variant and a no pickles variant. The regular variant name would be <code>&quot;Regular&quot;</code> and the
+  no pickles variant name would be <code>&quot;No Pickles&quot;</code>.
+</p>
+<p>If there is only one variant for a menu item then the variant name should an empty string ~ <code>&quot;&quot;</code>.</p>
+<p>
+  If your variants are different size like small, medium, and large, don&#39;t put &quot;S&quot;, &quot;M&quot;, or
+  &quot;L&quot; as the variant name. Instead put the full name of the variant like &quot;Small&quot;, &quot;Medium&quot;, or
+  &quot;Large&quot;. This is because the robot won&#39;t be able to understand the abbreviations. The item page will
+  automatically convert small, medium, etc. to &quot;S&quot;, &quot;M&quot;, etc. for the buttons.
+</p>
 <p>Heres a list of supported size values that will be converted to abbreviations:</p>
 <ul>
-<li>&#39;3X Small&#39; =&gt; &#39;3XS&#39;</li>
-<li>&#39;2X Small&#39; =&gt; &#39;XXS&#39;</li>
-<li>&#39;Extra Small&#39; =&gt; &#39;XS&#39;</li>
-<li>&#39;Small&#39; =&gt; &#39;S&#39;</li>
-<li>&#39;Medium&#39; =&gt; &#39;M&#39;</li>
-<li>&#39;Large&#39; =&gt; &#39;L&#39;</li>
-<li>&#39;Extra Large&#39; =&gt; &#39;XL&#39;</li>
-<li>&#39;2X Large&#39; =&gt; &#39;XXL&#39;</li>
-<li>&#39;3X Large&#39; =&gt; &#39;3XXL&#39;</li>
+  <li>&#39;3X Small&#39; =&gt; &#39;3XS&#39;</li>
+  <li>&#39;2X Small&#39; =&gt; &#39;XXS&#39;</li>
+  <li>&#39;Extra Small&#39; =&gt; &#39;XS&#39;</li>
+  <li>&#39;Small&#39; =&gt; &#39;S&#39;</li>
+  <li>&#39;Medium&#39; =&gt; &#39;M&#39;</li>
+  <li>&#39;Large&#39; =&gt; &#39;L&#39;</li>
+  <li>&#39;Extra Large&#39; =&gt; &#39;XL&#39;</li>
+  <li>&#39;2X Large&#39; =&gt; &#39;XXL&#39;</li>
+  <li>&#39;3X Large&#39; =&gt; &#39;3XXL&#39;</li>
 </ul>
 <h4 id="image-rules">Image Rules</h4>
-<p> The image property should be a string that is the path to the image starting with <code>menu/</code> and ending with the image name and type (Example: <code>menu/pizza.png</code>). The image should be in the <code>project/html/resources/images/menu/</code> folder. Feel free to delete any images you don&#39;t need from the folder. You can use the same image for multiple variants.  </p>
+<p>
+  The image property should be a string that is the path to the image starting with <code>menu/</code> and ending with the
+  image name and type (Example: <code>menu/pizza.png</code>). The image should be in the
+  <code>project/html/resources/images/menu/</code> folder. Feel free to delete any images you don&#39;t need from the folder.
+  You can use the same image for multiple variants.
+</p>
+<h2 id="other">Other</h2>
+<h3 id="running-on-pc-browser">Running on PC Browser</h3>
+<p>
+  To open pepper webpage code on browser instead of pepper tablet, open
+  <a href="http://pepper.local/apps/.lastUploadedChoregrapheBehavior/index.html"
+    >http://pepper.local/apps/.lastUploadedChoregrapheBehavior/index.html</a
+  >
+  in your browser.
+</p>
+<p>Default Credentials</p>
+<p>Username: &quot;nao&quot;</p>
+<p>Password: &quot;nao&quot;</p>
+<h3 id="running-on-pepper-without-pc">Running on Pepper without PC</h3>
+<p>
+  After connecting and running the software, you can your change your PC&#39;s wifi connection and it will continue to run
+  the app on its own. Then you can close the choreograph app and now the app if fully self sufficient.
+</p>

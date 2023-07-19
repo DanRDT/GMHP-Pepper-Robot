@@ -136,3 +136,21 @@ Image Rules
 The image property should be a string that is the path to the image starting with menu/ and ending with the image name and 
 type (Example: menu/pizza.png). The image should be in the project/html/resources/images/menu/ folder. Feel free to delete 
 any images you don't need from the folder. You can use the same image for multiple variants.
+
+
+
+Other
+
+Running on PC Browser
+
+To open pepper webpage code on browser instead of pepper tablet, open http://pepper.local/apps/.lastUploadedChoregrapheBehavior/index.html in your browser.
+
+Default Credentials
+Username: "nao"
+Password: "nao"
+
+
+Running on Pepper without PC
+
+After connecting and running the software, you can your change your PC's wifi connection and it will continue to run the app on its own. Then you can close 
+the choreograph app and now the app if fully self sufficient.

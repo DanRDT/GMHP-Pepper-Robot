@@ -8,16 +8,17 @@ import { generateReceipt } from './generateReceipt'
 export function printReceipt(cart) {
   // Generate the receipt content
   const receiptContent = generateReceipt(cart)
-  // const receiptWindow = window.open('', '_blank')
-  // receiptWindow.document.open()
-  // receiptWindow.document.write(
-  //   receiptContent +
-  //     '<a href="javascript:window.close();" style="width:100%; text-align:center; display:inline-block;">close</a>'
-  // )
-  // receiptWindow.document.close()
+  const receiptWindow = window.open('', '_blank')
+  receiptWindow.document.open()
+  receiptWindow.document.write(
+    receiptContent +
+      '<a href="/apps/.lastUploadedChoregrapheBehavior/index.html" style="width:100%; text-align:center; display:inline-block;">close</a>'
+  )
+  receiptWindow.document.close()
 
   // Create a hidden iframe to load the receipt content
   const iframe = document.createElement('iframe')
+  iframe.setAttribute('sandbox', 'allow-scripts')
   iframe.style.display = 'none'
   document.body.appendChild(iframe)
 

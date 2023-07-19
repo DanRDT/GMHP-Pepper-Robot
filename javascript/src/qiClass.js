@@ -38,11 +38,17 @@ export class QiSessionConnection {
 
   /** Resets connection with robot */
   resetConnection() {
-    if (!this.#session) return
     this.#connected = false
     function connectionSuccessful(session) {
       this.#connected = true
       $('#connection-status').text('Connected')
+      session.service('ALDialog').then(function (dialog) {
+        dialog.clearConcepts()
+        dialog.resetAll()
+      })
+      session.service('ALSpeechRecognition').then(function (asr) {
+        asr.removeAllContext()
+      })
     }
     function connectionFailed() {
       this.#connected = false
@@ -235,16 +241,6 @@ export class QiSessionConnection {
     }
     const interval = setInterval(checkIfStillListening.bind(this), secs(0.1))
   }
-
-  // resetSpeech() {
-  //   this.#session.service('ALDialog').then(function (dialog) {
-  //     dialog.clearConcepts()
-  //     dialog.resetAll()
-  //   })
-  //   this.#session.service('ALSpeechRecognition').then(function (asr) {
-  //     asr.removeAllContext()
-  //   })
-  // }
 
   /** @param {string} moduleName  */
   removeModule(moduleName) {

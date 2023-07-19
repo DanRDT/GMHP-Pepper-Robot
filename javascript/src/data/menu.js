@@ -204,19 +204,19 @@ export const desserts = [
     name: 'Chocolate Chip Cookie',
     variants: [
       {
-        name: '1',
+        name: '1 pack',
         price: 1.5,
         calories: 200,
         image: 'menu/cookie.jpg',
       },
       {
-        name: '3',
+        name: '3 pack',
         price: 2.5,
         calories: 600,
         image: 'menu/cookie.jpg',
       },
       {
-        name: '5',
+        name: '5 pack',
         price: 3.5,
         calories: 700,
         image: 'menu/cookie.jpg',
@@ -525,19 +525,19 @@ export const coffeeItems = [
 export const healthyOptions = [
   {
     name: 'Quinoa Salad',
-    variants: [{ name: 'reg', price: 5.5, calories: 5, image: 'menu/quinoasalad.jpg' }],
+    variants: [{ name: '', price: 5.5, calories: 5, image: 'menu/quinoasalad.jpg' }],
   },
   {
     name: 'Grilled Salmon with Steamed Veggies',
-    variants: [{ name: 'reg', price: 2.5, calories: 30, image: 'menu/grilledsalmon.jpg' }],
+    variants: [{ name: '', price: 2.5, calories: 30, image: 'menu/grilledsalmon.jpg' }],
   },
   {
     name: 'Vegan Lentil Soup',
-    variants: [{ name: 'reg', price: 3.0, calories: 120, image: 'menu/veganlentilsoup.jpg' }],
+    variants: [{ name: '', price: 3.0, calories: 120, image: 'menu/veganlentilsoup.jpg' }],
   },
   {
     name: 'Greek Yogurt with Granola and Berries',
-    variants: [{ name: 'reg', price: 3.0, calories: 150, image: 'menu/yogurtgranola.jpg' }],
+    variants: [{ name: '', price: 3.0, calories: 150, image: 'menu/yogurtgranola.jpg' }],
   },
 ]
 

@@ -50,13 +50,14 @@ A menu Item should be and object with the following properties:
 
 ```typescript
 {
-  name: string;
+  name: string
   variants: {
-    name: string;
-    price: number;
-    calories: number;
-    image: string;
-  }[];
+    name: string
+    price: number
+    calories: number
+    image: string
+  }
+  ;[]
 }
 ```
 
@@ -64,7 +65,7 @@ A menu Item should be and object with the following properties:
 
 - variants: An array (min length is 1) of objects that contain the following properties:
 
-  - name: The name of the variant. View the [Variant Name Rules](#variant-name-rules) for more details  - type: String
+  - name: The name of the variant. View the [Variant Name Rules](#variant-name-rules) for more details - type: String
 
   - price: The price of the variant - type: Number
 
@@ -104,21 +105,38 @@ A menu Item should be and object with the following properties:
 
 The variant name should be a string that is the name of the variant. For example, if you have a chicken sandwich you could have a regular variant and a no pickles variant. The regular variant name would be `"Regular"` and the no pickles variant name would be `"No Pickles"`.
 
-If there is only one variant for a menu item then the variant name should an empty string ~ `""`. 
- 
+If there is only one variant for a menu item then the variant name should an empty string ~ `""`.
+
 If your variants are different size like small, medium, and large, don't put "S", "M", or "L" as the variant name. Instead put the full name of the variant like "Small", "Medium", or "Large". This is because the robot won't be able to understand the abbreviations. The item page will automatically convert small, medium, etc. to "S", "M", etc. for the buttons.
 
 Heres a list of supported size values that will be converted to abbreviations:
- - '3X Small' => '3XS'
- - '2X Small' => 'XXS'
- - 'Extra Small' => 'XS'
- - 'Small' => 'S'
- - 'Medium' => 'M'
- - 'Large' => 'L'
- - 'Extra Large' => 'XL'
- - '2X Large' => 'XXL'
- - '3X Large' => '3XXL'
+
+- '3X Small' => '3XS'
+- '2X Small' => 'XXS'
+- 'Extra Small' => 'XS'
+- 'Small' => 'S'
+- 'Medium' => 'M'
+- 'Large' => 'L'
+- 'Extra Large' => 'XL'
+- '2X Large' => 'XXL'
+- '3X Large' => '3XXL'
 
 #### Image Rules
 
- The image property should be a string that is the path to the image starting with `menu/` and ending with the image name and type (Example: `menu/pizza.png`). The image should be in the `project/html/resources/images/menu/` folder. Feel free to delete any images you don't need from the folder. You can use the same image for multiple variants.  
+The image property should be a string that is the path to the image starting with `menu/` and ending with the image name and type (Example: `menu/pizza.png`). The image should be in the `project/html/resources/images/menu/` folder. Feel free to delete any images you don't need from the folder. You can use the same image for multiple variants.
+
+## Other
+
+### Running on PC Browser
+
+To open pepper webpage code on browser instead of pepper tablet, open [http://pepper.local/apps/.lastUploadedChoregrapheBehavior/index.html](http://pepper.local/apps/.lastUploadedChoregrapheBehavior/index.html) in your browser.
+
+Default Credentials
+
+Username: "nao"
+
+Password: "nao"
+
+### Running on Pepper without PC
+
+After connecting and running the software, you can your change your PC's wifi connection and it will continue to run the app on its own. Then you can close the choreograph app and now the app if fully self sufficient.

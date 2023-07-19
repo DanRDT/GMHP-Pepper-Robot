@@ -10,7 +10,7 @@ import { navigateToPage } from '../utils/pages'
 import { getRandomPepperHowCanIHelp } from '../utils/pepper'
 import { addItemToOrderVoiceAssistant } from './addToOrder'
 import { removeItemFromCart } from './removeFromCart'
-import { clearChats, clearUserOptions, newRobotChat, newUserChat, newUserOptions } from './textPopups'
+import { clearChats, newRobotChat, newUserChat, newUserOptions } from './textPopups'
 
 /**
  * @param {Cart} cart
@@ -88,7 +88,7 @@ export function setupVoiceAssistant(cart, session) {
             newUserChat(capitalize(response))
             if (response === 'yes' || response === 'yeah' || response === 'yup') {
               if (cart.getCart().length < 1) {
-                robotTalk(session, 'Sorry, you only have one item in your cart.')
+                robotTalk(session, 'Sorry, your cart is empty.')
               } else {
                 $('#cart-page #place-order-btn').trigger('click')
                 robotTalk(session, 'Okay')
@@ -211,7 +211,7 @@ export function setupVoiceAssistant(cart, session) {
       'cancel',
     ]
     // set phrases to listen for and the length of time in seconds to listen for
-    session.listenForPhrases(voiceAssistantValues, false)
+    session.listenForPhrases(voiceAssistantValues, true)
     newUserOptions(voiceAssistantValues)
     $('#voice-assistant-container').attr('data-active', 'true') // set btn active
   })
